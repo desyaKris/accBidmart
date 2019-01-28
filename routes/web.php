@@ -12,5 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts/master');
 });
+
+Route::get('/OnlineEvent', function () {
+    return view('layouts/showOnlineEvent');
+});
+
+Route::get('/home','blogController@getGuzzleRequest');
