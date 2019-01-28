@@ -27,10 +27,10 @@ class blogController extends Controller
           dd($response);
           */
           $client = new \GuzzleHttp\Client();
-          $request = $client->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/GetMasterGCMValue?MasterGCMCondition=MST_CONTENT_MANAGEMENT&MasterGCMValue=003');
+          $request = $client->get('https://kevinantariksa.outsystemscloud.com/API/rest/UNITAPI/GetAllUnit');
           $response = $request->getBody()->getContents();
           echo '<pre>';
-          return view('layouts/home',['home'=>$response]);
+          return view('layouts/showOnlineEvent',['home'=>$response]);
 
         }
 }

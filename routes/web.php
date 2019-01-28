@@ -15,8 +15,7 @@ Route::get('/', function () {
     return view('layouts/master');
 });
 
-Route::get('/OnlineEvent', function () {
-    return view('layouts/showOnlineEvent');
-});
+Route::get('/OnlineEvent', 'OnlineEventController@show');
+
 
 Route::get('/home','blogController@getGuzzleRequest');
