@@ -67,7 +67,7 @@
                                 <a href="#"><i class="fa"></i>Unit</a>
                             </li>
 							<li>
-                                <a href="ui.html"><i class="fa"></i>Master GCM</a>
+                                <a href="#"><i class="fa"></i>Master GCM</a>
                             </li>
                         </ul>
                     </li>

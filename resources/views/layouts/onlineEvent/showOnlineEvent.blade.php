@@ -7,7 +7,7 @@
 						<div class="floating-box">
 						<h1 class="page-head-line">Online Event </h1>
 						</div>
-						<button class="btn btn-primary"><i class="fa fa-plus">  </i>  Create New Online Event</button>
+						<a href="/CreateOnlineEvent"><button class="btn btn-primary"><i class="fa fa-plus">  </i>Create New Online Event  </button></a>
 							<button class="btn btn-primary"><i class="fa fa-upload"> </i>  Apload Online Item</button>
               </div>
           </div>
@@ -40,13 +40,13 @@
                                 <tbody>
                                   <?php foreach ($response as $dt): ?>
                                     <tr>
-                                      <td>1</td>
+                                      <td>{{$dt['EventCode']}}</td>
                                       <td>{{$dt['AreaLelang']}}</td>
                                       <td>{{$dt['BalaiLelang']}}</td>
                                       <td>{{$dt['EventName']}}</td>
                                       <td>{{$dt['StartDate']}} <br> to <br> {{$dt['EndDate']}}</td>
                                       <td>{{$dt['OpenHouseStartDate']}}</td>
-                                      <td><?php echo date("Y-m-d h:i:sa") ?></td>
+                                      <td>{{$dt['AddDate']}}</td>
                                       @if ($dt['IsActive'] == 'Y' )
                                         <td><input type="checkbox" checked="true"/></td>
                                       @else
