@@ -7,18 +7,23 @@
 						<div class="floating-box">
 						<h1 class="page-head-line">Online Event </h1>
 						</div>
-						<a href="/CreateOnlineEvent"><button class="btn btn-primary"><i class="fa fa-plus">  </i>Create New Online Event  </button></a>
-							<button class="btn btn-primary"><i class="fa fa-upload"> </i>  Apload Online Item</button>
+						<a href="/ShowCreateOnlineEvent"><button class="btn btn-primary"><i class="fa fa-plus">  </i>Create New Online Event  </button></a>
+							<button class="btn btn-primary"><i class="fa fa-upload"> </i>  Upload Online Item</button>
               </div>
           </div>
           <div class="row">
-                    <div class="col-md-12">
-                        <div class="alert alert-info">
-							<input type="text" class="form-control1" placeholder="Type the Event Name, Area Lelang, Balai Lelang" />
-                            <button class="btn btn-primary"><i class="fa fa-search "></i> Search</button>
-							<button class="btn btn-primary"><i class="fa fa-refresh "></i> Reset</button>
-                        </div>
-                    </div>
+
+              <div class="col-md-12">
+                  <div class="alert alert-info">
+                    <form action="{{ url('/SearchOnlineEvent') }}"  method="get">
+                    <input type="text" class="form-control1" name="data" placeholder="Type the Event Name, Area Lelang, Balai Lelang" />
+                                  <button class="btn btn-primary" ><i class="fa fa-search "></i> Search</button>
+                                  <a href="/OnlineEvent"><button class="btn btn-primary"><i class="fa fa-refresh "></i> Reset</button></a>
+                    </form>
+                  </div>
+              </div>
+
+
                 </div>
 <div class="row">
       <div class=" col-sm-4 col-md-12">
@@ -53,7 +58,7 @@
                                       <td><input type="checkbox"/></td>
                                       @endif
                                       <td>
-                                        <button class="btn btn-primary"><i class="fa fa-edit "></i></button>
+                                        <a href="/EditOnlineEvent"><button class="btn btn-primary"><i class="fa fa-edit "></i></button></a>
                                       </td>
                                     </tr>
                                   <?php endforeach; ?>

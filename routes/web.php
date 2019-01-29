@@ -16,8 +16,11 @@ Route::get('/', function () {
 });
 
 Route::get('/OnlineEvent', 'OnlineEventController@show');
-Route::get('/CreateOnlineEvent', 'OnlineEventController@create' );
-Route::get('/UpdateOnlineEvent', 'OnlineEventController@update' );
+Route::get('/EditOnlineEvent', 'OnlineEventController@showById');
+Route::get('/ShowCreateOnlineEvent', 'OnlineEventController@showCreateOnlineEvent');
+Route::get('/SearchOnlineEvent', 'OnlineEventController@search');
+Route::get('/CreateOnlineEvent','OnlineEventController@create');
+
 
 
 Route::get('/home','blogController@getGuzzleRequest');
