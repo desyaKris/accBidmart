@@ -1,18 +1,21 @@
 @extends('layouts.master')
-@section('title','CreateOnlineEvent')
+@section('title','EditOnlineEvent')
 @section('content')
 <div id="page-inner">
 
     <div class="row">
         <div class="col-md-12" class="page-head-line">
-                  <h1 class="page-head-line">Edit Online Event </h1>
+          <?php foreach ($response3 as $dt1): ?>
+            <h1 class="page-head-line">Edit Online Event '{{$dt1['EventName']}}' - {{$dt1['EventCode']}}</h1>
+          <?php endforeach; ?>
+
         </div>
     </div>
     <div class="row">
       <div class="col-md-12">
                   <div class="alert alert-info">
                     <form action="{{url('/CreateOnlineEvent')}}"  method="get">
-                        @<?php foreach ($response3 as $dt1): ?>
+                        <?php foreach ($response3 as $dt1): ?>
 
                           <label>Area Lelang</label>
                           <select class="form-control" name="AreaLelang" value="{{$dt1['AreaLelang']}}">
@@ -33,11 +36,11 @@
                           <input type="text" class="form-control1" name="EventName" value="{{$dt1['EventName']}}" placeholder="Type the Event Name, Area Lelang, Balai Lelang" />
                           <label>Event Date</label>
                           <br>
-                          <input type="datetime-local" name="StartDate" value=""> <input type="datetime-local" name="EndDate" value="">
+                          <input type="datetime-local" name="StartDate" value="{{$dt1['StartDate']}}"> <input type="text" name="EndDate" value="{{$dt1['EndDate']}}">
                           <br>
                           <label>Open House Date</label>
                           <br>
-                          <input type="datetime-local" name="OpenHouseStartDate"> <input type="datetime-local" name="OpenHouseEndDate" value="">
+                          <input type="text" name="OpenHouseStartDate" value="{{$dt1['OpenHouseStartDate']}}"> <input type="text" name="OpenHouseEndDate" value="{{$dt1['OpenHouseEndDate']}}">
                         <?php endforeach; ?>
 
                         <br>

@@ -15,21 +15,22 @@ class OnlineEventController extends Controller
        return view('layouts/OnlineEvent/showOnlineEvent')->with('response',json_decode($response,true));
     }
 
-    public function showById()
+    public function showById(Request $request)
      {
+       $temp = $request->input('id');
        $client = new \GuzzleHttp\Client();
-       $request = $client->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventAreaLelang');
-       $response = $request->getBody()->getContents();
+       $request4 = $client->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventAreaLelang');
+       $response = $request4->getBody()->getContents();
 
        $client2 = new \GuzzleHttp\Client();
        $request2 = $client2->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOlineEventBalaiLelang');
        $response2 = $request2->getBody()->getContents();
 
-         $client3 = new \GuzzleHttp\Client();
-         $request3 = $client3->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventId?GetOnlineEventId=2');
-         $response3 = $request3->getBody()->getContents();
+       $client3 = new \GuzzleHttp\Client();
+       $request3 = $client3->get("https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventId?GetOnlineEventId=$temp");
+       $response3 = $request3->getBody()->getContents();
 
-         return view('layouts/OnlineEvent/editOnlineEvent')
+       return view('layouts/OnlineEvent/editOnlineEvent')
          ->with('response3',json_decode($response3,true))
          ->with('response2',json_decode($response2,true))
          ->with('response',json_decode($response,true));
@@ -47,7 +48,9 @@ class OnlineEventController extends Controller
        $request2 = $client2->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOlineEventBalaiLelang');
        $response2 = $request2->getBody()->getContents();
 
-       return view('layouts/OnlineEvent/createOnlineEvent')->with('response2',json_decode($response2,true))->with('response',json_decode($response,true));
+       return view('layouts/OnlineEvent/createOnlineEvent')
+       ->with('response2',json_decode($response2,true))
+       ->with('response',json_decode($response,true));
       }
 
     public function create(Request $request)
@@ -63,7 +66,6 @@ class OnlineEventController extends Controller
         'EndDate'=> $request->input('EndDate'),
         'OpenHouseStartDate'=> $request->input('OpenHouseStartDate'),
         'OpenHouseEndDate'=> $request->input('OpenHouseEndDate'),
-        'AddDate'=> '2014-12-31',
         'IsActive'=> 'Y'
         ]
       ]);
@@ -72,7 +74,7 @@ class OnlineEventController extends Controller
       $request = $client->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventAll');
       $response = $request->getBody()->getContents();
 
-      return view('layouts/OnlineEvent/showOnlineEvent')->with('response',json_decode($response,true));
+      return view('layouts/OnlineEvent/showOnlineEvent')->with('response',json_decode($response,true))->with('alert-succes','Data berhasil di tambah');
 
     }
 

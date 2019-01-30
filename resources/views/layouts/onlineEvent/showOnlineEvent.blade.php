@@ -28,7 +28,7 @@
 <div class="row">
       <div class=" col-sm-4 col-md-12">
         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover">
+                            <table class="table table-striped table-bordered table-hover text-center">
                                 <thead>
                                     <tr>
                                         <th>EVENT CODE</th>
@@ -49,8 +49,8 @@
                                       <td>{{$dt['AreaLelang']}}</td>
                                       <td>{{$dt['BalaiLelang']}}</td>
                                       <td>{{$dt['EventName']}}</td>
-                                      <td>{{$dt['StartDate']}} <br> to <br> {{$dt['EndDate']}}</td>
                                       <td>{{$dt['OpenHouseStartDate']}}</td>
+                                      <td>{{$dt['StartDate']}} <br> to <br> {{$dt['EndDate']}}</td>
                                       <td>{{$dt['AddDate']}}</td>
                                       @if ($dt['IsActive'] == 'Y' )
                                         <td><input type="checkbox" checked="true"/></td>
@@ -58,7 +58,10 @@
                                       <td><input type="checkbox"/></td>
                                       @endif
                                       <td>
-                                        <a href="/EditOnlineEvent"><button class="btn btn-primary"><i class="fa fa-edit "></i></button></a>
+                                        <form action="{{url('/EditOnlineEvent')}}"  method="get">
+                                          <input style="display:none" name="id" value="{{$dt['Id']}}">
+                                        <button class="btn btn-primary"><i class="fa fa-edit "></i></button>
+                                      </form>
                                       </td>
                                     </tr>
                                   <?php endforeach; ?>

@@ -27,7 +27,7 @@
                         </select>
 
                         <label for="">Event Name</label>
-                        <input type="text" class="form-control1" name="EventName" placeholder="Type the Event Name, Area Lelang, Balai Lelang" />
+                        <input type="text" class="form-control1" name="EventName"  placeholder="Type the Event Name, Area Lelang, Balai Lelang" />
 
                         <label>Event Date</label>
                         <br>
@@ -35,13 +35,15 @@
                         <br>
                         <label>Open House Date</label>
                         <br>
-                        <input type="datetime-local" name="OpenHouseStartDate"> <input type="datetime-local" name="OpenHouseEndDate" value="">
+                        <input type="datetime-local" value="" class="date" name="OpenHouseStartDate"> <input type="datetime-local" name="OpenHouseEndDate" value="">
+                        <br>
                         <br>
                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
                         <a href="/OnlineEvent"><button class="btn btn-primary">Cancel</button></a>
                       </form>
 
                   </div>
+
               </div>
           </div>
 
