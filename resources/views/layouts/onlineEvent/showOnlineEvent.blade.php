@@ -46,29 +46,30 @@
                                   <?php foreach ($response as $dt): ?>
                                     <tr>
                                       <td>{{$dt['EventCode']}}</td>
-                                      <td>{{$dt['AreaLelang']}}</td>
+                                      <td>{{$dt['CodeAreaLelang']}}<br>{{$dt['AreaLelang']}}</td>
                                       <td>{{$dt['BalaiLelang']}}</td>
                                       <td>{{$dt['EventName']}}</td>
-                                      <td>{{$dt['OpenHouseStartDate']}}</td>
                                       <td>{{$dt['StartDate']}} <br> to <br> {{$dt['EndDate']}}</td>
+                                      <td>{{$dt['OpenHouseStartDate']}} <br> to <br> {{$dt['OpenHouseEndDate']}}</td>
                                       <td>{{$dt['AddDate']}}</td>
                                       @if ($dt['IsActive'] == 'Y' )
-                                        <td><input type="checkbox" checked="true"/></td>
+                                          <td><input type="checkbox" checked="true"/></td>
                                       @else
                                       <td><input type="checkbox"/></td>
                                       @endif
                                       <td>
                                         <form action="{{url('/EditOnlineEvent')}}"  method="get">
                                           <input style="display:none" name="id" value="{{$dt['Id']}}">
-                                        <button class="btn btn-primary"><i class="fa fa-edit "></i></button>
-                                      </form>
+                                          <button class="btn btn-primary"><i class="fa fa-edit "></i></button>
+                                        </form>
                                       </td>
                                     </tr>
                                   <?php endforeach; ?>
                                 </tbody>
                             </table>
+                            
               </div>
-</div>
+            </div>
 </div>
             <!-- /. PAGE INNER  -->
         </div>

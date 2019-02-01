@@ -2,7 +2,10 @@
 @section('title','CreateOnlineEvent')
 @section('content')
 <div id="page-inner">
-
+  <?php
+  date_default_timezone_set('Asia/Bangkok');
+  $script_tz = date_default_timezone_get();
+  ?>
     <div class="row">
         <div class="col-md-12" class="page-head-line">
                   <h1 class="page-head-line">Online Event </h1>
@@ -27,7 +30,7 @@
                         </select>
 
                         <label for="">Event Name</label>
-                        <input type="text" class="form-control1" name="EventName"  placeholder="Type the Event Name, Area Lelang, Balai Lelang" />
+                        <input type="text" class="form-control1" name="EventName" />
 
                         <label>Event Date</label>
                         <br>
@@ -38,6 +41,16 @@
                         <input type="datetime-local" value="" class="date" name="OpenHouseStartDate"> <input type="datetime-local" name="OpenHouseEndDate" value="">
                         <br>
                         <br>
+                        <input type="text" style="display:none"  name="AddDate" value="<?php echo date('d-M-Y H:i:s');?>">
+
+                        <?php foreach ($response3 as $dt3): ?>
+                          @if($dt3['AreaLelang'] == "AreaLelang" )
+                          {
+                              <input type="text" name="CodeAreaLelang" value="Tommy">
+                          }
+                          @endif
+                        <?php endforeach; ?>
+
                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
                         <a href="/OnlineEvent"><button class="btn btn-primary">Cancel</button></a>
                       </form>
@@ -48,5 +61,6 @@
           </div>
 
 <!-- /. PAGE INNER  -->
+
 </div>
 @endsection

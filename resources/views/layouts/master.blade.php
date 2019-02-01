@@ -27,7 +27,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a  class="navbar-brand" href="index.html">BITMART
+                <a  class="navbar-brand" href="/">ACCBID
 
                 </a>
             </div>
@@ -125,7 +125,7 @@
     <script src="assets/js/jquery.metisMenu.js"></script>
     <!-- CUSTOM SCRIPTS -->
     <script src="assets/js/custom.js"></script>
-
+    
 
 </body>
 </html>
