@@ -46,8 +46,8 @@
                                   <?php foreach ($response as $dt): ?>
                                     <tr>
                                       <td>{{$dt['EventCode']}}</td>
-                                      <td>{{$dt['CodeAreaLelang']}}<br>{{$dt['AreaLelang']}}</td>
-                                      <td>{{$dt['BalaiLelang']}}</td>
+                                      <td>{{$dt['CodeAreaLelang']}} <br> {{$dt['AreaLelang']}}</td>
+                                      <td>{{$dt['CodeBalaiLelang']}} <br> {{$dt['BalaiLelang']}}</td>
                                       <td>{{$dt['EventName']}}</td>
                                       <td>{{$dt['StartDate']}} <br> to <br> {{$dt['EndDate']}}</td>
                                       <td>{{$dt['OpenHouseStartDate']}} <br> to <br> {{$dt['OpenHouseEndDate']}}</td>
@@ -67,7 +67,7 @@
                                   <?php endforeach; ?>
                                 </tbody>
                             </table>
-                            
+
               </div>
             </div>
 </div>

@@ -54,51 +54,88 @@ class OnlineEventController extends Controller
        $response3 = $request3->getBody()->getContents();
 
        return view('layouts/OnlineEvent/createOnlineEvent')
-       ->with('response3',json_decode($response3,true))
        ->with('response2',json_decode($response2,true))
+       ->with('response3',json_decode($response3,true))
        ->with('response',json_decode($response,true));
       }
 
     public function create(Request $request)
     {
-      if ($request->input('Id') != null){
-          $client = new \GuzzleHttp\Client();
-          $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/CreateOrUpdateOnlineEvent',[
-            'json'=>[
-            'Id'=>$request->input('Id'),
-            'EventCode'=>'EventCode1',
-            'CodeAreaLelang'=>$request->input('CodeAreaLelang'),
-            'AreaLelang'=> $request->input('AreaLelang'),
-            'BalaiLelang'=> $request->input('BalaiLelang'),
-            'EventName'=> $request->input('EventName'),
-            'StartDate'=> $request->input('StartDate'),
-            'EndDate'=> $request->input('EndDate'),
-            'OpenHouseStartDate'=> $request->input('OpenHouseStartDate'),
-            'OpenHouseEndDate'=> $request->input('OpenHouseEndDate'),
-            'AddDate'=>$request->input('AddDate'),
-            'IsActive'=> $request->input('IsActive')
-            ]
-          ]);
-          $alert = 'Data berhasil di edit';
-        }else {
-          $client = new \GuzzleHttp\Client();
-          $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/CreateOrUpdateOnlineEvent',[
-            'json'=>[
-            'EventCode'=>'EventCode1',
-            'CodeAreaLelang'=>$request->input('CodeAreaLelang'),
-            'AreaLelang'=> $request->input('AreaLelang'),
-            'BalaiLelang'=> $request->input('BalaiLelang'),
-            'EventName'=> $request->input('EventName'),
-            'StartDate'=> $request->input('StartDate'),
-            'OpenHouseStartDate'=> $request->input('OpenHouseStartDate'),
-            'EndDate'=> $request->input('EndDate'),
-            'OpenHouseEndDate'=> $request->input('OpenHouseEndDate'),
-            'AddDate'=>$request->input('AddDate'),
-            'IsActive'=> 'Y'
-            ]
-          ]);
+      $client4 = new \GuzzleHttp\Client();
+      $request4 = $client4->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventAreaLelang');
+      $response4 = $request4->getBody()->getContents();
+      $response4 = json_decode($response4,true);
 
-          $alert = 'Data berhasil di tambahkan';
+      $client5 = new \GuzzleHttp\Client();
+      $request5 = $client5->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOlineEventBalaiLelang');
+      $response5 = $request5->getBody()->getContents();
+      $response5 = json_decode($response5,true);
+
+      if ($request->input('Id') != null){
+        foreach ($response4 as $dt4) {
+          if ($dt4['AreaLelang'] == $request->input('AreaLelang'))
+          {
+            foreach ($response5 as $dt5)
+            {
+              if ($dt5['BalaiLelang'] == $request->input('BalaiLelang')) {
+                $date=substr($request->input('AddDate'),15,-3);
+                $date2=substr($request->input('AddDate'),18);
+                $eventStr=ucwords(substr($request->input('EventName'),0,3));
+                dd($eventStr);
+                $client = new \GuzzleHttp\Client();
+                $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/CreateOrUpdateOnlineEvent',[
+                  'json'=>[
+                  'Id'=>$request->input('Id'),
+                  'EventCode'=>'EventCode1',
+                  'CodeAreaLelang'=>$dt4['CodeAreaLelang'],
+                  'AreaLelang'=> $request->input('AreaLelang'),
+                  'CodeBalaiLelang'=> $dt5['CodeBalaiLelang'],
+                  'BalaiLelang'=> $request->input('BalaiLelang'),
+                  'EventName'=> $request->input('EventName'),
+                  'StartDate'=> $request->input('StartDate'),
+                  'EndDate'=> $request->input('EndDate'),
+                  'OpenHouseStartDate'=> $request->input('OpenHouseStartDate'),
+                  'OpenHouseEndDate'=> $request->input('OpenHouseEndDate'),
+                  'AddDate'=>$request->input('AddDate'),
+                  'IsActive'=> $request->input('IsActive')
+                  ]
+                ]);
+                $alert = 'Data berhasil di edit';
+              }
+            }
+          }
+        }
+
+        }else {
+          foreach ($response4 as $dt4) {
+            if ($dt4['AreaLelang'] == $request->input('AreaLelang'))
+            {
+              foreach ($response5 as $dt5)
+              {
+                if ($dt5['BalaiLelang'] == $request->input('BalaiLelang'))
+                {
+                  $client = new \GuzzleHttp\Client();
+                  $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/CreateOrUpdateOnlineEvent',[
+                    'json'=>[
+                    'EventCode'=>'EventCode1',
+                    'CodeAreaLelang'=>$dt4['CodeAreaLelang'],
+                    'AreaLelang'=> $request->input('AreaLelang'),
+                    'CodeBalaiLelang'=> $dt5['CodeBalaiLelang'],
+                    'BalaiLelang'=> $request->input('BalaiLelang'),
+                    'EventName'=> $request->input('EventName'),
+                    'StartDate'=> $request->input('StartDate'),
+                    'OpenHouseStartDate'=> $request->input('OpenHouseStartDate'),
+                    'EndDate'=> $request->input('EndDate'),
+                    'OpenHouseEndDate'=> $request->input('OpenHouseEndDate'),
+                    'AddDate'=>$request->input('AddDate'),
+                    'IsActive'=> 'Y'
+                    ]
+                  ]);
+                  $alert = 'Data berhasil di tambahkan';
+                }
+              }
+            }
+          }
         }
 
       $client = new \GuzzleHttp\Client();

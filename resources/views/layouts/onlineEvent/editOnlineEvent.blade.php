@@ -23,7 +23,7 @@
                             <?php endforeach; ?>
                           </select>
 
-                          <label for="">Balai Lelang</label>
+                          <label>Balai Lelang</label>
                           <select class="form-control" name="BalaiLelang" value="{{$dt1['BalaiLelang']}}">
                             @<?php foreach ($response2 as $dt2): ?>
                               <option>{{$dt2['BalaiLelang']}}</option>

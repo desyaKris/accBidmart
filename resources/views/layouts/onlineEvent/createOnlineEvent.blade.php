@@ -42,15 +42,6 @@
                         <br>
                         <br>
                         <input type="text" style="display:none"  name="AddDate" value="<?php echo date('d-M-Y H:i:s');?>">
-
-                        <?php foreach ($response3 as $dt3): ?>
-                          @if($dt3['AreaLelang'] == "AreaLelang" )
-                          {
-                              <input type="text" name="CodeAreaLelang" value="Tommy">
-                          }
-                          @endif
-                        <?php endforeach; ?>
-
                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
                         <a href="/OnlineEvent"><button class="btn btn-primary">Cancel</button></a>
                       </form>
