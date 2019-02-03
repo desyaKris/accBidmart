@@ -78,15 +78,17 @@ class OnlineEventController extends Controller
             foreach ($response5 as $dt5)
             {
               if ($dt5['BalaiLelang'] == $request->input('BalaiLelang')) {
+                //generate Event Code
                 $date=substr($request->input('AddDate'),15,-3);
                 $date2=substr($request->input('AddDate'),18);
-                $eventStr=ucwords(substr($request->input('EventName'),0,3));
-                dd($eventStr);
+                $eventStr=strtoupper(substr($request->input('EventName'),0,3));
+                $eventStr =$date.$date2.$eventStr;
+
                 $client = new \GuzzleHttp\Client();
                 $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/CreateOrUpdateOnlineEvent',[
                   'json'=>[
                   'Id'=>$request->input('Id'),
-                  'EventCode'=>'EventCode1',
+                  'EventCode'=>$eventStr,
                   'CodeAreaLelang'=>$dt4['CodeAreaLelang'],
                   'AreaLelang'=> $request->input('AreaLelang'),
                   'CodeBalaiLelang'=> $dt5['CodeBalaiLelang'],

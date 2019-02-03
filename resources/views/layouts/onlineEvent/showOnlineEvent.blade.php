@@ -2,17 +2,16 @@
 @section('title','OnlineEvent')
 @section('content')
 <div id="page-inner">
-                <div class="row">
-                    <div class="col-md-12" class="page-head-line">
-						<div class="floating-box">
-						<h1 class="page-head-line">Online Event </h1>
-						</div>
-						<a href="/ShowCreateOnlineEvent"><button class="btn btn-primary"><i class="fa fa-plus">  </i>Create New Online Event  </button></a>
-							<button class="btn btn-primary"><i class="fa fa-upload"> </i>  Upload Online Item</button>
+          <div class="row">
+              <div class="col-md-12" class="page-head-line">
+    						<div class="floating-box">
+    						<h1 class="page-head-line">Online Event </h1>
+    						</div>
+    						<a href="/ShowCreateOnlineEvent"><button class="btn btn-primary"><i class="fa fa-plus">  </i>Create New Online Event  </button></a>
+  							<button class="btn btn-primary"><i class="fa fa-upload"> </i>  Upload Online Item</button>
               </div>
           </div>
           <div class="row">
-
               <div class="col-md-12">
                   <div class="alert alert-info">
                     <form action="{{ url('/SearchOnlineEvent') }}"  method="get">
@@ -22,12 +21,11 @@
                     </form>
                   </div>
               </div>
+          </div>
 
-
-                </div>
-<div class="row">
-      <div class=" col-sm-4 col-md-12">
-        <div class="table-responsive">
+          <div class="row">
+            <div class=" col-sm-4 col-md-12">
+              <div class="table-responsive">
                             <table class="table table-striped table-bordered table-hover text-center">
                                 <thead>
                                     <tr>
@@ -70,8 +68,6 @@
 
               </div>
             </div>
+          </div>
 </div>
-            <!-- /. PAGE INNER  -->
-        </div>
-
 @endsection

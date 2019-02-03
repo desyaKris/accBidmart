@@ -17,12 +17,16 @@
                         <?php foreach ($response3 as $dt1): ?>
                           <input style="display:none" name="Id" value="{{$dt1['Id']}}">
                           <label>Area Lelang</label>
-                          <select class="form-control" name="AreaLelang" value="{{$dt1['AreaLelang']}}">
+                          <select class="form-control" name="AreaLelang">
+                            <option>{{$dt1['AreaLelang']}}</option>
                             @<?php foreach ($response as $dt): ?>
-                              <option>{{$dt['AreaLelang']}}</option>
+                              if({{$dt['AreaLelang']}} == {{$dt1['AreaLelang']}})
+                              {
+                                <option>{{$dt['AreaLelang']}}</option>
+                              }
+                              endif
                             <?php endforeach; ?>
                           </select>
-
                           <label>Balai Lelang</label>
                           <select class="form-control" name="BalaiLelang" value="{{$dt1['BalaiLelang']}}">
                             @<?php foreach ($response2 as $dt2): ?>

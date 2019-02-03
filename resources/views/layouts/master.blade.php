@@ -63,11 +63,11 @@
                              <li>
                                 <a href="/OnlineEvent"><i class="fa"></i>Online Event</a>
                             </li>
-							<li>
+							              <li>
                                 <a href="#"><i class="fa"></i>Unit</a>
                             </li>
-							<li>
-                                <a href="#"><i class="fa"></i>Master GCM</a>
+							              <li>
+                                <a href="/MasterGCM"><i class="fa"></i>Master GCM</a>
                             </li>
                         </ul>
                     </li>
@@ -125,7 +125,7 @@
     <script src="assets/js/jquery.metisMenu.js"></script>
     <!-- CUSTOM SCRIPTS -->
     <script src="assets/js/custom.js"></script>
-    
+
 
 </body>
 </html>

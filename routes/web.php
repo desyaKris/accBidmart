@@ -21,6 +21,6 @@ Route::get('/ShowCreateOnlineEvent', 'OnlineEventController@showCreateOnlineEven
 Route::get('/SearchOnlineEvent', 'OnlineEventController@search');
 Route::get('/CreateOnlineEvent','OnlineEventController@create');
 
-
+Route::get('/MasterGCM', 'MasterGCMController@show');
 
 Route::get('/home','blogController@getGuzzleRequest');
