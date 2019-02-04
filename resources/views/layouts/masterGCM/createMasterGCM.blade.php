@@ -14,12 +14,14 @@
     <div class="row">
       <div class="col-md-12">
                   <div class="alert alert-info">
-                    <form action="{{url('/CreateMasterGCM')}}"  method="get">
+                    <form action="{{url('/CreateMasterGCM')}}"  method="get" enctype="multipart/form-data">
 
             						<label for="">Condition</label>
                                     <input type="text" class="form-control1" name="Condition" />
+
             						<label for="">Char Value 1</label>
                                     <input type="text" class="form-control1" name="CharValue1" />
+                                    {!! $errors->first('CharValue1','<p class="help-block">:message</p>') !!}
             						<label for="">Char Desc 1</label>
                                     <input type="text" class="form-control1" name="CharDesc1" />
 
@@ -45,11 +47,13 @@
             						<br>
             						<div class="form-group">
             							<label for="exampleInputFile">Upload Picture</label>
-            							<input type="file" id="exampleInputFile" name="Picture"/>
+            							<input type="file" id="exampleInputFile" name="Image"/>
             						</div>
 
             						<label>
-            						  IsActive <input type="checkbox" name="IsActive"/>
+            						  IsActive
+                          <input type="hidden" name="IsActive" value="N">
+                          <input type="checkbox" name="IsActive" value="Y" >
             						</label>
             						<br>
             						<br>

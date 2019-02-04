@@ -67,6 +67,7 @@
                           <td>
                             <form action="{{url('/DeleteMasterGCM')}}" method="get">
                               <input style="display:none" name="id" value="{{$dt['Id']}}">
+                              <input style="display:none" name="Condition" value="{{$dt['Condition']}}">
                               <button  class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data?')"><i class="fa fa-trash"></i></button>
                             </form>
                           </td>

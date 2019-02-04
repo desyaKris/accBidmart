@@ -56,14 +56,15 @@ class MasterGCMController extends Controller
 
     public function create(Request $request)
     {
+
+      $Condition=$request->input('Condition');
       $client5 = new \GuzzleHttp\Client();
-      $request5 = $client5->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/ShowMasterGCMCondition');
+      $request5 = $client5->get("https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/GetMasterGCMbyCondition?MasterGCMCondition=$Condition");
       $response5 = $request5->getBody()->getContents();
       $dataCondition= json_decode($response5,true);
 
-      foreach ($dataCondition as $dt)
-      {
-        if ($dt['Condition'] == $request->input('Condition')) {
+        if ($dataCondition != null)
+        {
           $client = new \GuzzleHttp\Client();
           $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/CreateOrUpdateMasterGCM',[
             'json'=>[
@@ -82,11 +83,12 @@ class MasterGCMController extends Controller
               'UserAdded'=>$request->input('UserAdded'),
               'UpdatedDate'=>$request->input('UpdatedDate'),
               'UserUpdated'=>$request->input('UserUpdated'),
-              'IsActive'=>'N'
+              'IsActive'=>$request->input('IsActive')
             ]
           ]);
+
         }
-        elseif($dt['Condition'] != $request->input('Condition'))
+        elseif($dataCondition == null)
         {
           $client = new \GuzzleHttp\Client();
           $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/CreateOrUpdateConditionMasterGCM',[
@@ -113,11 +115,9 @@ class MasterGCMController extends Controller
               'UserAdded'=>$request->input('UserAdded'),
               'UpdatedDate'=>$request->input('UpdatedDate'),
               'UserUpdated'=>$request->input('UserUpdated'),
-              'IsActive'=>'N'
+              'IsActive'=>$request->input('IsActive')
             ]
           ]);
-          break;
-        }
       }
 
       $client2 = new \GuzzleHttp\Client();
@@ -149,24 +149,23 @@ class MasterGCMController extends Controller
 
         if($tempCondition == null)
         {
+
           $client4 = new \GuzzleHttp\Client();
           $request4 = $client4->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/ShowMasterGCMCondition');
           $response4 = $request4->getBody()->getContents();
           $tempCondition2=json_decode($response4,true);
           foreach ($tempCondition2 as $dt2)
           {
+
             if($dt2['Condition']==$Condition)
             {
               $ID=$dt2['Id'];
-              dd($ID);
               $client = new \GuzzleHttp\Client();
               $request = $client->get("https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/DeleteMasterGCMCondition?MasterGCMCondition=$ID");
               $response = $request->getBody()->getContents();
             }
           }
         }
-
-
 
       $client2 = new \GuzzleHttp\Client();
       $request2 = $client2->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/ShowMasterGCMCondition');
