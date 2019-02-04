@@ -22,5 +22,7 @@ Route::get('/SearchOnlineEvent', 'OnlineEventController@search');
 Route::get('/CreateOnlineEvent','OnlineEventController@create');
 
 Route::get('/MasterGCM', 'MasterGCMController@show');
-
+Route::get('/ShowCreateMasterGCM', 'MasterGCMController@ShowCreateMasterGCM');
+Route::get('/CreateMasterGCM', 'MasterGCMController@create');
+Route::get('/DeleteMasterGCM','MasterGCMController@delete');
 Route::get('/home','blogController@getGuzzleRequest');

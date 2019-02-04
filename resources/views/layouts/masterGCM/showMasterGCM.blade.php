@@ -7,7 +7,7 @@
     						<div class="floating-box">
     						<h1 class="page-head-line">Master GCM</h1>
     						</div>
-    						<a href="/ShowCreateOnlineEvent"><button class="btn btn-primary"><i class="fa fa-plus">  </i>Create Master GCM  </button></a>
+    						<a href="/ShowCreateMasterGCM"><button class="btn btn-primary"><i class="fa fa-plus">  </i>Create Master GCM  </button></a>
   							<button class="btn btn-primary"><i class="fa fa-upload"> </i>  Upload Master GCM</button>
                 <button class="btn btn-primary"><i class="fa fa-download"> </i>  Download Master GCM</button>
               </div>
@@ -44,6 +44,8 @@
                             <th>DESC 3</th>
                             <th>IS ACTIVE</th>
                             <th>ACTION</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,13 +59,18 @@
                           <td>{{$dt['CharValue3']}}</td>
                           <td>{{$dt['IsActive']}}</td>
                           <td>
-                            <form   method="get">
+                            <button  class="btn btn-info"><i class="fa fa-eye"></i></button>
+                          </td>
+                          <td>
+                            <button class="btn btn-primary"><i class="fa fa-edit"></i></button>
+                          </td>
+                          <td>
+                            <form action="{{url('/DeleteMasterGCM')}}" method="get">
                               <input style="display:none" name="id" value="{{$dt['Id']}}">
-                              <button class="btn btn-info"><i class="fa fa-eye"></i></button>
-                              <button class="btn btn-primary"><i class="fa fa-edit"></i></button>
-                              <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                              <button  class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data?')"><i class="fa fa-trash"></i></button>
                             </form>
                           </td>
+
                         </tr>
                       <?php endforeach; ?>
                     </tbody>
