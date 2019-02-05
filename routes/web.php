@@ -25,4 +25,7 @@ Route::get('/MasterGCM', 'MasterGCMController@show');
 Route::get('/ShowCreateMasterGCM', 'MasterGCMController@ShowCreateMasterGCM');
 Route::get('/CreateMasterGCM', 'MasterGCMController@create');
 Route::get('/DeleteMasterGCM','MasterGCMController@delete');
+Route::get('/ShowEditMasterGCM','MasterGCMController@showById');
+Route::get('/EditMasterGCM','MasterGCMController@edit');
+
 Route::get('/home','blogController@getGuzzleRequest');

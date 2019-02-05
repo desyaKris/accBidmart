@@ -62,7 +62,10 @@
                             <button  class="btn btn-info"><i class="fa fa-eye"></i></button>
                           </td>
                           <td>
-                            <button class="btn btn-primary"><i class="fa fa-edit"></i></button>
+                            <form action="{{url('/ShowEditMasterGCM')}}" method="get">
+                              <input style="display:none" name="id" value="{{$dt['Id']}}">
+                              <button class="btn btn-primary"><i class="fa fa-edit"></i></button>
+                            </form>
                           </td>
                           <td>
                             <form action="{{url('/DeleteMasterGCM')}}" method="get">

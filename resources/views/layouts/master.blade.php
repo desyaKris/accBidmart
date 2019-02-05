@@ -16,6 +16,65 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    /*the container must be positioned relative:*/
+    .autocomplete {
+      position: relative;
+      display: inline-block;
+    }
+
+    input {
+      border: 1px solid transparent;
+      background-color: #ffffff;
+      padding: 5px;
+      font-size: 16px;
+    }
+
+    input[type=text] {
+      background-color: #f1f1f1;
+      width: 100%;
+    }
+
+    .autocomplete-items {
+      position: absolute;
+      border: 1px solid #d4d4d4;
+      border-bottom: none;
+      border-top: none;
+      z-index: 99;
+      /*position the autocomplete items to be the same width as the container:*/
+      top: 100%;
+      left: 0;
+      right: 0;
+    }
+    input[type=submit] {
+      background-color: DodgerBlue;
+      color: #fff;
+      cursor: pointer;
+    }
+    .autocomplete-items div {
+      padding: 10px;
+      cursor: pointer;
+      background-color: #fff;
+      border-bottom: 1px solid #d4d4d4;
+    }
+
+    /*when hovering an item:*/
+    .autocomplete-items div:hover {
+      background-color: #e9e9e9;
+    }
+
+    /*when navigating through the items using the arrow keys:*/
+    .autocomplete-active {
+      background-color: DodgerBlue !important;
+      color: #ffffff;
+    }
+    input[type=checkbox] {width:25px; height:25px;}
+    </style>
 </head>
 <body>
     <div id="wrapper">
