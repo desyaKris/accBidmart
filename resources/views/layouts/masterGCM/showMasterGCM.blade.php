@@ -10,6 +10,7 @@
     						<a href="/ShowCreateMasterGCM"><button class="btn btn-primary"><i class="fa fa-plus">  </i>Create Master GCM  </button></a>
   							<button class="btn btn-primary"><i class="fa fa-upload"> </i>  Upload Master GCM</button>
                 <button class="btn btn-primary"><i class="fa fa-download"> </i>  Download Master GCM</button>
+
               </div>
           </div>
           <div class="row">
@@ -59,7 +60,11 @@
                           <td>{{$dt['CharValue3']}}</td>
                           <td>{{$dt['IsActive']}}</td>
                           <td>
-                            <button  class="btn btn-info"><i class="fa fa-eye"></i></button>
+                            <form action="{{url('/ShowDataMasterGCM')}}" method="get">
+                              <input style="display:none" name="id" value="{{$dt['Id']}}">
+                              <input style="display:none" name="temp" value="Y">
+                              <button  class="btn btn-info"><i class="fa fa-eye"></i></button>
+                            </form>
                           </td>
                           <td>
                             <form action="{{url('/ShowEditMasterGCM')}}" method="get">

@@ -79,8 +79,15 @@
                         <br>
                         <br>
                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
-                        <a href="/MasterGCM"><button class="btn btn-primary">Cancel</button></a>
+
                     </form>
+                    <form action="{{url('/MasterGCM')}}" method="get">
+                      <?php foreach ($response as $dt3): ?>
+                        <input style="display:none" name="Condition" value="{{$dt3['Condition']}}">
+                      <?php endforeach; ?>
+                      <button class="btn btn-primary">Cancel</button>
+                    </form>
+                  </div>
 
                   </div>
 

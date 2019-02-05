@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use Excel;
 class MasterGCMController extends Controller
 {
   public function show(Request $request)
@@ -36,10 +37,10 @@ class MasterGCMController extends Controller
          ->with('response2',json_decode($response2,true))
          ->with('response3',json_decode($response3,true));
        }
-       else
+       elseif($request->input('Condition') == '--Chosee Condition--')
        {
          $client3 = new \GuzzleHttp\Client();
-         $request3 = $client3->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/ShowMasterGCMCondition');
+         $request3 = $client3->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/GetMasterGCMAll');
          $response3 = $request3->getBody()->getContents();
 
          return view('layouts/MasterGCM/showMasterGCM')
@@ -183,13 +184,14 @@ class MasterGCMController extends Controller
 
       return view('layouts/MasterGCM/showMasterGCM')
       ->with('response2',json_decode($response2,true))
-      ->with('response3',json_decode($response3,true));
+      ->with('response3',json_decode($response3,true))->with('alert','data berhasil di hapus');
     }
 
 
     public function showById(Request $request)
     {
       $id=$request->input('id');
+      $cek=$request->input('temp');
       $client = new \GuzzleHttp\Client();
       $request = $client->get("https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/GetMasterGCMId?MasterGCMId=$id");
       $response = $request->getBody()->getContents();
@@ -198,9 +200,18 @@ class MasterGCMController extends Controller
       $request2 = $client2->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/ShowMasterGCMCondition');
       $response2 = $request2->getBody()->getContents();
 
-      return view('layouts/MasterGCM/editMasterGCM')
-      ->with('response',json_decode($response,true))
-      ->with('response2',json_decode($response2,true));
+
+      if($cek=='Y')
+      {
+        return view('layouts/MasterGCM/ShowDataMasterGCM')
+        ->with('response',json_decode($response,true))
+        ->with('response2',json_decode($response2,true));
+      }else {
+        return view('layouts/MasterGCM/editMasterGCM')
+        ->with('response',json_decode($response,true))
+        ->with('response2',json_decode($response2,true));
+      }
+
 
     }
 
@@ -285,5 +296,26 @@ class MasterGCMController extends Controller
       return view('layouts/MasterGCM/showMasterGCM')
       ->with('response2',json_decode($response2,true))
       ->with('response3',json_decode($response3,true));
+    }
+
+    public function export()
+    {
+      $client3 = new \GuzzleHttp\Client();
+      $request3 = $client3->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/ShowMasterGCMCondition');
+      $response3 = $request3->getBody()->getContents();
+      $data=json_decode($response3,true);
+      $data_array[] = array('data','data2');
+      foreach ($data as $dt)
+      {
+        $data_array[] = array('data' => $dt['Id'],'data2'=>$dt['Condition']);
+      }
+      Excel::create('Customer Data',function($excel) use($data_array){
+        $excel->setTitle('Customer Data');
+        $excel->sheet('Customer Data',function($sheet)
+                use($data_array)
+                {
+                $sheet->fromArray($data_array,null,'A1',false,false);
+              });
+      })->download('xlsx');
     }
 }

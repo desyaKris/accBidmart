@@ -58,7 +58,7 @@
                                       <td>
                                         <form action="{{url('/EditOnlineEvent')}}"  method="get">
                                           <input style="display:none" name="id" value="{{$dt['Id']}}">
-                                          <input style="display:none" name="condition" value="{{$dt['Condition']}}">
+                    
                                           <button class="btn btn-primary"><i class="fa fa-edit "></i></button>
                                         </form>
                                       </td>

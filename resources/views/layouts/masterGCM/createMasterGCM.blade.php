@@ -68,8 +68,9 @@
                         <br>
                         <br>
                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
-                        <a href="/MasterGCM"><button class="btn btn-primary">Cancel</button></a>
+
                     </form>
+                    <a href="/MasterGCM"><button class="btn btn-primary">Cancel</button></a>
 
                   </div>
 
