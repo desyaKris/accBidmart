@@ -22,7 +22,13 @@
                   </div>
               </div>
           </div>
+          <button type="button" id="btn" name="button">button</button>
+          <div id="animal-info">
 
+          </div>
+          <script>
+          
+          </script>
           <div class="row">
             <div class=" col-sm-4 col-md-12">
               <div class="table-responsive">
@@ -58,7 +64,7 @@
                                       <td>
                                         <form action="{{url('/EditOnlineEvent')}}"  method="get">
                                           <input style="display:none" name="id" value="{{$dt['Id']}}">
-                    
+
                                           <button class="btn btn-primary"><i class="fa fa-edit "></i></button>
                                         </form>
                                       </td>
@@ -66,7 +72,6 @@
                                   <?php endforeach; ?>
                                 </tbody>
                             </table>
-
               </div>
             </div>
           </div>

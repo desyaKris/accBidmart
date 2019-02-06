@@ -14,8 +14,9 @@
     <div class="row">
       <div class="col-md-12">
                   <div class="alert alert-info">
-                    <form action="{{url('/CreateMasterGCM')}}"  autocomplete="off" method="get" enctype="multipart/form-data">
-            						<label for="">Condition &emsp;&emsp;</label>
+                    <form action="{{url('/CreateMasterGCM')}}"  autocomplete="off" method="POST" novalidate enctype="multipart/form-data">
+                      {!! csrf_field() !!}
+                        <label for="">Condition &emsp;&emsp;</label>
 
                           <div class="autocomplete" style="width:300px;">
                             <input id="myInput" type="text" oninput="validateAlpha();" name="Condition" placeholder="Type AutoComplete or new condition" required/>
@@ -48,7 +49,7 @@
             						<br>
             						<div class="form-group">
             							<label for="exampleInputFile">Upload Picture</label>
-            							<input type="file" id="exampleInputFile" name="Image"/>
+            							<input type="file" id="exampleInputFile" name="Pict" required/>
             						</div>
 
             						<label>

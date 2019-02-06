@@ -63,6 +63,7 @@ class MasterGCMController extends Controller
 
     public function create(Request $request)
     {
+      // dd($request['Pict']);
       $Condition=$request->input('Condition');
       $client5 = new \GuzzleHttp\Client();
       $request5 = $client5->get("https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/GetMasterGCMbyCondition?MasterGCMCondition=$Condition");
@@ -73,6 +74,23 @@ class MasterGCMController extends Controller
         {
 
           $client = new \GuzzleHttp\Client();
+          $picture = 'Tommy'.date('Ymd');
+          $counter = 0;
+                if($request->hasfile('Pict'))
+                {
+                    $file = $request->file('Pict');
+                    $size = filesize($file);
+                    if($size > 10485760)
+                    {
+                        return redirect()->back()->with('alert', 'Cannot Upload more than 10MB Files!');
+                    }
+                    $extension = $file->getClientOriginalExtension();
+                    $name = $picture."_".$counter.".".$extension;
+                    $file->move(public_path().'/images/',strtolower($name));
+                    $data[] = strtolower($name);
+                    $counter++;
+                // dd($file);
+                }
           $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/CreateOrUpdateMasterGCM',[
             'json'=>[
               'Condition'=>$request->input('Condition'),
@@ -90,7 +108,8 @@ class MasterGCMController extends Controller
               'UserAdded'=>$request->input('UserAdded'),
               'UpdatedDate'=>$request->input('UpdatedDate'),
               'UserUpdated'=>$request->input('UserUpdated'),
-              'IsActive'=>$request->input('IsActive')
+              'IsActive'=>$request->input('IsActive'),
+              'Image1'=>$name
             ]
           ]);
 

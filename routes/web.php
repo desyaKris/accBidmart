@@ -23,7 +23,10 @@ Route::get('/CreateOnlineEvent','OnlineEventController@create');
 
 Route::get('/MasterGCM', 'MasterGCMController@show');
 Route::get('/ShowCreateMasterGCM', 'MasterGCMController@ShowCreateMasterGCM');
-Route::get('/CreateMasterGCM', 'MasterGCMController@create');
+Route::post('/CreateMasterGCM', 'MasterGCMController@create');
+// Route::post('/CreateMasterGCM', function(){
+//   return 'bisa';
+// });
 Route::get('/DeleteMasterGCM','MasterGCMController@delete');
 Route::get('/ShowEditMasterGCM','MasterGCMController@showById');
 Route::get('/EditMasterGCM','MasterGCMController@edit');
