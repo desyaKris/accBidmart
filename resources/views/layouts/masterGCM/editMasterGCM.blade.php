@@ -46,6 +46,8 @@
             						<label for="">Char Desc 5</label>
                                     <input type="text" class="form-control1" name="CharDesc5" value="{{$dt3['CharDesc5']}}"/>
             						<br>
+
+                        <img src="/images/{{$dt3['Image1']}}" alt="">
             						<div class="form-group">
             							<label for="exampleInputFile">Upload Picture</label>
             							<input type="file" id="exampleInputFile" name="Image"/>

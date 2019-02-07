@@ -7,6 +7,7 @@
     						<div class="floating-box">
     						<h1 class="page-head-line">Master GCM</h1>
     						</div>
+
     						<a href="/ShowCreateMasterGCM"><button class="btn btn-primary"><i class="fa fa-plus">  </i>Create Master GCM  </button></a>
   							<button class="btn btn-primary"><i class="fa fa-upload"> </i>  Upload Master GCM</button>
                 <button class="btn btn-primary"><i class="fa fa-download"> </i>  Download Master GCM</button>
@@ -84,7 +85,12 @@
                       <?php endforeach; ?>
                     </tbody>
                 </table>
+                <div align="right">
+                {{$response3->withPath('/MasterGCM')->links()}};
+                </div>
+
               </div>
+
             </div>
           </div>
 </div>

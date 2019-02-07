@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use Illuminate\Pagination\LengthAwarePaginator;
 class OnlineEventController extends Controller
 {
   public function show()
@@ -11,9 +12,14 @@ class OnlineEventController extends Controller
        $client = new \GuzzleHttp\Client();
        $request = $client->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventAll');
        $response = $request->getBody()->getContents();
+       $response3 = collect(json_decode($response,true));
 
+       $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $perPage = 10;
+        $currentResults = $response3->slice(($currentPage - 1) * $perPage, $perPage)->all();
+        $results = new LengthAwarePaginator($currentResults, $response3->count(), $perPage);
        return view('layouts/OnlineEvent/showOnlineEvent')
-       ->with('response',json_decode($response,true));
+       ->with('response',$results);
     }
 
     public function showById(Request $request)

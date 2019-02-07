@@ -22,6 +22,7 @@ Route::get('/SearchOnlineEvent', 'OnlineEventController@search');
 Route::get('/CreateOnlineEvent','OnlineEventController@create');
 
 Route::get('/MasterGCM', 'MasterGCMController@show');
+Route::get('/MasterGCMbyCondition','MasterGCMController@showSearchCondition');
 Route::get('/ShowCreateMasterGCM', 'MasterGCMController@ShowCreateMasterGCM');
 Route::post('/CreateMasterGCM', 'MasterGCMController@create');
 // Route::post('/CreateMasterGCM', function(){
