@@ -18,16 +18,12 @@ Route::get('/', function () {
 Route::get('/OnlineEvent', 'OnlineEventController@show');
 Route::get('/EditOnlineEvent', 'OnlineEventController@showById');
 Route::get('/ShowCreateOnlineEvent', 'OnlineEventController@showCreateOnlineEvent');
-Route::get('/SearchOnlineEvent', 'OnlineEventController@search');
+Route::get('/SearchOnlineEvent', 'OnlineEventController@show');
 Route::get('/CreateOnlineEvent','OnlineEventController@create');
 
 Route::get('/MasterGCM', 'MasterGCMController@show');
-Route::get('/MasterGCMbyCondition','MasterGCMController@showSearchCondition');
 Route::get('/ShowCreateMasterGCM', 'MasterGCMController@ShowCreateMasterGCM');
 Route::post('/CreateMasterGCM', 'MasterGCMController@create');
-// Route::post('/CreateMasterGCM', function(){
-//   return 'bisa';
-// });
 Route::get('/DeleteMasterGCM','MasterGCMController@delete');
 Route::get('/ShowEditMasterGCM','MasterGCMController@showById');
 Route::get('/EditMasterGCM','MasterGCMController@edit');

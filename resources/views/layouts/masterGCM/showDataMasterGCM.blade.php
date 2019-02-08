@@ -46,6 +46,7 @@
             						<label for="">Char Desc 5</label>
                                     <input type="text" class="form-control1" name="CharDesc5" value="{{$dt3['CharDesc5']}}" disabled/>
             						<br>
+                        <img src="/images/{{$dt3['Image1']}}" alt=""> 
             						<div class="form-group">
             							<label for="exampleInputFile">Upload Picture</label>
             							<input type="file" id="exampleInputFile" name="Image" disabled/>
@@ -82,6 +83,7 @@
                           <button class="btn btn-primary"><i class="fa fa-edit">Edit</i></button>
 
                     </form>
+
                     <form action="{{url('/MasterGCM')}}" method="get">
                       <?php foreach ($response as $dt3): ?>
                         <input style="display:none" name="Condition" value="{{$dt3['Condition']}}">

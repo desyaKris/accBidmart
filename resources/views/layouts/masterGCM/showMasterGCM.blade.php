@@ -19,6 +19,7 @@
                   <div class="alert alert-info">
                     <form action="{{ url('/MasterGCM') }}"  method="get">
                     <input type="text" class="form-control1" name="ValueDesc" placeholder="Type CharValue or CharDesc" />
+                    
                     <select name="Condition">
                       <option>--Chosee Condition--</option>
                       <?php foreach ($response2 as $dt2): ?>
@@ -85,10 +86,7 @@
                       <?php endforeach; ?>
                     </tbody>
                 </table>
-                <div align="right">
-                {{$response3->withPath('/MasterGCM')->links()}};
-                </div>
-
+                {{$response3->withPath('/MasterGCM')->links()}}
               </div>
 
             </div>

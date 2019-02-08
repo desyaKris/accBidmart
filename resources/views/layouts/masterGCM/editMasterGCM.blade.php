@@ -50,7 +50,7 @@
                         <img src="/images/{{$dt3['Image1']}}" alt="">
             						<div class="form-group">
             							<label for="exampleInputFile">Upload Picture</label>
-            							<input type="file" id="exampleInputFile" name="Image"/>
+            							<input type="file" id="exampleInputFile" name="Pict"/>
             						</div>
 
             						<label>

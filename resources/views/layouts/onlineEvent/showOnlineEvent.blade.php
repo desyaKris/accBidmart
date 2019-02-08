@@ -14,17 +14,13 @@
           <div class="row">
               <div class="col-md-12">
                   <div class="alert alert-info">
-                    <form action="{{ url('/SearchOnlineEvent') }}"  method="get">
+                    <form action="{{ url('/SearchOnlineEvent')}}"  method="get">
                     <input type="text" class="form-control1" name="data" placeholder="Type the Event Name, Area Lelang, Balai Lelang" />
                                   <button class="btn btn-primary" ><i class="fa fa-search "></i> Search</button>
                                   <a href="/OnlineEvent"><button class="btn btn-primary"><i class="fa fa-refresh "></i> Reset</button></a>
                     </form>
                   </div>
               </div>
-          </div>
-          <button type="button" id="btn" name="button">button</button>
-          <div id="animal-info">
-
           </div>
           <script>
 
@@ -72,7 +68,7 @@
                                   <?php endforeach; ?>
                                 </tbody>
                             </table>
-                            {{$response->withPath('/OnlineEvent')->links()}}
+                      {{$response->withPath('/OnlineEvent')->links()}}
               </div>
             </div>
           </div>

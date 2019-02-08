@@ -7,19 +7,39 @@ use GuzzleHttp\Client;
 use Illuminate\Pagination\LengthAwarePaginator;
 class OnlineEventController extends Controller
 {
-  public function show()
+  public function show(Request $request)
    {
-       $client = new \GuzzleHttp\Client();
-       $request = $client->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventAll');
-       $response = $request->getBody()->getContents();
-       $response3 = collect(json_decode($response,true));
+     $temp = $request->input('data');
+     if ($request->input('data') == null) {
+       $client7 = new \GuzzleHttp\Client();
+       $request7 = $client7->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventAll');
+       $response7 = $request7->getBody()->getContents();
+       $response7 = collect(json_decode($response7,true));
 
-       $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $perPage = 10;
-        $currentResults = $response3->slice(($currentPage - 1) * $perPage, $perPage)->all();
-        $results = new LengthAwarePaginator($currentResults, $response3->count(), $perPage);
+      $response7 = $this->paginate($response7, '5');
+      $response7->appends($request->only('data'));
+
        return view('layouts/OnlineEvent/showOnlineEvent')
-       ->with('response',$results);
+       ->with('response',$response7);
+     }else {
+
+       $client3 = new \GuzzleHttp\Client();
+       $request3 = $client3->get("https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/SearchOnlineEvent?OnlineEventSearch=$temp");
+       $response3 = $request3->getBody()->getContents();
+       $response3 = collect(json_decode($response3,true));
+       $response3 = $this->paginate($response3, '5');
+       $response3->appends($request->only('data'));
+
+       return view('layouts/OnlineEvent/showOnlineEvent')->with('response',$response3);
+     }
+    }
+
+
+    public function paginate($items,$perPage)
+    {
+      $currentPage = LengthAwarePaginator::resolveCurrentPage();
+       $currentResults = $items->slice(($currentPage - 1) * $perPage, $perPage)->all();
+       return new LengthAwarePaginator($currentResults, $items->count(), $perPage);
     }
 
     public function showById(Request $request)
@@ -122,10 +142,15 @@ class OnlineEventController extends Controller
               {
                 if ($dt5['BalaiLelang'] == $request->input('BalaiLelang'))
                 {
+                  $date=substr($request->input('AddDate'),15,-3);
+                  $date2=substr($request->input('AddDate'),18);
+                  $eventStr=strtoupper(substr($request->input('EventName'),0,3));
+                  $eventStr =$date.$date2.$eventStr;
+
                   $client = new \GuzzleHttp\Client();
                   $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/CreateOrUpdateOnlineEvent',[
                     'json'=>[
-                    'EventCode'=>'EventCode1',
+                    'EventCode'=>$eventStr,
                     'CodeAreaLelang'=>$dt4['CodeAreaLelang'],
                     'AreaLelang'=> $request->input('AreaLelang'),
                     'CodeBalaiLelang'=> $dt5['CodeBalaiLelang'],
@@ -149,19 +174,24 @@ class OnlineEventController extends Controller
       $client = new \GuzzleHttp\Client();
       $request = $client->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventAll');
       $response = $request->getBody()->getContents();
+      $response = collect(json_decode($response,true));
+      $response = $this->paginate($response, '5');
 
       return view('layouts/OnlineEvent/showOnlineEvent')
-      ->with('response',json_decode($response,true));
+      ->with('response',$response);
 
     }
 
-    public function search(Request $request)
-    {
-      $temp = $request->input('data');
-      $client = new \GuzzleHttp\Client();
-      $request = $client->get("https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/SearchOnlineEvent?OnlineEventSearch=$temp");
-      $response = $request->getBody()->getContents();
-
-      return view('layouts/OnlineEvent/showOnlineEvent')->with('response',json_decode($response,true));
-    }
+    // public function search(Request $request)
+    // {
+    //   $temp = $request->input('data');
+    //   $client3 = new \GuzzleHttp\Client();
+    //   $request3 = $client3->get("https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/SearchOnlineEvent?OnlineEventSearch=$temp");
+    //   $response3 = $request3->getBody()->getContents();
+    //   $response3 = collect(json_decode($response3,true));
+    //   $response3 = $this->paginate($response3, '5');
+    //   $response3->appends($request->only('data'));
+    //
+    //   return view('layouts/OnlineEvent/showOnlineEvent')->with('response',$response3);
+    // }
 }
