@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Excel;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Exports\UsersExport;
 class MasterGCMController extends Controller
 {
   public function show(Request $request)
@@ -111,7 +112,9 @@ class MasterGCMController extends Controller
               'UpdatedDate'=>$request->input('UpdatedDate'),
               'UserUpdated'=>$request->input('UserUpdated'),
               'IsActive'=>$request->input('IsActive'),
-              'Image1'=>$name
+              'Image1'=>$name,
+              'TimeStamp1'=>$request->input('TimeStamp1'),
+              'TimeStamp2'=>$request->input('TimeStamp2'),
             ]
           ]);
 
@@ -145,7 +148,9 @@ class MasterGCMController extends Controller
               'UpdatedDate'=>$request->input('UpdatedDate'),
               'UserUpdated'=>$request->input('UserUpdated'),
               'IsActive'=>$request->input('IsActive'),
-              'Image1'=>$name
+              'Image1'=>$name,
+              'TimeStamp1'=>$request->input('TimeStamp1'),
+              'TimeStamp2'=>$request->input('TimeStamp2'),
             ]
           ]);
       }
@@ -299,7 +304,9 @@ class MasterGCMController extends Controller
               'UpdatedDate'=>$request->input('UpdatedDate'),
               'UserUpdated'=>$request->input('UserUpdated'),
               'IsActive'=>$request->input('IsActive'),
-              'Image1'=>$name
+              'Image1'=>$name,
+              'TimeStamp1'=>$request->input('TimeStamp1'),
+              'TimeStamp2'=>$request->input('TimeStamp2'),
             ]
           ]);
 
@@ -350,7 +357,9 @@ class MasterGCMController extends Controller
               'UpdatedDate'=>$request->input('UpdatedDate'),
               'UserUpdated'=>$request->input('UserUpdated'),
               'IsActive'=>$request->input('IsActive'),
-              'Image1'=>$name
+              'Image1'=>$name,
+              'TimeStamp1'=>$request->input('TimeStamp1'),
+              'TimeStamp2'=>$request->input('TimeStamp2'),
             ]
           ]);
 
@@ -372,24 +381,29 @@ class MasterGCMController extends Controller
       }
     }
 
-    public function export()
+    public function export(Request $request)
     {
+      $data=$request->input('Condition2');
+      
       $client3 = new \GuzzleHttp\Client();
-      $request3 = $client3->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/ShowMasterGCMCondition');
+      $request3 = $client3->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/GetMasterGCMAll');
       $response3 = $request3->getBody()->getContents();
-      $data=json_decode($response3,true);
-      $data_array[] = array('data','data2');
-      foreach ($data as $dt)
-      {
-        $data_array[] = array('data' => $dt['Id'],'data2'=>$dt['Condition']);
-      }
-      Excel::create('Customer Data',function($excel) use($data_array){
-        $excel->setTitle('Customer Data');
-        $excel->sheet('Customer Data',function($sheet)
-                use($data_array)
-                {
-                $sheet->fromArray($data_array,null,'A1',false,false);
-              });
-      })->download('xlsx');
+      // $data=json_decode($response3,true);
+
+      return Excel::download(new UsersExport($data), 'export.xlsx');
+      // return Excel::download(new UsersExport($request), 'users.xlsx');
+      // $data_array[] = array('data','data2');
+      // foreach ($data as $dt)
+      // {
+      //   $data_array[] = array('data' => $dt['Id'],'data2'=>$dt['Condition']);
+      // }
+      // Excel::download('Customer Data',function($excel) use($data_array){
+      //   $excel->setTitle('Customer Data');
+      //   $excel->sheet('Customer Data',function($sheet)
+      //           use($data_array)
+      //           {
+      //           $sheet->fromArray($data_array,null,'A1',false,false);
+      //         });
+      // })->download('xlsx');
     }
 }

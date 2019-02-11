@@ -61,11 +61,13 @@
             						<br>
                         <label>Time Stamp1</label>
                         <br>
-                        <input type="datetime-local" name="AddedDate">
+                        <input type="text" style="display:none"  name="AddedDate" value="<?php echo date('d-M-Y H:i:s');?>">
+                        
+                        <input type="datetime-local" name="TimeStamp1">
                         <br>
                         <label>Time Stamp2</label>
                         <br>
-                        <input type="datetime-local" value="" class="date" name="UpdatedDate">
+                        <input type="datetime-local" value="" class="date" name="TimeStamp2">
                         <br>
                         <br>
                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>

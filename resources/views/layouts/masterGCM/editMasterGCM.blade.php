@@ -14,7 +14,8 @@
     <div class="row">
       <div class="col-md-12">
                   <div class="alert alert-info">
-                    <form action="{{url('/EditMasterGCM')}}"  autocomplete="off" method="get" enctype="multipart/form-data">
+                    <form action="{{url('/EditMasterGCM')}}"  autocomplete="off" method="POST" novalidate enctype="multipart/form-data">
+                      {!! csrf_field() !!}
                       <?php foreach ($response as $dt3): ?>
                         <label for="">Condition</label>
                           <div class="autocomplete" style="width:300px;">
@@ -70,11 +71,14 @@
             						<br>
                         <label>Time Stamp1</label>
                         <br>
-                        <input type="datetime-local" name="AddedDate" value="{{$dt3['AddedDate']}}">
+                        <input type="datetime-local" name="AddedDate" value="{{$dt3['TimeStamp1']}}">
                         <br>
                         <label>Time Stamp2</label>
                         <br>
-                        <input type="datetime-local" name="UpdatedDate" value="{{$dt3['UpdatedDate']}}">
+                        <input type="datetime-local" name="UpdatedDate" value="{{$dt3['TimeStamp2']}}">
+
+                        <input type="text" style="display:none"  name="AddedDate" value="{{$dt3['AddedDate']}}">
+                        <input type="text" style="display:none"  name="UpdatedDate" value="<?php echo date('d-M-Y H:i:s');?>">
                         <input type="text" style="display:none" name="id" value="{{$dt3['Id']}}">
                       <?php endforeach; ?>
 

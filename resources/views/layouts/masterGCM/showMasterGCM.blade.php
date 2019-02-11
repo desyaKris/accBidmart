@@ -9,23 +9,32 @@
     						</div>
 
     						<a href="/ShowCreateMasterGCM"><button class="btn btn-primary"><i class="fa fa-plus">  </i>Create Master GCM  </button></a>
-  							<button class="btn btn-primary"><i class="fa fa-upload"> </i>  Upload Master GCM</button>
-                <button class="btn btn-primary"><i class="fa fa-download"> </i>  Download Master GCM</button>
-
+  							<button class="btn btn-primary"><i class="fa fa-upload"> </i> Upload Master GCM</button>
+                <form action="{{url('/Excel')}}" method="post" enctype="multipart/form-data">
+                  {!! csrf_field() !!}
+                  <?php foreach ($response3 as $dt2): ?>
+                    <?php if ($dt2 == null): ?>
+                      <input type="text" style="display:none" name="Condition2" value=";qwe">
+                      <?php else: ?>
+                        <input type="text" style="display:none" name="Condition2" value="{{$dt2['Condition']}}">
+                    <?php endif; ?>
+                    @break
+                  <?php endforeach; ?>
+                  <button class="btn btn-primary"><i class="fa fa-download"> </i>  Download Master GCM</button>
+                </form>
               </div>
           </div>
           <div class="row">
               <div class="col-md-12">
                   <div class="alert alert-info">
-                    <form action="{{ url('/MasterGCM') }}"  method="get">
+                    <form action="{{url('/MasterGCM')}}"  method="get">
                     <input type="text" class="form-control1" name="ValueDesc" placeholder="Type CharValue or CharDesc" />
-                    
-                    <select name="Condition">
-                      <option>--Chosee Condition--</option>
-                      <?php foreach ($response2 as $dt2): ?>
-                          <option>{{$dt2['Condition']}}</option>
-                      <?php endforeach; ?>
-                    </select>
+                        <select name="Condition">
+                          <option>--Chosee Condition--</option>
+                          <?php foreach ($response2 as $dt2): ?>
+                              <option>{{$dt2['Condition']}}</option>
+                          <?php endforeach; ?>
+                        </select>
                     <button class="btn btn-primary" ><i class="fa fa-search "></i>Search</button>
                     <a href="/MasterGCM"><button class="btn btn-primary"><i class="fa fa-refresh "></i> Reset</button></a>
                     </form>

@@ -16,7 +16,7 @@ class OnlineEventController extends Controller
        $response7 = $request7->getBody()->getContents();
        $response7 = collect(json_decode($response7,true));
 
-      $response7 = $this->paginate($response7, '5');
+      $response7 = $this->paginate($response7, '10');
       $response7->appends($request->only('data'));
 
        return view('layouts/OnlineEvent/showOnlineEvent')
@@ -27,7 +27,7 @@ class OnlineEventController extends Controller
        $request3 = $client3->get("https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/SearchOnlineEvent?OnlineEventSearch=$temp");
        $response3 = $request3->getBody()->getContents();
        $response3 = collect(json_decode($response3,true));
-       $response3 = $this->paginate($response3, '5');
+       $response3 = $this->paginate($response3, '10');
        $response3->appends($request->only('data'));
 
        return view('layouts/OnlineEvent/showOnlineEvent')->with('response',$response3);
@@ -175,11 +175,77 @@ class OnlineEventController extends Controller
       $request = $client->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventAll');
       $response = $request->getBody()->getContents();
       $response = collect(json_decode($response,true));
-      $response = $this->paginate($response, '5');
+      $response = $this->paginate($response, '10');
 
       return view('layouts/OnlineEvent/showOnlineEvent')
       ->with('response',$response);
 
+    }
+
+    public function updateCondition(Request $request)
+    {
+      $temp = $request->input('id');
+      $client3 = new \GuzzleHttp\Client();
+      $request3 = $client3->get("https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventId?GetOnlineEventId=$temp");
+      $response3 = $request3->getBody()->getContents();
+      $response3 = json_decode($response3,true);
+
+      foreach ($response3 as $dt)
+      {
+        $date=substr($dt['AddDate'],15,-3);
+        $date2=substr($dt['AddDate'],18);
+        $eventStr=strtoupper(substr($dt['EventName'],0,3));
+        $eventStr =$date.$date2.$eventStr;
+
+        if ($dt['IsActive']=="Y") {
+          $client = new \GuzzleHttp\Client();
+          $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/CreateOrUpdateOnlineEvent',[
+            'json'=>[
+            'Id'=>$dt['Id'],
+            'EventCode'=>$eventStr,
+            'CodeAreaLelang'=>$dt['CodeAreaLelang'],
+            'AreaLelang'=> $dt['AreaLelang'],
+            'CodeBalaiLelang'=> $dt['CodeBalaiLelang'],
+            'BalaiLelang'=> $dt['BalaiLelang'],
+            'EventName'=> $dt['EventName'],
+            'StartDate'=> $dt['StartDate'],
+            'EndDate'=> $dt['EndDate'],
+            'OpenHouseStartDate'=> $dt['OpenHouseStartDate'],
+            'OpenHouseEndDate'=> $dt['OpenHouseEndDate'],
+            'AddDate'=>$dt['AddDate'],
+            'IsActive'=> 'N'
+            ]
+          ]);
+        }elseif ($dt['IsActive']=="N") {
+          $client = new \GuzzleHttp\Client();
+          $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/CreateOrUpdateOnlineEvent',[
+            'json'=>[
+            'Id'=>$dt['Id'],
+            'EventCode'=>$eventStr,
+            'CodeAreaLelang'=>$dt['CodeAreaLelang'],
+            'AreaLelang'=> $dt['AreaLelang'],
+            'CodeBalaiLelang'=> $dt['CodeBalaiLelang'],
+            'BalaiLelang'=> $dt['BalaiLelang'],
+            'EventName'=> $dt['EventName'],
+            'StartDate'=> $dt['StartDate'],
+            'EndDate'=> $dt['EndDate'],
+            'OpenHouseStartDate'=> $dt['OpenHouseStartDate'],
+            'OpenHouseEndDate'=> $dt['OpenHouseEndDate'],
+            'AddDate'=>$dt['AddDate'],
+            'IsActive'=> 'Y'
+            ]
+          ]);
+        }
+      }
+
+      $client = new \GuzzleHttp\Client();
+      $request = $client->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventAll');
+      $response = $request->getBody()->getContents();
+      $response = collect(json_decode($response,true));
+      $response = $this->paginate($response, '10');
+
+      return view('layouts/OnlineEvent/showOnlineEvent')
+      ->with('response',$response);
     }
 
     // public function search(Request $request)
