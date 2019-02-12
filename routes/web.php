@@ -21,6 +21,8 @@ Route::get('/ShowCreateOnlineEvent', 'OnlineEventController@showCreateOnlineEven
 Route::get('/SearchOnlineEvent', 'OnlineEventController@show');
 Route::get('/CreateOnlineEvent','OnlineEventController@create');
 Route::get('/UpdateCondition','OnlineEventController@updateCondition');
+Route::post('/UploadOnlineEvent','OnlineEventController@upload');
+Route::get('/ShowUploadOnlineEvent','OnlineEventController@showUpload');
 
 Route::get('/MasterGCM', 'MasterGCMController@show');
 Route::get('/ShowCreateMasterGCM', 'MasterGCMController@ShowCreateMasterGCM');
@@ -30,5 +32,7 @@ Route::get('/ShowEditMasterGCM','MasterGCMController@showById');
 Route::post('/EditMasterGCM','MasterGCMController@edit');
 Route::get('/ShowDataMasterGCM','MasterGCMController@showById');
 Route::post('/Excel','MasterGCMController@export');
+Route::post('/UploadMasterGCM','MasterGCMController@upload');
+Route::get('/ShowUploadMasterGCM','MasterGCMController@showUpload');
 
 Route::get('/home','blogController@getGuzzleRequest');

@@ -12,7 +12,8 @@
     						<h1 class="page-head-line">Online Event </h1>
     						</div>
     						<a href="/ShowCreateOnlineEvent"><button class="btn btn-primary"><i class="fa fa-plus">  </i>Create New Online Event  </button></a>
-  							<button class="btn btn-primary"><i class="fa fa-upload"> </i>  Upload Online Item</button>
+                <a href="/ShowUploadOnlineEvent"><button class="btn btn-primary"><i class="fa fa-upload"> </i>  Upload Online Item</button></a>
+
               </div>
           </div>
           <div class="row">

@@ -55,14 +55,34 @@ class UsersExport implements FromCollection, WithHeadings
           'Char Desc 4',
           'Char Value 5',
           'Char Desc 5',
-          'Added Date',
-          'User Added',
-          'Updated Date',
           'Is Active',
+          'TimeStamp1',
+          'TimeStamp1',
       ];
   }
 
-
+  // public function postExcel(Request $request)
+  //     {
+  //         if($request->hasFile('import_file')){
+  //             $path = $request->file('import_file')->getRealPath();
+  //             $data = Excel::load($path)->get();
+  //
+  //             if($data->count()){
+  //                 foreach ($data as $key => $value) {
+  //                     $arr[] = [
+  //                                 'country'      => $value->Country
+  //                                 'country_code' => $value->CountryCode,
+  //                             ];
+  //                 }
+  //
+  //                 if( ! empty($arr)){
+  //                     DB::table('products')->insert($arr);
+  //                 }
+  //             }
+  //         }
+  //
+  //         return back()->with(['arr' => $arr]);
+  //     }
 
     // public function view(): View
     // {

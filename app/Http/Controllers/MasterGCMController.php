@@ -7,8 +7,12 @@ use GuzzleHttp\Client;
 use Excel;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Exports\UsersExport;
+use App\Imports\UserImport;
+
 class MasterGCMController extends Controller
 {
+
+
   public function show(Request $request)
    {
 
@@ -384,13 +388,13 @@ class MasterGCMController extends Controller
     public function export(Request $request)
     {
       $data=$request->input('Condition2');
-      
+
       $client3 = new \GuzzleHttp\Client();
       $request3 = $client3->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/GetMasterGCMAll');
       $response3 = $request3->getBody()->getContents();
       // $data=json_decode($response3,true);
-
-      return Excel::download(new UsersExport($data), 'export.xlsx');
+      $name="BidMart_MST_GCM_".strtoupper($data)."_".date('Y-m-d').".xlsx";
+      return Excel::download(new UsersExport($data), $name);
       // return Excel::download(new UsersExport($request), 'users.xlsx');
       // $data_array[] = array('data','data2');
       // foreach ($data as $dt)
@@ -405,5 +409,107 @@ class MasterGCMController extends Controller
       //           $sheet->fromArray($data_array,null,'A1',false,false);
       //         });
       // })->download('xlsx');
+    }
+
+    public function showUpload()
+    {
+      return view('layouts/MasterGCM/uploadMaterGCM');
+    }
+
+    public function upload(Request $request)
+    {
+        $array = Excel::toArray(new UserImport, $request->file('import_excel')); //IMPORT FILE
+        foreach ($array as $dt)
+        {
+          $dataExport=$dt;
+        }
+
+        $count=0;
+        foreach ($dataExport as $dt2)
+         {
+
+            if ($count!=0)
+            {
+              $Condition=$dt2[0];
+              $client5 = new \GuzzleHttp\Client();
+              $request5 = $client5->get("https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/GetMasterGCMbyCondition?MasterGCMCondition=$Condition");
+              $response5 = $request5->getBody()->getContents();
+              $dataCondition= json_decode($response5,true);
+
+                if ($dataCondition != null)
+                {
+
+                  $client = new \GuzzleHttp\Client();
+                  $name = $this->FileImage($request);
+                  $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/CreateOrUpdateMasterGCM',[
+                    'json'=>[
+                      'Condition'=>$dt2[0],
+                      'CharValue1'=>$dt2[1],
+                      'CharDesc1'=>$dt2[2],
+                      'CharValue2'=>$dt2[3],
+                      'CharDesc2'=>$dt2[4],
+                      'CharValue3'=>$dt2[5],
+                      'CharDesc3'=>$dt2[6],
+                      'CharValue4'=>$dt2[7],
+                      'CharDesc4'=>$dt2[8],
+                      'CharValue5'=>$dt2[9],
+                      'CharDesc5'=>$dt2[10],
+                      'AddedDate'=>$request->input('AddedDate'),
+                      'UpdatedDate'=>"",
+                      'UserUpdated'=>"",
+                      'IsActive'=>$dt2[11],
+                      'TimeStamp1'=>$dt2[12],
+                      'TimeStamp2'=>$dt2[13],
+                    ]
+                  ]);
+
+                }
+                elseif($dataCondition == null)
+                {
+
+                  $client = new \GuzzleHttp\Client();
+                  $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/CreateOrUpdateConditionMasterGCM',[
+                    'json'=>[
+                      'Condition'=>$dt2[0],
+                    ]
+                  ]);
+
+                  $client = new \GuzzleHttp\Client();
+                  $name = $this->FileImage($request);
+                  $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/CreateOrUpdateMasterGCM',[
+                    'json'=>[
+                      'Condition'=>$dt2[0],
+                      'CharValue1'=>$dt2[1],
+                      'CharDesc1'=>$dt2[2],
+                      'CharValue2'=>$dt2[3],
+                      'CharDesc2'=>$dt2[4],
+                      'CharValue3'=>$dt2[5],
+                      'CharDesc3'=>$dt2[6],
+                      'CharValue4'=>$dt2[7],
+                      'CharDesc4'=>$dt2[8],
+                      'CharValue5'=>$dt2[9],
+                      'CharDesc5'=>$dt2[10],
+                      'AddedDate'=>$request->input('AddedDate'),
+                      'UpdatedDate'=>"",
+                      'UserUpdated'=>"",
+                      'IsActive'=>$dt2[11],
+                      'TimeStamp1'=>$dt2[12],
+                      'TimeStamp2'=>$dt2[13],
+                    ]
+                  ]);
+              }
+            }
+            $count++;
+        }
+
+        $client2 = new \GuzzleHttp\Client();
+        $request2 = $client2->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/ShowMasterGCMCondition');
+        $response2 = $request2->getBody()->getContents();
+
+        $tempDelete=$this->tempDelete($request);
+
+        return view('layouts/MasterGCM/showMasterGCM')
+        ->with('response2',json_decode($response2,true))
+        ->with('response3',$tempDelete);
     }
 }

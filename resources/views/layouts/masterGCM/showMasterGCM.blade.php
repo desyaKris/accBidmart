@@ -9,7 +9,8 @@
     						</div>
 
     						<a href="/ShowCreateMasterGCM"><button class="btn btn-primary"><i class="fa fa-plus">  </i>Create Master GCM  </button></a>
-  							<button class="btn btn-primary"><i class="fa fa-upload"> </i> Upload Master GCM</button>
+                <a href="{{url('/ShowUploadMasterGCM')}}"><button class="btn btn-primary"><i class="fa fa-upload"> </i> Upload Master GCM</button></a>
+
                 <form action="{{url('/Excel')}}" method="post" enctype="multipart/form-data">
                   {!! csrf_field() !!}
                   <?php foreach ($response3 as $dt2): ?>

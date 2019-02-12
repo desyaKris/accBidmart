@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use App\Imports\UserImport;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Excel;
+
 class OnlineEventController extends Controller
 {
   public function show(Request $request)
@@ -247,6 +250,88 @@ class OnlineEventController extends Controller
       return view('layouts/OnlineEvent/showOnlineEvent')
       ->with('response',$response);
     }
+
+    public function showUpload(){
+      return view('layouts/OnlineEvent/uploadOnlineEvent');
+    }
+
+    public function upload(Request $request)
+    {
+      $this->validate($request, [
+            'import_excel' => 'required|mimes:xls,xlsx'
+        ]);
+
+      if($request->hasFile('import_excel'))
+      {
+        $array = Excel::toArray(new UserImport, $request->file('import_excel')); //IMPORT FILE
+        foreach ($array as $dt)
+        {
+          $dataExport=$dt;
+        }
+        $count=0;
+        foreach ($dataExport as $dt2)
+         {
+            if ($count!=0)
+            {
+              $client4 = new \GuzzleHttp\Client();
+              $request4 = $client4->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventAreaLelang');
+              $response4 = $request4->getBody()->getContents();
+              $response4 = json_decode($response4,true);
+
+              $client5 = new \GuzzleHttp\Client();
+              $request5 = $client5->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOlineEventBalaiLelang');
+              $response5 = $request5->getBody()->getContents();
+              $response5 = json_decode($response5,true);
+              $client = new \GuzzleHttp\Client();
+
+              foreach ($response4 as $dt4)
+              {
+                if ($dt4['AreaLelang'] == $dt2[0])
+                {
+                  foreach ($response5 as $dt5) {
+                    if ($dt5['BalaiLelang'] == $dt2[1])
+                    {
+                      $date=substr($request->input('AddDate'),15,-3);
+                      $date2=substr($request->input('AddDate'),18);
+                      $eventStr=strtoupper(substr($dt2[2],0,3));
+                      $eventStr =$date.$date2.$eventStr;
+
+                      $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/CreateOrUpdateOnlineEvent',[
+                        'json'=>[
+                        'EventCode'=>$eventStr,
+                        'CodeAreaLelang'=>$dt4['CodeAreaLelang'],
+                        'AreaLelang'=> $dt2[0],
+                        'CodeBalaiLelang'=> $dt5['CodeBalaiLelang'],
+                        'BalaiLelang'=> $dt2[1],
+                        'EventName'=> $dt2[2],
+                        'StartDate'=> $dt2[3],
+                        'EndDate'=> $dt2[4],
+                        'OpenHouseStartDate'=> $dt2[5],
+                        'OpenHouseEndDate'=> $dt2[6],
+                        'AddDate'=>$request->input('AddDate'),
+                        'IsActive'=> $dt2[7]
+                        ]
+                      ]);
+                    }
+                  }
+                }
+              }
+            }
+            $count++;
+        }
+
+      }
+
+      $client = new \GuzzleHttp\Client();
+      $request = $client->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventAll');
+      $response = $request->getBody()->getContents();
+      $response = collect(json_decode($response,true));
+      $response = $this->paginate($response, '10');
+
+      return view('layouts/OnlineEvent/showOnlineEvent')
+      ->with('response',$response);
+    }
+
 
     // public function search(Request $request)
     // {
