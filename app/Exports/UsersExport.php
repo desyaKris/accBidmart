@@ -38,7 +38,27 @@ class UsersExport implements FromCollection, WithHeadings
     // }
     //
     // dd($row);
-      return collect($response3);
+    foreach ($response3 as $dt)
+    {$array[] =
+    array(
+      'Condition'=>$dt['Condition'],
+      'Char Value 1'=>$dt['CharValue1'],
+      'Char Desc 1'=>$dt['CharDesc1'],
+      'Char Value 2'=>$dt['CharValue2'],
+      'Char Desc 2'=>$dt['CharDesc2'],
+      'Char Value 3'=>$dt['CharValue3'],
+      'Char Desc 3'=>$dt['CharDesc3'],
+      'Char Value 4'=>$dt['CharValue4'],
+      'Char Desc 4'=>$dt['CharDesc4'],
+      'Char Value 5'=>$dt['CharValue5'],
+      'Char Desc 5'=>$dt['CharDesc5'],
+      'Is Active'=>$dt['IsActive'],
+      'TimeStamp1'=>$dt['TimeStamp1'],
+      'TimeStamp2'=>$dt['TimeStamp2'],
+    );
+  }
+
+      return collect($array);
   }
 
   public function headings(): array

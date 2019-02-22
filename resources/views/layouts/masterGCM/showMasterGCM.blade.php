@@ -28,17 +28,29 @@
           <div class="row">
               <div class="col-md-12">
                   <div class="alert alert-info">
-                    <form action="{{url('/MasterGCM')}}"  method="get">
+                    <form action="{{url('/MasterGCM')}}"  method="get" id="search">
                     <input type="text" class="form-control1" name="ValueDesc" placeholder="Type CharValue or CharDesc" />
-                        <select name="Condition">
-                          <option>--Chosee Condition--</option>
-                          <?php foreach ($response2 as $dt2): ?>
-                              <option>{{$dt2['Condition']}}</option>
-                          <?php endforeach; ?>
-                        </select>
+
+                    <select id="Condition" name="Condition" >
+                      @if(empty($response4))
+                      <option>--Chosee Condition--</option>
+                      <?php foreach ($response2 as $dt2): ?>
+                          <option value = "{{$dt2['Condition']}}">{{$dt2['Condition']}}</option>
+                      <?php endforeach; ?>
+                      @else
+                      <?php foreach ($response4 as $dt4): ?>
+                        <option>{{$dt4}}</option>
+                        <?php foreach ($response2 as $dt2): ?>
+                            <option value = "{{$dt2['Condition']}}">{{$dt2['Condition']}}</option>
+                        <?php endforeach; ?>
+                      <?php endforeach; ?>
+                      @endif
+                    </select>
+
                     <button class="btn btn-primary" ><i class="fa fa-search "></i>Search</button>
                     <a href="/MasterGCM"><button class="btn btn-primary"><i class="fa fa-refresh "></i> Reset</button></a>
                     </form>
+
                   </div>
               </div>
           </div>
@@ -62,14 +74,35 @@
                         </tr>
                     </thead>
                     <tbody>
-                      <?php foreach ($response3 as $dt): ?>
+                      <?php foreach ($response3 as $key => $dt): ?>
                         <tr>
                           <td>{{$dt['CharValue1']}}</td>
                           <td>{{$dt['CharDesc1']}}</td>
-                          <td>{{$dt['CharDesc2']}}</td>
+                          @if(empty($dt['CharValue2']))
+                          <td></td>
+                          @else
                           <td>{{$dt['CharValue2']}}</td>
-                          <td>{{$dt['CharDesc3']}}</td>
+                          @endif
+
+                          @if(empty($dt['CharDesc2']))
+                          <td></td>
+                          @else
+                          <td>{{$dt['CharDesc2']}}</td>
+                          @endif
+
+                          @if(empty($dt['CharValue3']))
+                          <td></td>
+                          @else
                           <td>{{$dt['CharValue3']}}</td>
+                          @endif
+
+                          @if(empty($dt['CharDesc3']))
+                          <td></td>
+                          @else
+                          <td>{{$dt['CharDesc3']}}</td>
+                          @endif
+
+
                           <td>{{$dt['IsActive']}}</td>
                           <td>
                             <form action="{{url('/ShowDataMasterGCM')}}" method="get">
@@ -88,6 +121,11 @@
                             <form action="{{url('/DeleteMasterGCM')}}" method="get">
                               <input style="display:none" name="id" value="{{$dt['Id']}}">
                               <input style="display:none" name="Condition" value="{{$dt['Condition']}}">
+                              @if(empty($dt['Image1']))
+
+                              @else
+                                <input type="text" style="display:none" name="dataImage" value="{{$dt['Image1']}}">
+                              @endif
                               <button  class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data?')"><i class="fa fa-trash"></i></button>
                             </form>
                           </td>
@@ -96,10 +134,46 @@
                       <?php endforeach; ?>
                     </tbody>
                 </table>
-                {{$response3->withPath('/MasterGCM')->links()}}
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    @if($response3->total() < 10)
+                      <label>
+                        {{$response3->total()}} records
+                      </label>
+                    @else
+                      <label>
+                        {{$response3->firstItem()}} to
+                        {{$response3->lastItem()}} of
+                        {{$response3->total()}} records
+                      </label>
+                    @endif
+                  </div>
+                  <div class="form-group col-md-6" align="right">
+                    {{$response3->withPath('/MasterGCM')->links()}}
+                  </div>
+                </div>
+
               </div>
 
             </div>
           </div>
+          <script>
+           $('#Condition').on('change', function(){
+               var value = $(this).val();
+                var base_url = '{{ url("/") }}';
+
+               if(value != ''){
+                   $.ajax({
+                       type: "GET",
+                       url: base_url + '/Search/'+value,
+                       success: function(data){
+
+                               console.log(value);
+                                 document.getElementById("search").submit();
+                       }
+                   });
+               } $('Condition').val(value).change();
+           });
+          </script>
 </div>
 @endsection

@@ -14,7 +14,7 @@
     <div class="row">
       <div class="col-md-12">
                   <div class="alert alert-info">
-                    <form action="{{url('/EditMasterGCM')}}"  autocomplete="off" method="POST" novalidate enctype="multipart/form-data">
+                    <form action="{{url('/EditMasterGCM')}}"  autocomplete="off" method="POST" enctype="multipart/form-data">
                       {!! csrf_field() !!}
                       <?php foreach ($response as $dt3): ?>
                         <label for="">Condition</label>
@@ -28,30 +28,77 @@
                                     <input type="text" class="form-control1" name="CharDesc1" value="{{$dt3['CharDesc1']}}" required/>
 
             						<label for="">Char Value 2</label>
-                                    <input type="text" class="form-control1" name="CharValue2" value="{{$dt3['CharValue2']}}"/>
-            						<label for="">Char Desc 2</label>
-                                    <input type="text" class="form-control1" name="CharDesc2" value="{{$dt3['CharDesc2']}}"/>
+                            @if(empty($dt3['CharValue2']))
+                            <input type="text" class="form-control1" name="CharValue2" value=""/>
+                            @else
+                            <input type="text" class="form-control1" name="CharValue2" value="{{$dt3['CharValue2']}}"/>
+                            @endif
+
+
+                        <label for="">Char Desc 2</label>
+                            @if(empty($dt3['CharDesc2']))
+                            <input type="text" class="form-control1" name="CharDesc2" value=""/>
+                            @else
+                            <input type="text" class="form-control1" name="CharDesc2" value="{{$dt3['CharDesc2']}}"/>
+                            @endif
+
 
             						<label for="">Char Value 3</label>
-                                    <input type="text" class="form-control1" name="CharValue3" value="{{$dt3['CharValue3']}}"/>
-            						<label for="">Char Desc 3</label>
-            						<input type="text" class="form-control1" name="CharDesc3" value="{{$dt3['CharDesc3']}}"/>
+                            @if(empty($dt3['CharValue3']))
+                            <input type="text" class="form-control1" name="CharValue3" value=""/>
+                            @else
+                            <input type="text" class="form-control1" name="CharValue3" value="{{$dt3['CharValue3']}}"/>
+                            @endif
 
-            						<label for="">Char Value 4</label>
-                                    <input type="text" class="form-control1" name="CharValue4" value="{{$dt3['CharValue4']}}"/>
-            						<label for="">Char Desc 4</label>
-                                    <input type="text" class="form-control1" name="CharDesc4" value="{{$dt3['CharDesc4']}}"/>
+
+            						<label for="">Char Desc 3</label>
+                            @if(empty($dt3['CharDesc3']))
+                            <input type="text" class="form-control1" name="CharDesc3" value=""/>
+                            @else
+                            <input type="text" class="form-control1" name="CharDesc3" value="{{$dt3['CharDesc3']}}"/>
+                            @endif
+
+
+                        <label for="">Char Value 4</label>
+                            @if(empty($dt3['CharValue4']))
+                            <input type="text" class="form-control1" name="CharValue4" value=""/>
+                            @else
+                            <input type="text" class="form-control1" name="CharValue4" value="{{$dt3['CharValue4']}}"/>
+                            @endif
+
+
+                        <label for="">Char Desc 4</label>
+                            @if(empty($dt3['CharDesc4']))
+                            <input type="text" class="form-control1" name="CharDesc4" value=""/>
+                            @else
+                            <input type="text" class="form-control1" name="CharDesc4" value="{{$dt3['CharDesc4']}}"/>
+                            @endif
+
 
             						<label for="">Char Value 5</label>
-                                    <input type="text" class="form-control1" name="CharValue5" value="{{$dt3['CharValue5']}}"/>
-            						<label for="">Char Desc 5</label>
-                                    <input type="text" class="form-control1" name="CharDesc5" value="{{$dt3['CharDesc5']}}"/>
-            						<br>
+                            @if(empty($dt3['CharValue5']))
+                            <input type="text" class="form-control1" name="CharValue5" value=""/>
+                            @else
+                            <input type="text" class="form-control1" name="CharValue5" value="{{$dt3['CharValue5']}}"/>
+                            @endif
 
-                        <img src="/images/{{$dt3['Image1']}}" alt="">
+
+                        <label for="">Char Desc 5</label>
+                            @if(empty($dt3['CharDesc5']))
+                            <input type="text" class="form-control1" name="CharDesc5" value=""/>
+                            @else
+                            <input type="text" class="form-control1" name="CharDesc5" value="{{$dt3['CharDesc5']}}"/>
+                            @endif
+
+            						<br>
+                        @if(empty($dt3['Image1']))
+                        <img src="" id="output" width="200px" height="auto">
+                        @else
+                        <img src="/images/{{$dt3['Image1']}}" id="output" width="200px" height="auto">
+                        @endif
+
             						<div class="form-group">
-            							<label for="exampleInputFile">Upload Picture</label>
-            							<input type="file" id="exampleInputFile" name="Pict"/>
+            							<input type="file" id="exampleInputFile" name="Pict" accept="image/*" onchange="loadFile(event)"/>
             						</div>
 
             						<label>
@@ -71,15 +118,46 @@
             						<br>
                         <label>Time Stamp1</label>
                         <br>
+                        @if(empty($dt3['TimeStamp1']))
+                        <input type="datetime-local" name="AddedDate">
+                        @else
                         <input type="datetime-local" name="AddedDate" value="{{$dt3['TimeStamp1']}}">
+                        @endif
+
                         <br>
                         <label>Time Stamp2</label>
                         <br>
+                        @if(empty($dt3['TimeStamp2']))
+                        <input type="datetime-local" name="UpdatedDate">
+                        @else
                         <input type="datetime-local" name="UpdatedDate" value="{{$dt3['TimeStamp2']}}">
+                        @endif
 
+
+                        @if(empty($dt3['Image1']))
+
+                        @else
+                        <input type="text" style="display:none" name="dataImage" value="{{$dt3['Image1']}}">
+                        @endif
+
+                        @if(empty($dt3['AddedDate']))
+
+                        @else
                         <input type="text" style="display:none"  name="AddedDate" value="{{$dt3['AddedDate']}}">
+                        @endif
+
+                        @if(empty($dt3['UpdatedDate']))
+
+                        @else
                         <input type="text" style="display:none"  name="UpdatedDate" value="<?php echo date('d-M-Y H:i:s');?>">
+                        @endif
+
+                        @if(empty($dt3['Id']))
+
+                        @else
                         <input type="text" style="display:none" name="id" value="{{$dt3['Id']}}">
+                        @endif
+
                       <?php endforeach; ?>
 
                         <br>
@@ -104,6 +182,32 @@
 
 </div>
 <script>
+
+    // // Get the modal
+    // var modal = document.getElementById('myModal');
+    //
+    // // Get the image and insert it inside the modal - use its "alt" text as a caption
+    // var img = document.getElementById('myImg');
+    // var modalImg = document.getElementById("img01");
+    // var captionText = document.getElementById("caption");
+    // img.onclick = function(){
+    // modal.style.display = "block";
+    // modalImg.src = this.src;
+    // captionText.innerHTML = this.alt;
+    // }
+    //
+    // // Get the <span> element that closes the modal
+    // var span = document.getElementsByClassName("close")[0];
+    //
+    // // When the user clicks on <span> (x), close the modal
+    // span.onclick = function() {
+    // modal.style.display = "none";
+    // }
+
+  var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+  };
 function validateAlpha(){
     var textInput = document.getElementById("myInput").value;
     textInput = textInput.replace(/[^A-Za-z_]/g, "");

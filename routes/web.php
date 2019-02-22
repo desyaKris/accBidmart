@@ -11,8 +11,12 @@
 |
 */
 
+// Route::get('/', function () {
+//     return view('layouts/master');
+// });
+
 Route::get('/', function () {
-    return view('layouts/master');
+    return view('/layouts/master');
 });
 
 Route::get('/OnlineEvent', 'OnlineEventController@show');
@@ -24,6 +28,7 @@ Route::get('/UpdateCondition','OnlineEventController@updateCondition');
 Route::post('/UploadOnlineEvent','OnlineEventController@upload');
 Route::get('/ShowUploadOnlineEvent','OnlineEventController@showUpload');
 
+
 Route::get('/MasterGCM', 'MasterGCMController@show');
 Route::get('/ShowCreateMasterGCM', 'MasterGCMController@ShowCreateMasterGCM');
 Route::post('/CreateMasterGCM', 'MasterGCMController@create');
@@ -34,5 +39,6 @@ Route::get('/ShowDataMasterGCM','MasterGCMController@showById');
 Route::post('/Excel','MasterGCMController@export');
 Route::post('/UploadMasterGCM','MasterGCMController@upload');
 Route::get('/ShowUploadMasterGCM','MasterGCMController@showUpload');
+Route::get('/Search/{data}','MasterGCMController@searchbyCondition');
 
 Route::get('/home','blogController@getGuzzleRequest');

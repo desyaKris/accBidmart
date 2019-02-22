@@ -4966,6 +4966,7 @@ a.thumbnail.active {
   color: #31708f;
   background-color: #d9edf7;
   border-color: #bce8f1;
+  width: 100%;
 }
 .alert-info hr {
   border-top-color: #a6e1ec;

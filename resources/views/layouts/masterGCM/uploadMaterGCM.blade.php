@@ -8,7 +8,7 @@
   ?>
     <div class="row">
         <div class="col-md-12" class="page-head-line">
-                  <h1 class="page-head-line">Upload Online Event</h1>
+                  <h1 class="page-head-line">Upload MasterGCM</h1>
         </div>
     </div>
     <div class="row">

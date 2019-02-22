@@ -14,10 +14,9 @@
     <div class="row">
       <div class="col-md-12">
                   <div class="alert alert-info">
-                    <form action="{{url('/CreateMasterGCM')}}"  autocomplete="off" method="POST" novalidate enctype="multipart/form-data">
+                    <form action="{{url('/CreateMasterGCM')}}"  autocomplete="off" method="POST"  enctype="multipart/form-data">
                       {!! csrf_field() !!}
                         <label for="">Condition &emsp;&emsp;</label>
-
                           <div class="autocomplete" style="width:300px;">
                             <input id="myInput" type="text" oninput="validateAlpha();" name="Condition" placeholder="Type AutoComplete or new condition" required/>
                           </div>
@@ -48,8 +47,8 @@
                                     <input type="text" class="form-control1" name="CharDesc5" />
             						<br>
             						<div class="form-group">
-            							<label for="exampleInputFile">Upload Picture</label>
-            							<input type="file" id="exampleInputFile" name="Pict" required/>
+            							<img id="output" width="30%" height="30%"/>
+            							<input type="file" id="exampleInputFile" name="Pict" accept="image/*" onchange="loadFile(event)" />
             						</div>
 
             						<label>
@@ -62,18 +61,18 @@
                         <label>Time Stamp1</label>
                         <br>
                         <input type="text" style="display:none"  name="AddedDate" value="<?php echo date('d-M-Y H:i:s');?>">
-                        
+
                         <input type="datetime-local" name="TimeStamp1">
                         <br>
                         <label>Time Stamp2</label>
                         <br>
-                        <input type="datetime-local" value="" class="date" name="TimeStamp2">
+                        <input type="datetime-local" class="date" name="TimeStamp2">
                         <br>
                         <br>
                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
 
                     </form>
-                    <a href="/MasterGCM"><button class="btn btn-primary">Cancel</button></a>
+                    <a href="/MasterGCM" class="btn btn-primary">Cancel</a>
 
                   </div>
 
@@ -84,6 +83,12 @@
 
 </div>
 <script>
+
+  var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+  };
+
 function validateAlpha(){
     var textInput = document.getElementById("myInput").value;
     textInput = textInput.replace(/[^A-Za-z_]/g, "");

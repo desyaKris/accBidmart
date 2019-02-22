@@ -1,7 +1,7 @@
 
 /*=============================================================
     Authour URL: www.designbootstrap.com
-    
+
     http://www.designbootstrap.com/
 
     License: MIT
@@ -11,13 +11,13 @@
     100% Free To use For Personal And Commercial Use.
 
     IN EXCHANGE JUST TELL PEOPLE ABOUT THIS WEBSITE
-   
+
 ========================================================  */
 
 
 
 /*==============================================
-    GENERAL  STYLES    
+    GENERAL  STYLES
  =============================================*/
 
 @import url(http://fonts.googleapis.com/css?family=Raleway);
@@ -71,7 +71,7 @@ body {
 
 
 /*==============================================
-    MENU STYLES    
+    MENU STYLES
  =============================================*/
 
 
@@ -107,7 +107,7 @@ body {
         border: 5px solid #DD1533;
     }
 
-   
+
 .active-menu {
     background-color: #fff!important;
     border-left: 5px solid #DD1533;
@@ -208,7 +208,7 @@ border-bottom: 1px solid #D2D2D2;
 
     .navbar-default .navbar-toggle .icon-bar {
         background-color: #FFF;
-        
+
     }
 
 .nav > li > a > i {
@@ -216,7 +216,7 @@ border-bottom: 1px solid #D2D2D2;
 }
 
 /*==============================================
-    NOTIFICATION  STYLES    
+    NOTIFICATION  STYLES
  =============================================*/
 .notifications-wrapper {
 margin-left:3px;
@@ -262,14 +262,14 @@ background-color: #FFF!important;
 
 }
 .notifications-wrapper .dropdown-menu {
-    margin:0px; 
+    margin:0px;
      border-radius:0px!important;
     -moz-border-radius:0px!important;
     -webkit-border-radius:0px!important;
 }
 
 /*==============================================
-    FOOTER  STYLES    
+    FOOTER  STYLES
  =============================================*/
 footer {
     background-color:#262626;
@@ -330,7 +330,7 @@ footer {
 }
 
 /*==============================================
-    MEDIA QUERIES     
+    MEDIA QUERIES
   =============================================*/
 
 @media (min-width:768px) {
@@ -360,5 +360,5 @@ footer {
 .floating-box {
     display: inline-block;
     width: 350px;
-    height: 75px;  
+    height: 75px;
 }

@@ -7,12 +7,13 @@
   $script_tz = date_default_timezone_get();
   ?>
           <div class="row">
-              <div class="col-md-12" class="page-head-line">
-    						<div class="floating-box">
-    						<h1 class="page-head-line">Online Event </h1>
-    						</div>
-    						<a href="/ShowCreateOnlineEvent"><button class="btn btn-primary"><i class="fa fa-plus">  </i>Create New Online Event  </button></a>
+              <div class="col-md-12" >
+    						<div class="page-head-line">
+    						<h1>Online Event </h1>
+                <a href="/ShowCreateOnlineEvent"><button class="btn btn-primary"><i class="fa fa-plus">  </i>Create New Online Event  </button></a>
                 <a href="/ShowUploadOnlineEvent"><button class="btn btn-primary"><i class="fa fa-upload"> </i>  Upload Online Item</button></a>
+    						</div>
+
 
               </div>
           </div>
@@ -50,34 +51,48 @@
                                 <tbody>
                                   <?php foreach ($response as $dt): ?>
 
-                                      <td>{{$dt['EventCode']}}</td>
-                                      <td>{{$dt['CodeAreaLelang']}} <br> {{$dt['AreaLelang']}}</td>
-                                      <td>{{$dt['CodeBalaiLelang']}} <br> {{$dt['BalaiLelang']}}</td>
-                                      <td>{{$dt['EventName']}}</td>
-                                      <td>{{$dt['StartDate']}} <br> to <br> {{$dt['EndDate']}}</td>
-                                      <td>{{$dt['OpenHouseStartDate']}} <br> to <br> {{$dt['OpenHouseEndDate']}}</td>
-                                      <td>{{$dt['AddDate']}}</td>
-                                      @if ($dt['IsActive'] == 'Y' )
+                                      <td>{{$dt['MstOnlineEvent']['EventCode']}}</td>
+                                      @if(!empty($dt['MstGCM']))
+                                      <td>{{$dt['MstGCM']['CharValue1']}} <br> {{$dt['MstGCM']['CharDesc1']}}</td>
+                                      @else
+                                      <td></td>
+                                      @endif
 
-                                          <form action="{{url('/UpdateCondition')}}" method="get">
-                                            <input style="display:none" name="id" value="{{$dt['Id']}}">
-                                            <!-- <td><a href="{{url('/UpdateCondition/')}}"><img src="/images/123.png" width="30" height="30"></a> -->
-                                            </td>
-                                            <!-- <td><button class="btn" ><img src="/images/123.png" width="30" height="30"></button></td> -->
-                                            <td><button class="btn"><img src="/images/123.png" width="30" height="30"></button></td>
+                                      @if(!empty($dt['MstBalaiLelang']))
+                                      <td>{{$dt['MstBalaiLelang']['Code']}} <br> {{$dt['MstBalaiLelang']['Description']}}</td>
+                                      @else
+                                      <td></td>
+                                      @endif
 
-                                          </form>
+
+                                      <td>{{$dt['MstOnlineEvent']['EventName']}}</td>
+
+
+                                      <td><?php echo date('d-M-Y H:i:s', strtotime($dt['MstOnlineEvent']['StartDate'])) ?> <br> to <br> <?php echo date('d-M-Y H:i:s', strtotime($dt['MstOnlineEvent']['EndDate'])) ?></td>
+                                      <td><?php echo date('d-M-Y H:i:s', strtotime($dt['MstOnlineEvent']['OpenHouseStartDate'])) ?> <br> to <br> <?php echo date('d-M-Y H:i:s', strtotime($dt['MstOnlineEvent']['OpenHouseEndDate'])) ?></td>
+                                      <td><?php echo date('d-M-Y H:i:s', strtotime($dt['MstOnlineEvent']['AddedDate'])) ?></td>
+                                      @if(!empty($dt['MstOnlineEvent']['IsActive']))
+                                        <form action="{{url('/UpdateCondition')}}" method="get">
+                                          <input style="display:none" name="id" value="{{$dt['MstOnlineEvent']['Id']}}">
+                                          <!-- <td><a href="{{url('/UpdateCondition/')}}"><img src="/images/123.png" width="30" height="30"></a> -->
+                                          </td>
+                                          <!-- <td><button class="btn" ><img src="/images/123.png" width="30" height="30"></button></td> -->
+                                          <td><button class="btn"><img src="/images/123.png" width="30" height="30"></button></td>
+
+                                        </form>
 
                                       @else
-                                      <form action="{{url('/UpdateCondition')}}" method="get">
-                                        <input style="display:none" name="id" value="{{$dt['Id']}}">
+                                        <form action="{{url('/UpdateCondition')}}" method="get">
+                                          <input style="display:none" name="id" value="{{$dt['MstOnlineEvent']['Id']}}">
 
-                                        <td><button class="btn"><img src="/images/1234.png" width="30" height="30"></button></td>
-                                      </form>
+                                          <td><button class="btn"><img src="/images/1234.png" width="30" height="30"></button></td>
+                                        </form>
+
                                       @endif
+
                                       <td>
                                         <form action="{{url('/EditOnlineEvent')}}"  method="get">
-                                          <input style="display:none" name="id" value="{{$dt['Id']}}">
+                                          <input style="display:none" name="id" value="{{$dt['MstOnlineEvent']['Id']}}">
 
                                           <button class="btn btn-primary"><i class="fa fa-edit "></i></button>
                                         </form>
@@ -86,7 +101,26 @@
                                   <?php endforeach; ?>
                                 </tbody>
                             </table>
-                      {{$response->withPath('/OnlineEvent')->links()}}
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                @if($response->total() < 10)
+                                  <label>
+                                    {{$response->total()}} records
+                                  </label>
+                                @else
+                                  <label>
+                                    {{$response->firstItem()}} to
+                                    {{$response->lastItem()}} of
+                                    {{$response->total()}} records
+                                  </label>
+                                @endif
+                              </div>
+                              <div class="form-group col-md-6" align="right">
+                                {{$response->withPath('/OnlineEvent')->links()}}
+                              </div>
+                            </div>
+
+
                       <!-- <div id="app">
                         <button v-on:click="greet">Greet</button>
                         <h2>@{{ results }}</h2>
