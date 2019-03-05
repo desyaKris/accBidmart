@@ -1,5 +1,7 @@
 @extends('layouts.master')
 @section('title','MasterGCM')
+@section('Bank Account','a')
+@section('Master Management','active-menu')
 @section('content')
 <div id="page-inner">
           <div class="row">

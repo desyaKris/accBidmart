@@ -1,5 +1,7 @@
 @extends('layouts.master')
 @section('title','OnlineEvent')
+@section('Bank Account','a')
+@section('Master Management','active-menu')
 @section('content')
 <div id="page-inner">
   <?php
@@ -13,8 +15,6 @@
                 <a href="/ShowCreateOnlineEvent"><button class="btn btn-primary"><i class="fa fa-plus">  </i>Create New Online Event  </button></a>
                 <a href="/ShowUploadOnlineEvent"><button class="btn btn-primary"><i class="fa fa-upload"> </i>  Upload Online Item</button></a>
     						</div>
-
-
               </div>
           </div>
           <div class="row">
@@ -78,7 +78,6 @@
                                           </td>
                                           <!-- <td><button class="btn" ><img src="/images/123.png" width="30" height="30"></button></td> -->
                                           <td><button class="btn"><img src="/images/123.png" width="30" height="30"></button></td>
-
                                         </form>
 
                                       @else

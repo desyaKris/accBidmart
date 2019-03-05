@@ -202,7 +202,7 @@
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                     <li>
-                        <a class="active-menu"  href="#"><i class="fa fa-database "></i>Master Management<span class="fa arrow"></span></a>
+                        <a class="@yield('Master Management')"  href="#"><i class="fa fa-database "></i>Master Management<span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
                             <li>
                                 <a href="#"><i class="fa"></i>Balai Lelang</a>
@@ -218,34 +218,17 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="ui.html"><i class="fa fa-venus "></i>UI Elements </a>
-
-                    </li>
 
                     <li>
-                        <a href="table.html"><i class="fa fa-bolt "></i>Data Tables </a>
-
-                    </li>
-
-
-                     <li>
-                        <a href="forms.html"><i class="fa fa-code "></i>Forms</a>
-                    </li>
-
-                    <li>
-                        <a href="#"><i class="fa fa-sitemap "></i>Multilevel Link <span class="fa arrow"></span></a>
+                        <a class="@yield('Bank Account')"><i class="fa fa-money "></i>Bank Account <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
                             <li>
-                                <a href="#"><i class="fa fa-cogs "></i>Second  Link</a>
+                                <a href="BankAccountBalaiLelang">Balai Lelang</a>
                             </li>
                              <li>
-                                <a href="#"><i class="fa fa-bullhorn "></i>Second Link</a>
+                                <a href="/BankAccountCustomer"></i>Customer</a>
                             </li>
                         </ul>
-                    </li>
-                    <li>
-                        <a href="blank.html"><i class="fa fa-dashcube "></i>Blank Page</a>
                     </li>
 
                 </ul>
@@ -274,7 +257,9 @@
     <!-- CUSTOM SCRIPTS -->
     <script src="assets/js/custom.js"></script>
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css">

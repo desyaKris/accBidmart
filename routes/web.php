@@ -17,6 +17,7 @@
 
 Route::get('/', function () {
     return view('/layouts/master');
+    // return view('welcome');
 });
 
 Route::get('/OnlineEvent', 'OnlineEventController@show');
@@ -41,4 +42,14 @@ Route::post('/UploadMasterGCM','MasterGCMController@upload');
 Route::get('/ShowUploadMasterGCM','MasterGCMController@showUpload');
 Route::get('/Search/{data}','MasterGCMController@searchbyCondition');
 
-Route::get('/home','blogController@getGuzzleRequest');
+//bank Account
+//Bank Account Customer
+Route::get('/searchBankAccountCustomer','BankAccountCustomerController@show');
+Route::get('/BankAccountCustomer','BankAccountCustomerController@show');
+//Bank Account BalaiLelang
+Route::get('/BankAccountBalaiLelang','BankAccountBalangController@show');
+Route::get('/searchBankAccountBalaiLelang','BankAccountBalangController@show');
+Route::get('/showCreateBalaiLelang','BankAccountBalangController@showCreateBalaiLelang');
+Route::get('/editBalaiLelang','BankAccountBalangController@showid');
+Route::get('/createBalaiLelang','BankAccountBalangController@createOrEdit');
+Route::get('/deteleBalaiLelang','BankAccountBalangController@delete');

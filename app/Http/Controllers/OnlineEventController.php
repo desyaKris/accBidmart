@@ -323,18 +323,4 @@ class OnlineEventController extends Controller
       return view('layouts/OnlineEvent/showOnlineEvent')
       ->with('response',$response);
     }
-
-
-    // public function search(Request $request)
-    // {
-    //   $temp = $request->input('data');
-    //   $client3 = new \GuzzleHttp\Client();
-    //   $request3 = $client3->get("https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/SearchOnlineEvent?OnlineEventSearch=$temp");
-    //   $response3 = $request3->getBody()->getContents();
-    //   $response3 = collect(json_decode($response3,true));
-    //   $response3 = $this->paginate($response3, '5');
-    //   $response3->appends($request->only('data'));
-    //
-    //   return view('layouts/OnlineEvent/showOnlineEvent')->with('response',$response3);
-    // }
 }

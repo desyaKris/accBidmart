@@ -97,7 +97,7 @@ class MasterGCMController extends Controller
     public function ShowCreateMasterGCM(Request $request)
     {
       $client3 = new \GuzzleHttp\Client();
-      $request3 = $client3->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/ShowMasterGCMCondition');
+      $request3 = $client3->get('https://acc-dev1.outsystemsenterprise.com/BidMart/rest/Laravel_MstMasterGCM/GetMasterGCMCondition');
       $response3 = $request3->getBody()->getContents();
 
       return view('layouts/MasterGCM/createMasterGCM')->with('response3',json_decode($response3,true));
