@@ -12,7 +12,7 @@ class BankAccountBalangController extends Controller
   public function show(Request $request)
   {
     $searchKeyword=$request->input('searchKeyword');
-    //untuk menghapus session sebelumnya
+    //untuk menghapus session alert sebelumnya
     Session::put('alert','null');
 
     //kondisi untuk menampilkan tabel dan menampilkan data berdasarkan keyword

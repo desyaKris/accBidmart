@@ -53,3 +53,11 @@ Route::get('/showCreateBalaiLelang','BankAccountBalangController@showCreateBalai
 Route::get('/editBalaiLelang','BankAccountBalangController@showid');
 Route::get('/createBalaiLelang','BankAccountBalangController@createOrEdit');
 Route::get('/deteleBalaiLelang','BankAccountBalangController@delete');
+
+//Auction Result
+//Batal Lelang
+Route::get('/AuctionResultBatalLelang','AuctionResultBatalLelangController@show');
+Route::get('/SearchBatalLelang','AuctionResultBatalLelangController@show');
+Route::get('/DownloadAuctionResultBatalLelang','AuctionResultBatalLelangController@download');
+//sold
+Route::get('/AuctionResultSold','AuctionResultSoldController@show');

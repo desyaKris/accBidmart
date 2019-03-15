@@ -7,12 +7,17 @@ use GuzzleHttp\Client;
 use App\Imports\UserImport;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Excel;
+use Session;
 
 class OnlineEventController extends Controller
 {
   public function show(Request $request)
    {
      $temp = $request->input('data');
+
+     //untuk menghapus session alert sebelumnya
+     Session::put('alert','null');
+
      if ($request->input('data') == null) {
        $client7 = new \GuzzleHttp\Client();
        // $request7 = $client7->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventAll');
@@ -95,11 +100,18 @@ class OnlineEventController extends Controller
     {
       $areaLelangID=$request->input('AreaLelang');
       $balaiLelangID=$request->input('BalaiLelang');
+      $eventName= $request->input('EventName');
       $client4 = new \GuzzleHttp\Client();
       // $request4 = $client4->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventAreaLelang');
       $request4 = $client4->get("https://acc-dev1.outsystemsenterprise.com/BidMart/rest/Laravel_MstMasterGCM/GetMasterGCMAreaLelangId?Chardesc1=$areaLelangID");
       $response4 = $request4->getBody()->getContents();
       $response4 = json_decode($response4,true);
+
+      //cek exist event name
+      $client7 = new \GuzzleHttp\Client();
+      $request7 = $client7->get("https://acc-dev1.outsystemsenterprise.com/BidMart/rest/Laravel_OnlineEvent/CheckExistEventName?EventName=$eventName");
+      $response7 = $request7->getBody()->getContents();
+
 
       $client5 = new \GuzzleHttp\Client();
       // $request5 = $client5->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOlineEventBalaiLelang');
@@ -109,11 +121,6 @@ class OnlineEventController extends Controller
 
       if ($request->input('Id') != null)
       {
-        $date=substr($request->input('AddedDate'),15,-3);
-        $date2=substr($request->input('AddedDate'),18);
-        $eventStr=strtoupper(substr($request->input('EventName'),0,3));
-        $eventStr =$date.$date2.$eventStr;
-
         $client = new \GuzzleHttp\Client();
         // $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/CreateOrUpdateOnlineEvent',[
         $response = $client->request('POST','https://acc-dev1.outsystemsenterprise.com/Event_CS/rest/Laravel_OnlineEvent/CreateOrUpdateOnlineEvent',[
@@ -121,7 +128,7 @@ class OnlineEventController extends Controller
           'Id'=>$request->input('Id'),
           'AreaLelangId'=> $response4,
           'BalaiLelangIdMst'=> $response5,
-          'EventCode'=>$eventStr,
+          'EventCode'=>$request->input('EventCode'),
           'EventName'=> $request->input('EventName'),
           'StartDate'=> $request->input('StartDate'),
           'EndDate'=> $request->input('EndDate'),
@@ -129,17 +136,22 @@ class OnlineEventController extends Controller
           'OpenHouseEndDate'=> $request->input('OpenHouseEndDate'),
           'AddedDate'=>$request->input('AddedDate'),
           'UserAdded'=>1234,
-          'UpdatedDate'=>null,
+          'UpdatedDate'=>$request->input('UpdatedDate'),
           'UserUpdated'=>null,
           'IsActive'=> true
           ]
         ]);
-        $alert = 'Data berhasil di edit';
+
+        $message = "OnlineEvent ".$request->input('EventName')." was successfully updated";
+        Session::put('alert','success');
+        Session::put('message',$message);
       }
       else
       {
-          $date=substr($request->input('AddedDate'),15,-3);
-          $date2=substr($request->input('AddedDate'),18);
+        if ($response7 == null)
+        {
+          $date=substr($request->input('AddedDate'),14,-3);
+          $date2=substr($request->input('AddedDate'),17);
           $eventStr=strtoupper(substr($request->input('EventName'),0,3));
           $eventStr =$date.$date2.$eventStr;
 
@@ -162,8 +174,17 @@ class OnlineEventController extends Controller
               'IsActive'=> true
             ]
           ]);
-          $alert = 'Data berhasil di tambahkan';
+          $message = "OnlineEvent ".$request->input('EventName')." was successfully created";
+          Session::put('alert','success');
+          Session::put('message',$message);
         }
+        else
+        {
+          $message = "Can't create online event because online event already exist.";
+          Session::put('alert','error');
+          Session::put('message',$message);
+        }
+      }
 
       $client = new \GuzzleHttp\Client();
       $request = $client->get('https://acc-dev1.outsystemsenterprise.com/BidMart/rest/Laravel_OnlineEvent/GetOnlineEvent');
@@ -283,12 +304,12 @@ class OnlineEventController extends Controller
                   foreach ($response5 as $dt5) {
                     if ($dt5['BalaiLelang'] == $dt2[1])
                     {
-                      $date=substr($request->input('AddDate'),15,-3);
-                      $date2=substr($request->input('AddDate'),18);
-                      $eventStr=strtoupper(substr($dt2[2],0,3));
+                      $date=substr($request->input('AddedDate'),14,-3);
+                      $date2=substr($request->input('AddedDate'),17);
+                      $eventStr=strtoupper(substr($request->input('EventName'),0,3));
                       $eventStr =$date.$date2.$eventStr;
 
-                      $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/CreateOrUpdateOnlineEvent',[
+                      $response = $client->request('POST','https://acc-dev1.outsystemsenterprise.com/Event_CS/rest/Laravel_OnlineEvent/CreateOrUpdateOnlineEvent',[
                         'json'=>[
                         'EventCode'=>$eventStr,
                         'CodeAreaLelang'=>$dt4['CodeAreaLelang'],
@@ -311,7 +332,6 @@ class OnlineEventController extends Controller
             }
             $count++;
         }
-
       }
 
       $client = new \GuzzleHttp\Client();

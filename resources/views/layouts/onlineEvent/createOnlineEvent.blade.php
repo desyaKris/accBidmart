@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','CreateOnlineEvent')
+@section('title','ACCBid - Online Event')
 @section('Bank Account','a')
 @section('Master Management','active-menu')
 @section('content')
@@ -72,7 +72,7 @@
                         </div>
                       </div>
 
-                        <input type="text" style="display:none"  name="AddedDate" value="<?php echo date('d-M-Y H:i:s');?>">
+                        <input type="text" style="display:none"  name="AddedDate" value="<?php echo date('Y-m-d H:i:s');?>">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
                       </form>
                         <a href="/OnlineEvent"><button class="btn btn-primary">Cancel</button></a>
@@ -89,16 +89,16 @@
 
 $(function(){
   $('#StartDate').datetimepicker({
-        format: 'd-M-Y H:m:s',
+        format: 'Y-MM-DD HH:mm:ss',
       });
   $('#EndDate').datetimepicker({
-        format: 'd-M-Y H:m:s',
+        format: 'Y-MM-DD HH:mm:ss',
       });
 
       $('#StartDate').on('dp.change', function (e) {
 
           let eventStartDate = moment(e.date, 'DD/MM/YYYY');
-          let minEventEndDate = eventStartDate.clone().add(1, 'days').startOf('day');
+          let minEventEndDate = eventStartDate.clone().add(0, 'days').startOf('day');
           let maxEventEndDate = eventStartDate.clone().add(30, 'days').endOf('day');
 
           $('#EndDate').data("DateTimePicker").clear();
@@ -109,16 +109,16 @@ $(function(){
 
 $(function(){
   $('#OpenHouseStartDate').datetimepicker({
-        format: 'd-M-Y H:m:s',
+        format: 'Y-MM-DD HH:mm:ss',
       });
   $('#OpenHouseEndDate').datetimepicker({
-        format: 'd-M-Y H:m:s',
+        format: 'Y-MM-DD HH:mm:ss',
       });
 
       $('#OpenHouseStartDate').on('dp.change', function (e) {
 
           let eventStartDate = moment(e.date, 'DD/MM/YYYY');
-          let minEventEndDate = eventStartDate.clone().add(1, 'days').startOf('day');
+          let minEventEndDate = eventStartDate.clone().add(0, 'days').startOf('day');
           let maxEventEndDate = eventStartDate.clone().add(30, 'days').endOf('day');
 
           $('#OpenHouseEndDate').data("DateTimePicker").clear();

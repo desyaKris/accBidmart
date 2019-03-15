@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','EditOnlineEvent')
+@section('title','ACCBid - Online Event')
 @section('Bank Account','a')
 @section('Master Management','active-menu')
 @section('content')
@@ -59,54 +59,35 @@
                           <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Event Date</label>
                             <div class="col-sm-3">
-                              <div class='input-group date' id='start_date_picker'>
-                                <input type='text' class="form-control"  name="StartDate" value="{{$dt1['MstOnlineEvent']['StartDate']}}"/>
-                                <span class="input-group-addon">
-                                  <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                              </div>
+                              <input type="text" id="StartDate" name="StartDate" class="form-control" value="<?php echo date('Y-m-d H:i:s', strtotime($dt1['MstOnlineEvent']['StartDate'])) ?>">
                             </div>
-
                             <div class="col-sm-3">
-                              <div class='input-group date' id='end_date_picker'>
-                                <input type='text' class="form-control" name="EndDate" value="{{$dt1['MstOnlineEvent']['EndDate']}}"/>
-                                <span class="input-group-addon">
-                                  <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                              </div>
+                              <input type="text" id="EndDate" name="EndDate" class="form-control" value="<?php echo date('Y-m-d H:i:s', strtotime($dt1['MstOnlineEvent']['EndDate'])) ?>">
                             </div>
                           </div>
 
                           <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Open House Date</label>
                             <div class="col-sm-3">
-                              <div class='input-group date' id='start_date_picker1'>
-
-                                <input type='text' class="form-control"  name="OpenHouseStartDate" value="{{$dt1['MstOnlineEvent']['OpenHouseStartDate']}}"/>
-                                <span class="input-group-addon">
-                                  <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                              </div>
+                              <input type="text" id="OpenHouseStartDate" name="OpenHouseStartDate" class="form-control" value="<?php echo date('Y-m-d H:i:s', strtotime($dt1['MstOnlineEvent']['OpenHouseStartDate'])) ?>">
                             </div>
                             <div class="col-sm-3">
-                              <div class='input-group date' id='end_date_picker1'>
-                                <input type='text' class="form-control" name="OpenHouseEndDate" value="{{$dt1['MstOnlineEvent']['OpenHouseEndDate']}}"/>
-                                <span class="input-group-addon">
-                                  <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                              </div>
+                              <input type="text" id="OpenHouseEndDate" name="OpenHouseEndDate" class="form-control" value="<?php echo date('Y-m-d H:i:s', strtotime($dt1['MstOnlineEvent']['OpenHouseStartDate'])) ?>">
                             </div>
                           </div>
+                          
+                          <input type="text" style="display:none" name="EventCode" value="{{$dt1['MstOnlineEvent']['EventCode']}}">
+                          <input type="text" style="display:none" name="EventCode" value="{{$dt1['MstOnlineEvent']['AddedDate']}}">
                         <?php endforeach; ?>
 
                         <br>
-                        <input style="display:none" name="AddDate" value="{{$dt1['MstOnlineEvent']['AddedDate']}}" required>
                         @if($dt1['MstOnlineEvent']['IsActive'] = true)
                           <input type="text" style="display:none" name="IsActive" value=true>
                         @else
                           <input type="text" style="display:none" name="IsActive" value=false>
                         @endif
                         <input style="display:none" name="Id" value="{{$dt1['MstOnlineEvent']['Id']}}" required>
+                        <input type="text" style="display:none"  name="UpdatedDate" value="<?php echo date('d-M-Y H:i:s');?>">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
                       </form>
                       <a href="/OnlineEvent"><button class="btn btn-primary" onclick="myFunction()">Cancel</button></a>
@@ -117,46 +98,45 @@
 <!-- /. PAGE INNER  -->
 </div>
 <script type="text/javascript">
-    $(function () {
-    $('#start_date_picker').datetimepicker({
-          format: 'd-M-Y H:m:s',
-        });
-    $('#end_date_picker').datetimepicker({
-          format: 'd-M-Y H:m:s',
-        });
-    $('#start_date_picker').on('dp.change', function (e) {
-
-        let eventStartDate = moment(e.date, 'DD/MM/YYYY');
-        let minEventEndDate = eventStartDate.clone().add(1, 'days').startOf('day');
-        let maxEventEndDate = eventStartDate.clone().add(30, 'days').endOf('day');
-
-        $('#end_date_picker').data("DateTimePicker").clear();
-        $('#end_date_picker').data("DateTimePicker").maxDate(maxEventEndDate);
-        $('#end_date_picker').data("DateTimePicker").minDate(minEventEndDate);
-    });
-
-  });
-
-
-
-  $(function () {
-  $('#start_date_picker1').datetimepicker({
-        format: 'd-M-Y H:m:s',
+$(function(){
+  $('#StartDate').datetimepicker({
+        format: 'Y-MM-DD HH:mm:ss',
       });
-  $('#end_date_picker1').datetimepicker({
-        format: 'd-M-Y H:m:s',
+  $('#EndDate').datetimepicker({
+        format: 'Y-MM-DD HH:mm:ss',
       });
-      $('#start_date_picker1').on('dp.change', function (e) {
 
-          let eventStartDate1 = moment(e.date, 'DD/MM/YYYY');
-          let minEventEndDate1 = eventStartDate.clone().add(1, 'days').startOf('day');
-          let maxEventEndDate1 = eventStartDate.clone().add(30, 'days').endOf('day');
+      $('#StartDate').on('dp.change', function (e) {
 
-          $('#end_date_picker1').data("DateTimePicker").clear();
-          $('#end_date_picker1').data("DateTimePicker").maxDate(maxEventEndDate1);
-          $('#end_date_picker1').data("DateTimePicker").minDate(minEventEndDate1);
+          let eventStartDate = moment(e.date, 'DD/MM/YYYY');
+          let minEventEndDate = eventStartDate.clone().add(0, 'days').startOf('day');
+          let maxEventEndDate = eventStartDate.clone().add(30, 'days').endOf('day');
+
+          $('#EndDate').data("DateTimePicker").clear();
+          $('#EndDate').data("DateTimePicker").maxDate(maxEventEndDate);
+          $('#EndDate').data("DateTimePicker").minDate(minEventEndDate);
       });
-});
+})
+
+$(function(){
+  $('#OpenHouseStartDate').datetimepicker({
+        format: 'Y-MM-DD HH:mm:ss',
+      });
+  $('#OpenHouseEndDate').datetimepicker({
+        format: 'Y-MM-DD HH:mm:ss',
+      });
+
+      $('#OpenHouseStartDate').on('dp.change', function (e) {
+
+          let eventStartDate = moment(e.date, 'DD/MM/YYYY');
+          let minEventEndDate = eventStartDate.clone().add(0, 'days').startOf('day');
+          let maxEventEndDate = eventStartDate.clone().add(30, 'days').endOf('day');
+
+          $('#OpenHouseEndDate').data("DateTimePicker").clear();
+          $('#OpenHouseEndDate').data("DateTimePicker").maxDate(maxEventEndDate);
+          $('#OpenHouseEndDate').data("DateTimePicker").minDate(minEventEndDate);
+      });
+})
 
 
 </script>
