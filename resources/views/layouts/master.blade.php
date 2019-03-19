@@ -11,6 +11,7 @@
     <!--CUSTOM STYLES-->
     <link href="assets/css/style.css" rel="stylesheet" />
 
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
       <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -283,7 +284,7 @@
                                 <a href="/AuctionResultSold">Sold</a>
                             </li>
                              <li>
-                                <a href="#">Unsold</a>
+                                <a href="/AuctionResultUnsold">Unsold</a>
                             </li>
 							               <li>
                                 <a href="/AuctionResultBatalLelang">Batal Lelang</a>

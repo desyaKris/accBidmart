@@ -61,3 +61,10 @@ Route::get('/SearchBatalLelang','AuctionResultBatalLelangController@show');
 Route::get('/DownloadAuctionResultBatalLelang','AuctionResultBatalLelangController@download');
 //sold
 Route::get('/AuctionResultSold','AuctionResultSoldController@show');
+Route::get('/OnlineEventByDate/{data}','AuctionResultSoldController@filterOnlineEventByDate');
+Route::get('/OnlineEventByDate2','AuctionResultSoldController@show');
+
+//Unsold
+Route::get('/AuctionResultUnsold','AuctionResultUnsoldController@show');
+Route::get('/OnlineEventUnsoldByDate/{data}','AuctionResultUnsoldController@filterOnlineEventByDate');
+Route::get('/showAllUnsoldData/{date}','AuctionResultUnsoldController@showDataUnsold');

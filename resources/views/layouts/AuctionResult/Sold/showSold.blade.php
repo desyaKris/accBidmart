@@ -48,11 +48,15 @@
                       </form>
                       <div class="form-group row">
                         <div class="col-sm-3">
-                          <input type="text" id="StartDate" name="StartDate" value="<?php echo date('Y-m-d');?>" class="form-control">
+                          <input type="text" id="StartDate" name="StartDate"  class="form-control" value="<?php echo date('Y-m-d');?>">
                         </div>
+
                         <div class="col-sm-5">
-                          <select class="form-control" name="OnlineEvent" required>
-                              <option>tommy</option>
+                          <select class="form-control" name="OnlineEvent" id="OnlineEvent">
+                              <option>--All Online Event--</option>
+                              <?php foreach ($OnlineEventbyDate as $dt): ?>
+                                <option>{{$dt['MstOnlineEvent']['EventName']}}</option>
+                              <?php endforeach; ?>
                           </select>
                         </div>
                       </div>
@@ -110,11 +114,14 @@
                       </form>
                       <div class="form-group row">
                         <div class="col-sm-3">
-                          <input type="text" id="StartDate" name="StartDate" value="<?php echo date('Y-m-d');?>" class="form-control">
+                          <input type="text" id="StartDate1" name="StartDate1" value="<?php echo date('Y-m-d');?>" class="form-control">
                         </div>
                         <div class="col-sm-5">
-                          <select class="form-control" name="OnlineEvent" required>
-                              <option>tommy</option>
+                          <select class="form-control" name="OnlineEvent1" id="OnlineEvent1">
+                              <option>--All Online Event--</option>
+                              <?php foreach ($OnlineEventbyDate as $dt): ?>
+                                <option>{{$dt['MstOnlineEvent']['EventName']}}</option>
+                              <?php endforeach; ?>
                           </select>
                         </div>
                       </div>
@@ -140,7 +147,7 @@
                               <th>SYNC ERROR</th>
                             </tr>
                         </thead>
-                        <tbody>      
+                        <tbody>
                         </tr>
                         </tbody>
                     </table>
@@ -171,11 +178,14 @@
                       </form>
                       <div class="form-group row">
                         <div class="col-sm-3">
-                          <input type="text" id="StartDate" name="StartDate" value="<?php echo date('Y-m-d');?>" class="form-control">
+                          <input type="text" id="StartDate2" name="StartDate2" value="<?php echo date('Y-m-d');?>" class="form-control">
                         </div>
                         <div class="col-sm-5">
-                          <select class="form-control" name="OnlineEvent" required>
-                              <option>tommy</option>
+                          <select class="form-control" name="OnlineEvent2" id="OnlineEvent2">
+                              <option>--All Online Event--</option>
+                              <?php foreach ($OnlineEventbyDate as $dt): ?>
+                                <option>{{$dt['MstOnlineEvent']['EventName']}}</option>
+                              <?php endforeach; ?>
                           </select>
                         </div>
                       </div>
@@ -213,32 +223,144 @@
               </div>
             </div>
           </div>
-
-          <script>
-          function openCity(evt, cityName) {
-          var i, tabcontent, tablinks;
-          tabcontent = document.getElementsByClassName("tabcontent");
-          for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-          }
-          tablinks = document.getElementsByClassName("tablinks");
-          for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-          }
-          document.getElementById(cityName).style.display = "block";
-          evt.currentTarget.className += " active";
-          }
-
-          // Get the element with id="defaultOpen" and click on it
-          document.getElementById("defaultOpen").click();
-          </script>
-
 </div>
+<script>
+  function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+  }
+
+  // Get the element with id="defaultOpen" and click on it
+  document.getElementById("defaultOpen").click();
+</script>
+
 <script type="text/javascript">
 $(function(){
   $('#StartDate').datetimepicker({
         format: 'Y-MM-DD',
       });
+
+      $('#StartDate').on('dp.change', function(){
+          var value = $(this).val();
+           var base_url = '{{ url("/") }}';
+
+          if(value != ''){
+              $.ajax({
+                  type: "GET",
+                  url: base_url + '/OnlineEventByDate/'+value,
+                  success: function(data){
+                    var arr = {};
+                    console.log(data)
+                    data.forEach(function(mst){
+                      arr[mst.MstOnlineEvent.EventCode] = mst.MstOnlineEvent.EventName
+                    })
+                    var d = JSON.stringify(arr)
+                    buildDropdown(jQuery.parseJSON(d),$('#OnlineEvent'),'--All Online Event--');
+                  }
+              });
+          }
+      });
+
+      function buildDropdown(result, dropdown, emptyMessage) {
+            dropdown.html('');
+            dropdown.append('<option value="">' + emptyMessage + '</option>');
+            if(result != '')
+            {
+                $.each(result, function(k, v) {
+                    dropdown.append('<option value="' + k + '">' + v + '</option>');
+                });
+            }
+        }
 })
+
+<script type="text/javascript">
+$(function(){
+  $('#StartDate1').datetimepicker({
+        format: 'Y-MM-DD',
+      });
+
+      $('#StartDate1').on('dp.change', function(){
+          var value = $(this).val();
+           var base_url = '{{ url("/") }}';
+
+          if(value != ''){
+              $.ajax({
+                  type: "GET",
+                  url: base_url + '/OnlineEventByDate/'+value,
+                  success: function(data){
+                    var arr = {};
+                    console.log(data)
+                    data.forEach(function(mst){
+                      arr[mst.MstOnlineEvent.EventCode] = mst.MstOnlineEvent.EventName
+                    })
+                    var d = JSON.stringify(arr)
+                    buildDropdown(jQuery.parseJSON(d),$('#OnlineEvent1'),'--All Online Event--');
+                  }
+              });
+          }
+      });
+
+      function buildDropdown(result, dropdown, emptyMessage) {
+            dropdown.html('');
+            dropdown.append('<option value="">' + emptyMessage + '</option>');
+            if(result != '')
+            {
+                $.each(result, function(k, v) {
+                    dropdown.append('<option value="' + k + '">' + v + '</option>');
+                });
+            }
+        }
+})
+
+</script>
+
+<script type="text/javascript">
+$(function(){
+  $('#StartDate2').datetimepicker({
+        format: 'Y-MM-DD',
+      });
+
+      $('#StartDate2').on('dp.change', function(){
+          var value = $(this).val();
+           var base_url = '{{ url("/") }}';
+
+          if(value != ''){
+              $.ajax({
+                  type: "GET",
+                  url: base_url + '/OnlineEventByDate/'+value,
+                  success: function(data){
+                    var arr = {};
+                    console.log(data)
+                    data.forEach(function(mst){
+                      arr[mst.MstOnlineEvent.EventCode] = mst.MstOnlineEvent.EventName
+                    })
+                    var d = JSON.stringify(arr)
+                    buildDropdown(jQuery.parseJSON(d),$('#OnlineEvent2'),'--All Online Event--');
+                  }
+              });
+          }
+      });
+
+      function buildDropdown(result, dropdown, emptyMessage) {
+            dropdown.html('');
+            dropdown.append('<option value="">' + emptyMessage + '</option>');
+            if(result != '')
+            {
+                $.each(result, function(k, v) {
+                    dropdown.append('<option value="' + k + '">' + v + '</option>');
+                });
+            }
+        }
+})
+
 </script>
 @endsection
