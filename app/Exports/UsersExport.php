@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Exports;
+namespace CMSBidmartACC\Exports;
 
-use App\User;
+use CMSBidmartACC\User;
 use Illuminate\Contracts\view\View;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Illuminate\Pagination\LengthAwarePaginator;

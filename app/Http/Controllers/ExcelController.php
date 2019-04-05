@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace CMSBidmartACC\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Exports\UsersExport;
+use CMSBidmartACC\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Http\Controllers\Controller;
+use CMSBidmartACC\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 
 class ExcelController extends Controller

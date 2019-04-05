@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace CMSBidmartACC\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -43,5 +43,15 @@ class AuctionResultSoldController extends Controller
 
     return $response;
 
+  }
+
+  public function showDataUnsoldByOnlineEvent($OnlineEventName)
+  {
+    $client = new \GuzzleHttp\Client();
+    $request = $client->get("https://acc-dev1.outsystemsenterprise.com/BidMart/rest/Laravel_AuctionResult/GetUnsold?Unsold_FilterUnsold=&Unsold_FilterDate=$date&Unsold_BalaiLelang=$data");
+    $response = $request->getBody()->getContents();
+    $response = json_decode($response,true);
+
+    return $response;
   }
 }

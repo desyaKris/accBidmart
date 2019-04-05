@@ -170,11 +170,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        CMSBidmartACC\Providers\AppServiceProvider::class,
+        CMSBidmartACC\Providers\AuthServiceProvider::class,
+        // CMSBidmartACC\Providers\BroadcastServiceProvider::class,
+        CMSBidmartACC\Providers\EventServiceProvider::class,
+        CMSBidmartACC\Providers\RouteServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],

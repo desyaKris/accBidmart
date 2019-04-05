@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Imports;
+namespace CMSBidmartACC\Imports;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Facades\Hash;
 

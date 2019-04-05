@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace CMSBidmartACC\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-use App\Imports\UserImport;
+use CMSBidmartACC\Imports\UserImport;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Carbon\Carbon;
 use Excel;
 use Session;
 
@@ -269,7 +270,11 @@ class OnlineEventController extends Controller
 
     public function upload(Request $request)
     {
-      dd($request->file('import_excel'));
+
+      date_default_timezone_set('Asia/Bangkok');
+      $script_tz = date_default_timezone_get();
+
+      $request->file('import_excel');
       $this->validate($request, [
             'import_excel' => 'required|mimes:xls,xlsx'
         ]);
@@ -277,24 +282,72 @@ class OnlineEventController extends Controller
       if($request->hasFile('import_excel'))
       {
         $array = Excel::toArray(new UserImport, $request->file('import_excel')); //IMPORT FILE
+
         foreach ($array as $dt)
         {
           $dataExport=$dt;
         }
         $count=0;
+        $countRepeat=0;
+        $countSuccess=0;
+
+        $client4 = new \GuzzleHttp\Client();
+        $request4 = $client4->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventAreaLelang');
+        $response4 = $request4->getBody()->getContents();
+        $response4 = json_decode($response4,true);
+
+        $client5 = new \GuzzleHttp\Client();
+        $request5 = $client5->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOlineEventBalaiLelang');
+        $response5 = $request5->getBody()->getContents();
+        $response5 = json_decode($response5,true);
+
         foreach ($dataExport as $dt2)
          {
             if ($count!=0)
             {
-              $client4 = new \GuzzleHttp\Client();
-              $request4 = $client4->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventAreaLelang');
-              $response4 = $request4->getBody()->getContents();
-              $response4 = json_decode($response4,true);
+              $client = new \GuzzleHttp\Client();
 
-              $client5 = new \GuzzleHttp\Client();
-              $request5 = $client5->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOlineEventBalaiLelang');
-              $response5 = $request5->getBody()->getContents();
-              $response5 = json_decode($response5,true);
+              $EndDate = Carbon::parse($dt2[4]);
+              $StartDate = Carbon::parse($dt2[3]);
+              $OpenHouseStartDate = Carbon::parse($dt2[5]);
+              $OpenHouseEndDate = Carbon::parse($dt2[6]);
+
+              if($EndDate->greaterThanOrEqualTo($StartDate))
+              {
+                if ($OpenHouseEndDate->greaterThanOrEqualTo($OpenHouseStartDate))
+                {
+                  $client7 = new \GuzzleHttp\Client();
+                  $request7 = $client7->get("https://acc-dev1.outsystemsenterprise.com/BidMart/rest/Laravel_OnlineEvent/CheckExistEventName?EventName=$dt2[2]");
+                  $response7 = $request7->getBody()->getContents();
+                  if($response7 == null)
+                  {
+                    foreach ($response4 as $dt4)
+                    {
+                      if ($dt4['AreaLelang'] == $dt2[0])
+                      {
+                        foreach ($response5 as $dt5) {
+                          if ($dt5['BalaiLelang'] == $dt2[1])
+                          {
+                            $countSuccess++;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            $count++;
+            $countRepeat++;
+        }
+      }
+      $count=0;
+      if($countRepeat-1 == $countSuccess)
+      {
+        foreach ($dataExport as $dt2)
+         {
+            if ($count!=0)
+            {
               $client = new \GuzzleHttp\Client();
 
               foreach ($response4 as $dt4)
@@ -304,12 +357,17 @@ class OnlineEventController extends Controller
                   foreach ($response5 as $dt5) {
                     if ($dt5['BalaiLelang'] == $dt2[1])
                     {
-                      $date=substr($request->input('AddedDate'),14,-3);
-                      $date2=substr($request->input('AddedDate'),17);
-                      $eventStr=strtoupper(substr($request->input('EventName'),0,3));
-                      $eventStr =$date.$date2.$eventStr;
+                      $EndDate = Carbon::parse($dt2[4])->toDateTimeString();
+                      $StartDate = Carbon::parse($dt2[3])->toDateTimeString();
+                      $OpenHouseStartDate = Carbon::parse($dt2[5])->toDateTimeString();
+                      $OpenHouseEndDate = Carbon::parse($dt2[6])->toDateTimeString();
 
-                      $response = $client->request('POST','https://acc-dev1.outsystemsenterprise.com/Event_CS/rest/Laravel_OnlineEvent/CreateOrUpdateOnlineEvent',[
+                      $date=substr($request->input('AddedDate'),15,-3);
+                      $date2=substr($request->input('AddedDate'),18);
+                      $eventStr=strtoupper(substr($dt2[2],0,3));
+                      $eventStr =$date.$date2.$eventStr;
+                      // https://acc-dev1.outsystemsenterprise.com/Event_CS/rest/Laravel_OnlineEvent/CreateOrUpdateOnlineEvent
+                      $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/CreateOrUpdateOnlineEvent',[
                         'json'=>[
                         'EventCode'=>$eventStr,
                         'CodeAreaLelang'=>$dt4['CodeAreaLelang'],
@@ -317,10 +375,10 @@ class OnlineEventController extends Controller
                         'CodeBalaiLelang'=> $dt5['CodeBalaiLelang'],
                         'BalaiLelang'=> $dt2[1],
                         'EventName'=> $dt2[2],
-                        'StartDate'=> $dt2[3],
-                        'EndDate'=> $dt2[4],
-                        'OpenHouseStartDate'=> $dt2[5],
-                        'OpenHouseEndDate'=> $dt2[6],
+                        'StartDate'=> $StartDate,
+                        'EndDate'=> $EndDate,
+                        'OpenHouseStartDate'=> $OpenHouseStartDate,
+                        'OpenHouseEndDate'=> $OpenHouseEndDate,
                         'AddDate'=>$request->input('AddDate'),
                         'IsActive'=> $dt2[7]
                         ]
@@ -332,8 +390,18 @@ class OnlineEventController extends Controller
             }
             $count++;
         }
+        dd("sukses");
+        $message = "OnlineEvent ".$request->input('EventName')." was successfully created";
+        Session::put('alert','success');
+        Session::put('message',$message);
       }
-
+      else
+      {
+        dd("error");
+        $message = "Can't create online event because online event already exist.";
+        Session::put('alert','error');
+        Session::put('message',$message);
+      }
       $client = new \GuzzleHttp\Client();
       $request = $client->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/GetOnlineEventAll');
       $response = $request->getBody()->getContents();

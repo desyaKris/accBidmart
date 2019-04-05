@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace CMSBidmartACC\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;

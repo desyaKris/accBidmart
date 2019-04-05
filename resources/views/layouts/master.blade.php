@@ -11,7 +11,8 @@
     <!--CUSTOM STYLES-->
     <link href="assets/css/style.css" rel="stylesheet" />
 
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
       <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -22,7 +23,9 @@
     <![endif]-->
 
     <style>
-
+    td.highlight {
+        background-color: whitesmoke !important;
+    }
     .vertical-center {
   margin: 0;
   position: absolute;
@@ -326,6 +329,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker-standalone.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
+    @yield('scripts')
   @stack('scriptgue')
 </body>
 </html>

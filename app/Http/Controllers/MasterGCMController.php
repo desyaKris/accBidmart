@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace CMSBidmartACC\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Excel;
 use File;
 use Illuminate\Pagination\LengthAwarePaginator;
-use App\Exports\UsersExport;
-use App\Imports\UserImport;
+use CMSBidmartACC\Exports\UsersExport;
+use CMSBidmartACC\Imports\UserImport;
 
 class MasterGCMController extends Controller
 {

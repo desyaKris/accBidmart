@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace CMSBidmartACC\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use GuzzleHttp\Client;
-use App\Exports\UsersExport;
+use CMSBidmartACC\Exports\UsersExport;
 use Excel;
 use File;
 

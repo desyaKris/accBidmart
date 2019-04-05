@@ -16,8 +16,8 @@
 // });
 
 Route::get('/', function () {
-    return view('/layouts/master');
-    // return view('welcome');
+    // return view('/layouts/master');
+    return view('welcome');
 });
 
 Route::get('/OnlineEvent', 'OnlineEventController@show');
@@ -68,3 +68,4 @@ Route::get('/OnlineEventByDate2','AuctionResultSoldController@show');
 Route::get('/AuctionResultUnsold','AuctionResultUnsoldController@show');
 Route::get('/OnlineEventUnsoldByDate/{data}','AuctionResultUnsoldController@filterOnlineEventByDate');
 Route::get('/showAllUnsoldData/{date}','AuctionResultUnsoldController@showDataUnsold');
+Route::get('/showUnsoldByOnlineEvent/{date}/{OnlineEventName}','AuctionResultUnsoldController@showDataUnsoldByOnlineEvent');

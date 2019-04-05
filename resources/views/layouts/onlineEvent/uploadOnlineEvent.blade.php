@@ -26,7 +26,7 @@
                         <div class="form-group">
             							<input type="file" id="exampleInputFile" name="import_excel" required/>
             						</div>
-                          <input type="text" style="display:none"  name="AddDate" value="<?php echo date('d-M-Y H:i:s');?>">
+                          <input type="text" style="display:none"  name="AddedDate" value="<?php echo date('d-M-Y H:i:s');?>">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i> Upload</button>
 
                     </form>
