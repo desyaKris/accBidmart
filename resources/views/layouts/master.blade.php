@@ -250,11 +250,22 @@
         <nav  class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
+                  <li>
+                      <a class="@yield('Dashboard')"  href="#"><i class="fa fa-database"></i>DASHBOARD<span class="fa arrow"></span></a>
+                      <ul class="nav nav-second-level">
+                          <li>
+                              <a href="#"><i class="fa"></i>Summary</a>
+                          </li>
+                           <li>
+                              <a href="#"><i class="fa"></i>Monitoring</a>
+                          </li>
+                      </ul>
+                  </li>
                     <li>
                         <a class="@yield('Master Management')"  href="#"><i class="fa fa-database "></i>Master Management<span class="fa arrow"></span></a>
-						<ul class="nav nav-second-level">
+						            <ul class="nav nav-second-level">
                             <li>
-                                <a href="#"><i class="fa"></i>Balai Lelang</a>
+                                <a href="/viewBalaiLelang"><i class="fa"></i>Balai Lelang</a>
                             </li>
                              <li>
                                 <a href="/OnlineEvent"><i class="fa"></i>Online Event</a>
@@ -267,21 +278,34 @@
                             </li>
                         </ul>
                     </li>
-
                     <li>
-                        <a class="@yield('Bank Account')"><i class="fa fa-money "></i>Bank Account <span class="fa arrow"></span></a>
-                         <ul class="nav nav-second-level">
+                        <a class="@yield('User Management')"  href="#"><i class="fa fa-user "></i>User Management<span class="fa arrow"></span></a>
+						            <ul class="nav nav-second-level">
                             <li>
-                                <a href="BankAccountBalaiLelang">Balai Lelang</a>
+                                <a href="#"><i class="fa"></i>Role Management</a>
                             </li>
                              <li>
-                                <a href="/BankAccountCustomer"></i>Customer</a>
+                                <a href="#"><i class="fa"></i>User Mobile</a>
+                            </li>
+							              <li>
+                                <a href="#"><i class="fa"></i>User CMS</a>
+                            </li>
+							              <li>
+                                <a href="/MasterGCM"><i class="fa"></i>Verifikasi Account Binding</a>
+                            </li>
+                            <li>
+                                <a href="/MasterGCM"><i class="fa"></i>Approval Changes User</a>
                             </li>
                         </ul>
                     </li>
 
+
                     <li>
-                        <a class="@yield('Auction Result')"><i class="fa fa-car "></i>Auction Result <span class="fa arrow"></span></a>
+                        <a class="@yield('Auction Event')" href="/AuctionEvent"><i class="fa fa-calendar "></i>Auction Event</a>
+                    </li>
+
+                    <li>
+                        <a class="@yield('Auction Result')" href="#"><i class="fa fa-car "></i>Auction Result <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
                             <li>
                                 <a href="/AuctionResultSold">Sold</a>
@@ -295,6 +319,54 @@
                         </ul>
                     </li>
 
+                    <li>
+                        <a class="@yield('Bank Account')" href="#"><i class="fa fa-money "></i>Bank Account <span class="fa arrow"></span></a>
+                         <ul class="nav nav-second-level">
+                            <li>
+                                <a href="BankAccountBalaiLelang">Balai Lelang</a>
+                            </li>
+                             <li>
+                                <a href="/BankAccountCustomer"></i>Customer</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a class="@yield('Content Management')" href="#"><i class="fa fa-dollar "></i>Content Management<span class="fa arrow"></span></a>
+                         <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/showContentManagementPromo">Promo</a>
+                            </li>
+                             <li>
+                                <a href="/showContentManagementMasterContent">MasterContent</a>
+                            </li>
+                            <li>
+                               <a href="#">Push Notifications</a>
+                           </li>
+                           <li>
+                              <a href="#">Recommend</a>
+                          </li>
+                          <li>
+                             <a href="#">Support</a>
+                         </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a class="@yield('Deposit')" href="#"><i class="fa fa-dollar "></i>Deposit<span class="fa arrow"></span></a>
+                         <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">Top Up</a>
+                            </li>
+                             <li>
+                                <a href="#">Penarikan</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a class="@yield('View History')" href="#"><i class="fa fa-history "></i>View History and Transaction</a>
+                    </li>
                 </ul>
             </div>
 

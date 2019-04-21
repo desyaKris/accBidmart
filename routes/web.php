@@ -16,8 +16,8 @@
 // });
 
 Route::get('/', function () {
-    // return view('/layouts/master');
-    return view('welcome');
+    return view('/layouts/master');
+    // return view('welcome');
 });
 
 Route::get('/OnlineEvent', 'OnlineEventController@show');
@@ -54,6 +54,11 @@ Route::get('/editBalaiLelang','BankAccountBalangController@showid');
 Route::get('/createBalaiLelang','BankAccountBalangController@createOrEdit');
 Route::get('/deteleBalaiLelang','BankAccountBalangController@delete');
 
+//AuctionEvent
+Route::get('/indexAuction','AuctionController@index');
+Route::get('/searchAuction','AuctionController@search');
+Route::post('/createAuction','AuctionController@create');
+
 //Auction Result
 //Batal Lelang
 Route::get('/AuctionResultBatalLelang','AuctionResultBatalLelangController@show');
@@ -63,9 +68,53 @@ Route::get('/DownloadAuctionResultBatalLelang','AuctionResultBatalLelangControll
 Route::get('/AuctionResultSold','AuctionResultSoldController@show');
 Route::get('/OnlineEventByDate/{data}','AuctionResultSoldController@filterOnlineEventByDate');
 Route::get('/OnlineEventByDate2','AuctionResultSoldController@show');
-
 //Unsold
 Route::get('/AuctionResultUnsold','AuctionResultUnsoldController@show');
 Route::get('/OnlineEventUnsoldByDate/{data}','AuctionResultUnsoldController@filterOnlineEventByDate');
 Route::get('/showAllUnsoldData/{date}','AuctionResultUnsoldController@showDataUnsold');
 Route::get('/showUnsoldByOnlineEvent/{date}/{OnlineEventName}','AuctionResultUnsoldController@showDataUnsoldByOnlineEvent');
+
+//ContentManagement
+//Promo
+Route::get('/showContentManagementPromo','ContentManagementPromoController@show');
+Route::post('/createContentManagementPromo','ContentManagementPromoController@createOrUpdate');
+Route::get('/showCreateContentManagementPromo','ContentManagementPromoController@showCreate');
+Route::get('/showByIdContentManagementPromo','ContentManagementPromoController@showById');
+Route::get('/deleteContentManagementPromo','ContentManagementPromoController@delete');
+//MasterContent
+Route::get('/showContentManagementMasterContent','ContentManagementMasterContentController@show');
+Route::post('/createContentManagementMasterContent','ContentManagementMasterContentController@createOrUpdate');
+Route::get('/showCreateContentManagementMasterContent','ContentManagementMasterContentController@showCreate');
+Route::get('/showByIdContentManagementMasterContent','ContentManagementMasterContentController@showById');
+Route::get('/deleteContentManagementMasterContent','ContentManagementMasterContentController@delete');
+
+
+//Unit
+Route::get('/indexUnit','UnitController@index');
+Route::get('/searchUnit','UnitController@search');
+Route::post('/createUnit','UnitController@create'); //buat unit baru->post
+Route::post('/updateUnit','UnitController@update');
+Route::post('/uploadUnit','UnitController@upload'); //upload excel
+Route::get('/updateAvailable/{id}','UnitController@gantiActive'); //event on-click
+Route::get('/updateHotItem/{id}','UnitController@gantiHotItem'); //event on-click
+Route::get('/deleteUnit/{id}','UnitController@destroy');
+
+//Balai Lelang
+Route::get('/indexBalaiLelang','BalaiLelangController@index');
+Route::get('/searchBalaiLelang','BalaiLelangController@search');
+Route::post('/createBalaiLelang','BalaiLelangController@create'); //buat balai lelang baru
+Route::post('/updateBalaiLelang','BalaiLelangController@update');
+Route::post('/uploadBalaiLelang','BalaiLelangController@upload'); //upload excel
+Route::get('/deleteBalaiLelang/{id}','BalaiLelangController@destroy');
+
+//DepositController
+Route::get('/searchTop','DepositController@searchTop');
+Route::post('/updateBalaiLelang','DepositController@updateTop');
+Route::get('/searchPenarikan','DepositController@searchPnr');
+Route::post('/updateBalaiLelang','DepositController@updatePnr');
+
+//balai lelang
+Route::get('/viewBalaiLelang','BalaiLelangController@index');
+Route::get('/buatBalaiLelang','BalaiLelangController@buat');
+Route::get('/updateBalaiLelang/{id}','BalaiLelangController@edit');
+Route::get('/uploadBalaiLelang','BalaiLelangController@upld');

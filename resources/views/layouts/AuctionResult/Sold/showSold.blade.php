@@ -1,8 +1,13 @@
 @extends('layouts.master')
 @section('title','ACCBid - Auction Result')
-@section('Bank Account','a')
+@section('Dashboard','a')
 @section('Master Management','a')
+@section('User Management','a')
+@section('Auction Event','a')
 @section('Auction Result','active-menu')
+@section('Bank Account','a')
+@section('Deposit','a')
+@section('View History','a')
 @section('content')
 <div id="page-inner">
   <!-- untuk setdefault timezone Indonesia -->

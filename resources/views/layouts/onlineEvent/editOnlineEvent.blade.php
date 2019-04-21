@@ -75,9 +75,9 @@
                               <input type="text" id="OpenHouseEndDate" name="OpenHouseEndDate" class="form-control" value="<?php echo date('Y-m-d H:i:s', strtotime($dt1['MstOnlineEvent']['OpenHouseStartDate'])) ?>">
                             </div>
                           </div>
-                          
+
                           <input type="text" style="display:none" name="EventCode" value="{{$dt1['MstOnlineEvent']['EventCode']}}">
-                          <input type="text" style="display:none" name="EventCode" value="{{$dt1['MstOnlineEvent']['AddedDate']}}">
+                          <input type="text" style="display:none" name="AddedDate" value="{{$dt1['MstOnlineEvent']['AddedDate']}}">
                         <?php endforeach; ?>
 
                         <br>
