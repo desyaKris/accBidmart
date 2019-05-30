@@ -9,6 +9,11 @@
 @section('Deposit','a')
 @section('ContentManagement','Active-menu')
 @section('View History','a')
+<!-- @section('head')
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.js"></script>
+@endsection -->
 @section('content')
 
 <div id="page-inner">
@@ -30,13 +35,16 @@
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control1" name="Name" required>
+                            <input type="text" class="form-control1" name="Name" id="Name" oninput="validateAlpha();" required>
                         </div>
                       </div>
 
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Description</label>
-                          <input type="text" name="Description" required>
+                        <div class="col-sm-10">
+                          <textarea name="Description" id="summernote" required></textarea>
+                        </div>
+                          <!-- <input type="text" name="Description" id="summernote" required> -->
                       </div>
 
                       <div class="form-group row">
@@ -59,7 +67,7 @@
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Promo Code</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control1" name="PromoCode">
+                            <input type="text" class="form-control1" name="PromoCode" id="PromoCode" oninput="validateAlpha2();">
                         </div>
                       </div>
 
@@ -84,20 +92,22 @@
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Start Date</label>
                         <div class="col-sm-3">
-                          <input type="text" id="StartDate" name="StartDate" class="form-control">
+                          <input type="text" id="StartDate" name="StartDate" class="form-control" placeholder="YYYY-MM-DD HH:mm:SS">
                         </div>
                       </div>
 
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">End Date</label>
                         <div class="col-sm-3">
-                          <input type="text" id="EndDate" name="EndDate" class="form-control">
+                          <input type="text" id="EndDate" name="EndDate" class="form-control" placeholder="YYYY-MM-DD HH:mm:SS">
                         </div>
                       </div>
 
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Syarat Dan Ketentuan</label>
-                            <input type="text" class="form-control1" name="SyaratDanKetentuan">
+                        <div class="col-sm-10">
+                          <textarea name="SyaratDanKetentuan" id="summernote1" required></textarea>
+                        </div>
                       </div>
 
                       <div class="form-group row">
@@ -116,6 +126,52 @@
 <!-- /. PAGE INNER  -->
 
 </div>
+
+<script>
+
+function validateAlpha(){
+    var textInput = document.getElementById("Name").value;
+    textInput = textInput.replace(/[^A-Za-z_]/g, "");
+    document.getElementById("Name").value = textInput;
+};
+
+function validateAlpha2(){
+    var textInput = document.getElementById("PromoCode").value;
+    textInput = textInput.replace(/[^A-Za-z_]/g, "");
+    document.getElementById("PromoCode").value = textInput;
+};
+
+  $('#summernote').summernote({
+    tabsize: 3,
+    height: 150,
+    toolbar: [
+    // [groupName, [list of button]]
+    ['misc',['undo','redo']],
+    ['style', ['bold', 'italic', 'underline']],
+    ['font', ['strikethrough']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['insert',['link','picture','table']]
+  ]
+  });
+
+  $('#summernote1').summernote({
+    tabsize: 3,
+    height: 150,
+    toolbar: [
+    // [groupName, [list of button]]
+    ['misc',['undo','redo']],
+    ['style', ['bold', 'italic', 'underline']],
+    ['font', ['strikethrough']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['insert',['link','picture','table']]
+  ]
+  });
+</script>
+
+
+
 <script type="text/javascript">
 $(function(){
   $('#StartDate').datetimepicker({
@@ -137,5 +193,7 @@ $(function(){
       });
 })
 </script>
+
+
 
 @endsection

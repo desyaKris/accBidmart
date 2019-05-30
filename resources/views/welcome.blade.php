@@ -1,40 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+    <meta charset="UTF-8">
+    <title>bootstrap4</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
   </head>
   <body>
-    <table id="example" class="table table-striped table-bordered" style="width:100%">
-    </table>
+    <textarea name="SyaratDanKetentuan" id="summernote" rows="8" cols="80" required></textarea>
+    <button onclick="myFunction()">Click me</button>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+  var textareaValue = $('#summernote').summernote('code');
+  console.log(textareaValue)
+}
+</script>
 
 
-    <script type="text/javascript">
-    var dataSet = [
-  [ "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ],
-  [ "Garrett Winters", "Accountant", "Tokyo", "8422", "2011/07/25", "$170,750" ],
-  [ "Ashton Cox", "Junior Technical Author", "San Francisco", "1562", "2009/01/12", "$86,000" ],
-];
-console.log(dataSet)
-$(document).ready(function() {
-  $('#example').DataTable( {
-      data: dataSet,
-      columns: [
-          { title: "Name" },
-          { title: "Position" },
-          { title: "Office" },
-          { title: "Extn." },
-          { title: "Start date" },
-          { title: "Salary" }
-      ]
-  } );
-} );
+    <script>
+      $('#summernote').summernote({
+        placeholder: 'Hello bootstrap 4',
+        tabsize: 2,
+        height: 100
+      });
     </script>
   </body>
 </html>

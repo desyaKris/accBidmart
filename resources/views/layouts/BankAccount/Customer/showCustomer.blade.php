@@ -46,7 +46,11 @@
                                 <tbody>
                                   <?php foreach ($response as $dt): ?>
                                     <tr>
+                                      @if(!empty($dt['User']['Name']))
                                       <td>{{$dt['User']['Name']}}</td>
+                                      @else
+                                      <td></td>
+                                      @endif
                                       <td>{{$dt['MstGCM']['CharDesc1']}}</td>
                                       <td>{{$dt['MstBankAccountCustomer']['NoRekening']}}</td>
                                       <td>{{$dt['MstBankAccountCustomer']['NamaRekening']}}</td>

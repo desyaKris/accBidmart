@@ -48,29 +48,36 @@
 
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Title</label>
-                        <div class="col-sm-6">
-                          <input type="text" class="form-control1" name="Title" required/>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control1" name="Title" id="Title" oninput="validateAlpha();" required/>
                         </div>
                       </div>
 
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Snippet</label>
-                        <div class="col-sm-3">
-                          <input type="text" name="Snippet" class="form-control">
+                        <div class="col-sm-10">
+                          <textarea name="Snippet" id='summernote'></textarea>
                         </div>
                       </div>
 
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Description</label>
-                        <div class="col-sm-2" align="left">
+                        <div class="col-sm-3">
                           <label>
-                            <input type="hidden" name="IsActive" value="N">
-                            <input type="checkbox" name="IsActive" value="Y" >
+                            <input type="hidden" name="IsActive"  value="N">
+                            <input type="checkbox" name="IsActive" onclick="toggle('textEditor')" value="Y" >
                             Use Text Editor?
-              						</label>
+                          </label>
                         </div>
-                        <div class="col-sm-2">
-                          <input type="text" name="Detail" class="form-control" required>
+                      </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-2"></label>
+                        <div id="textEditor" class="col-sm-10" style="display:none;">
+                          <textarea name="DetailTextEditor" id='summernote1'></textarea>
+                        </div>
+                        <div id="textArea" class="col-sm-10">
+                            <textarea name="DetailTextArea" id='value' class="form-control" rows=8></textarea>
                         </div>
                       </div>
 
@@ -120,6 +127,54 @@
 <!-- /. PAGE INNER  -->
 
 </div>
+<script>
 
+function validateAlpha(){
+    var textInput = document.getElementById("Title").value;
+    textInput = textInput.replace(/[^A-Za-z_]/g, "");
+    document.getElementById("Title").value = textInput;
+};
 
+function toggle(id) {
+    if (document.getElementById(id).style.display == 'none') {
+        document.getElementById(id).style.display = 'block';
+        document.getElementById("textArea").style.display = 'none';
+        var x = document.getElementById("value").value;
+
+    } else {
+        document.getElementById(id).style.display = 'none';
+        document.getElementById("textArea").style.display = 'block';
+    }
+}
+</script>
+
+<script>
+  $('#summernote').summernote({
+    tabsize: 3,
+    height: 150,
+    toolbar: [
+    // [groupName, [list of button]]
+    ['misc',['undo','redo']],
+    ['style', ['bold', 'italic', 'underline']],
+    ['font', ['strikethrough']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['insert',['link','picture','table']]
+  ]
+  });
+
+  $('#summernote1').summernote({
+    tabsize: 3,
+    height: 150,
+    toolbar: [
+    // [groupName, [list of button]]
+    ['misc',['undo','redo']],
+    ['style', ['bold', 'italic', 'underline']],
+    ['font', ['strikethrough']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['insert',['link','picture','table']]
+  ]
+  });
+</script>
 @endsection

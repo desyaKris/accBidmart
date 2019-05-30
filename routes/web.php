@@ -41,6 +41,24 @@ Route::post('/Excel','MasterGCMController@export');
 Route::post('/UploadMasterGCM','MasterGCMController@upload');
 Route::get('/ShowUploadMasterGCM','MasterGCMController@showUpload');
 Route::get('/Search/{data}','MasterGCMController@searchbyCondition');
+Route::get('/SearchMasterGCM','MasterGCMController@searchMasterGCM');
+
+//User Management
+//Verifikasi Account Binding
+Route::get('/VerifikasiAccountBidding','UserManagementVerifikasiAccountController@show');
+Route::get('/searchVerifikasiAccountBidding','UserManagementVerifikasiAccountController@show');
+Route::get('/showByIdAccountBidding','UserManagementVerifikasiAccountController@showById');
+Route::post('/editVerifikasiAccountBidding','UserManagementVerifikasiAccountController@createOrupdate');
+//Approval Change User
+Route::get('/showApprovalChangesUser','UserManagementApprovalUserController@show');
+Route::get('/searchApprovalChangesUserPending','UserManagementApprovalUserController@searchUserPending');
+Route::get('/showByIdApprovalChangesUserPending','UserManagementApprovalUserController@showByIdUserPending');
+Route::post('/editApprovalChangesUserPending','UserManagementApprovalUserController@editUserPending');
+
+Route::get('/searchApprovalChangesUserExpired','UserManagementApprovalUserController@searchUserExpired');
+Route::get('/showByIdApprovalChangesUserExpired','UserManagementApprovalUserController@showByIdUserExpired');
+Route::post('/editApprovalChangesUserExpired','UserManagementApprovalUserController@editUserExpired');
+
 
 //bank Account
 //Bank Account Customer
@@ -81,6 +99,7 @@ Route::post('/createContentManagementPromo','ContentManagementPromoController@cr
 Route::get('/showCreateContentManagementPromo','ContentManagementPromoController@showCreate');
 Route::get('/showByIdContentManagementPromo','ContentManagementPromoController@showById');
 Route::get('/deleteContentManagementPromo','ContentManagementPromoController@delete');
+Route::get('/UpdateIsActive/{data}','ContentManagementPromoController@searchbyCondition');
 //MasterContent
 Route::get('/showContentManagementMasterContent','ContentManagementMasterContentController@show');
 Route::post('/createContentManagementMasterContent','ContentManagementMasterContentController@createOrUpdate');
@@ -88,6 +107,15 @@ Route::get('/showCreateContentManagementMasterContent','ContentManagementMasterC
 Route::get('/showByIdContentManagementMasterContent','ContentManagementMasterContentController@showById');
 Route::get('/deleteContentManagementMasterContent','ContentManagementMasterContentController@delete');
 
+
+//ViewHistoryAndTransaction
+Route::get('/showViewHistoryAndTransaction','ViewHistoryAndTransactionController@show');
+Route::get('/searchMstHistoryDeposit','ViewHistoryAndTransactionController@searchMstHistoryDeposit');
+Route::get('/deleteMstHistoryDeposit','ViewHistoryAndTransactionController@deleteMstHistoryDeposit');
+Route::get('/downloadMstHistoryDeposit','ViewHistoryAndTransactionController@downloadMstHistoryDeposit');
+Route::get('/searchMstTransaction','ViewHistoryAndTransactionController@searchMstTransaction');
+Route::get('/deleteMstTransaction','ViewHistoryAndTransactionController@deleteMstTransaction');
+Route::get('/downloadMstTransaction','ViewHistoryAndTransactionController@downloadMstTransaction');
 
 //Unit
 Route::get('/indexUnit','UnitController@index');

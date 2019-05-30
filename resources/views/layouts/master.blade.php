@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.js"></script>
       <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -23,6 +26,34 @@
     <![endif]-->
 
     <style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .notification {
+        background-color: #555;
+        color: white;
+        text-decoration: none;
+        padding: 15px 26px;
+        position: relative;
+        display: inline-block;
+        border-radius: 2px;
+      }
+
+      .notification:hover {
+        background: red;
+      }
+
+      .notification .badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background-color: red;
+        color: white;
+      }
+
     td.highlight {
         background-color: whitesmoke !important;
     }
@@ -32,7 +63,7 @@
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-}
+  }
 
     #myImg {
             border-radius: 5px;
@@ -291,10 +322,10 @@
                                 <a href="#"><i class="fa"></i>User CMS</a>
                             </li>
 							              <li>
-                                <a href="/MasterGCM"><i class="fa"></i>Verifikasi Account Binding</a>
+                                <a href="/VerifikasiAccountBidding" class="notification"><i class="fa"></i>Verifikasi Account Bidding <span class="badge">@yield('AccountBindingNotif')</span></a>
                             </li>
                             <li>
-                                <a href="/MasterGCM"><i class="fa"></i>Approval Changes User</a>
+                                <a href="/showApprovalChangesUser" class="notification"><i class="fa"></i>Approval Changes User<span class="badge">@yield('ApprovalChangesUserNotif')</span></a>
                             </li>
                         </ul>
                     </li>
@@ -365,7 +396,7 @@
                     </li>
 
                     <li>
-                        <a class="@yield('View History')" href="#"><i class="fa fa-history "></i>View History and Transaction</a>
+                        <a class="@yield('View History')" href="/showViewHistoryAndTransaction"><i class="fa fa-history "></i>View History and Transaction</a>
                     </li>
                 </ul>
             </div>

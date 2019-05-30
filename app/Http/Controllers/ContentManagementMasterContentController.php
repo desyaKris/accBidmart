@@ -89,6 +89,18 @@ class ContentManagementMasterContentController extends Controller
 
     if ($request->input('Id') != null)
     {
+      $isActive;
+      $Detail;
+      if($request->input('IsActive') == "Y")
+      {
+        $isActive = true;
+        $Detail = $request->input('DetailTextEditor');
+      }
+      else {
+        $isActive = false;
+        $Detail = strip_tags($request->input('DetailTextArea'));
+      }
+
       $client = new \GuzzleHttp\Client();
       // $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/CreateOrUpdateOnlineEvent',[
       $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/ContentManagementMasterContent/CreateOrUpdateMasterContent',[
@@ -98,12 +110,12 @@ class ContentManagementMasterContentController extends Controller
         'Order' => $request->input('Order'),
         'Title' => $request->input('Title'),
         'Snipset' => $request->input('Snippet'),
-        'Detail' => $request->input('Detail'),
+        'Detail' => $Detail,
         'Category' => $request->input('Category'),
         'idImage' => 1,
         'Status' => $request->input('Status'),
         'FileType' => "string",
-        'AddedDate' => null,
+        'AddedDate' => $request->input('AddedDate'),
         'UserAdded' => "string",
         'UpdatedDate' => $request->input('AddedDate'),
         'UserUpdated' => "string",
@@ -119,24 +131,37 @@ class ContentManagementMasterContentController extends Controller
     {
       // if ($response7 == null)
       // {
+      // document.getElementsByClassName("note-editable")[0].textContents
+
+        $isActive;
+        $Detail;
+        if($request->input('IsActive') == "Y")
+        {
+          $isActive = true;
+          $Detail = $request->input('DetailTextEditor');
+        }
+        else {
+          $isActive = false;
+          $Detail = strip_tags($request->input('DetailTextArea'));
+        }
 
         $client = new \GuzzleHttp\Client();
         // $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/CreateOrUpdateOnlineEvent',[
         $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/ContentManagementMasterContent/CreateOrUpdateMasterContent',[
           'json'=>[
-          'Id'=>$request->input('Id'),
+          // 'Id'=>$request->input('Id'),
           'ContentType'=> $request->input('ContentType'),
           'Order' => $request->input('Order'),
           'Title' => $request->input('Title'),
           'Snipset' => $request->input('Snippet'),
-          'Detail' => $request->input('Detail'),
+          'Detail' => $Detail,
           'Category' => $request->input('Category'),
           'idImage' => 1,
           'Status' => $request->input('Status'),
           'FileType' => "string",
-          'AddedDate' => null,
+          'AddedDate' => $request->input('AddedDate'),
           'UserAdded' => "string",
-          'UpdatedDate' => $request->input('AddedDate'),
+          'UpdatedDate' => null,
           'UserUpdated' => "string",
           'ProductOwner' => "string"
           ]
@@ -175,6 +200,15 @@ class ContentManagementMasterContentController extends Controller
     $response2 = $request2->getBody()->getContents();
     $response2 = collect(json_decode($response2,true));
     $response2 = $this->paginate($response2, '10');
+
+    $name;
+    foreach ($response as $dt) {
+      $name = $dt['Title'];
+    }
+
+    $message = "Promo ".$name." was successfully deleted";
+    Session::put('alert','success');
+    Session::put('message',$message);
 
     return view('layouts/ContentManagement/MasterContent/showMasterContent')
     ->with('response',$response)->with('response2',$response2);

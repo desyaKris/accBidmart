@@ -1,13 +1,13 @@
 @extends('layouts.master')
-@section('title','ACCBid - Master Content')
+@section('title','ACCBid - Account Approval')
 @section('Dashboard','a')
 @section('Master Management','a')
-@section('User Management','a')
+@section('User Management','Active-menu')
 @section('Auction Event','a')
 @section('Auction Result','a')
 @section('Bank Account','a')
 @section('Deposit','a')
-@section('ContentManagement','Active-menu')
+@section('ContentManagement','a')
 @section('View History','a')
 @section('content')
 <div id="page-inner">
@@ -19,35 +19,23 @@
   <div class="row">
       <div class="col-md-12" >
 				<div class="page-head-line">
-				<h1>Master Content</h1>
-        <form action="{{url('/showCreateContentManagementMasterContent')}}"  method="get">
-          <a href="#"><button class="btn btn-primary"><i class="fa fa-create">  </i>Create new Master Content  </button></a>
-        </form>
-
+				<h1>Verifikasi Account Bidding</h1>
 				</div>
       </div>
   </div>
   <div class="row">
       <div class="col-md-12">
           <div class="alert alert-info">
-            <form action="{{ url('/showContentManagementMasterContent')}}"  method="get">
+            <form action="{{ url('/searchVerifikasiAccountBidding')}}"  method="get">
               <div class="form-group row">
-                <div class="col-sm-4">
-                  <select class="form-control" name="ContentType" id="ContentType">
-                      <option>--Chose Content Type--</option>
-                      <?php foreach ($response2 as $dt): ?>
-                        <option>{{$dt['TypeContent']}}</option>
-                      <?php endforeach; ?>
-                  </select>
-                </div>
 
-                <div class="col-sm-4">
-                  <input type="text" class="form-control1" name="keyword" placeholder="Type title or description" />
+                <div class="col-sm-9">
+                  <input type="text" class="form-control1" name="keyword" placeholder="Type the Name,Username,NIK, or NPWP" />
                 </div>
 
                 <div class="col-sm-3" align='left'>
                   <button class="btn btn-primary" ><i class="fa fa-search "></i> Search</button>
-                  <a href="/showContentManagementMasterContent"><button class="btn btn-primary"><i class="fa fa-refresh "></i> Reset</button></a>
+                  <a href="/VerifikasiAccountBidding"><button class="btn btn-primary"><i class="fa fa-refresh "></i> Reset</button></a>
                 </div>
               </div>
             </form>
@@ -73,43 +61,31 @@
           <table class="table table-striped table-bordered table-hover text-center">
               <thead>
                   <tr>
-                      <th>NO</th>
-                      <th>TITLE</th>
-                      <th>SNIPPET</th>
-                      <th>DETAIL</th>
-  										<th>CATEGORY</th>
-  										<th>STATUS</th>
+                      <th>NAME</th>
+                      <th>USERNAME</th>
+                      <th>NIK</th>
+                      <th>NPWP</th>
   										<th>ACTION</th>
-                      <th> </th>
                   </tr>
               </thead>
               <tbody>
                 @if($response != [])
                   <?php foreach ($response as $dt): ?>
 
-                      <td>{{$dt['Id']}}</td>
-                      <td>{{$dt['Title']}}</td>
-                      <td>{{$dt['Snipset']}}</td>
-                      <td>{{$dt['Detail']}}</td>
-                      <td>{{$dt['Category']}}</td>
-                      <td>{{$dt['Status']}}</td>
+                      <td>{{$dt['Name']}}</td>
+                      <td>{{$dt['Username']}}</td>
+                      <td>{{$dt['NIK']}}</td>
+                      <td>{{$dt['NPWP']}}</td>
                       <td>
-                        <form action="{{url('/showByIdContentManagementMasterContent')}}"  method="get">
-                          <input style="display:none" name="id" value="{{$dt['Id']}}">
+                        <form action="{{url('/showByIdAccountBidding')}}"  method="get">
+                          <input style="display:none" name="id" id="id" value="{{$dt['Id']}}">
                           <button class="btn btn-primary"><i class="fa fa-edit "></i></button>
-                        </form>
-                      </td>
-
-                      <td>
-                        <form action="{{url('/deleteContentManagementMasterContent')}}"  method="get">
-                          <input style="display:none" name="id" value="{{$dt['Id']}}">
-                          <button class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data?')"><i class="fa fa-trash "></i></button>
                         </form>
                       </td>
                       </tr>
                   <?php endforeach; ?>
                 @else
-                  No mst contents to show...
+                  No Account Bidding to show...
                 @endif
 
               </tbody>
@@ -129,11 +105,14 @@
               @endif
             </div>
             <div class="form-group col-md-6" align="right">
-              {{$response->withPath('/showContentManagementMasterContent')->links()}}
+              {{$response->withPath('/VerifikasiAccountBidding')->links()}}
             </div>
           </div>
       </div>
     </div>
   </div>
 </div>
+@section('AccountBindingNotif')
+{{$response->total()}}
+@endsection
 @endsection

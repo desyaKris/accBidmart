@@ -1,9 +1,15 @@
 @extends('layouts.master')
 @section('title','ACCBid - Bank Account')
-@section('content')
-@section('Bank Account','active-menu')
+@section('Dashboard','a')
 @section('Master Management','a')
-
+@section('User Management','a')
+@section('Auction Event','a')
+@section('Auction Result','a')
+@section('Bank Account','active-menu')
+@section('Deposit','a')
+@section('ContentManagement','a')
+@section('View History','a')
+@section('content')
 <div id="page-inner">
   <?php
   date_default_timezone_set('Asia/Bangkok');

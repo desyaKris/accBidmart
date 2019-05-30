@@ -1,7 +1,16 @@
 @extends('layouts.master')
-@section('title','CreateOnlineEvent')
-@section('Bank Account','a')
+<?php foreach ($response as $dt): ?>
+@section('title',"ACCBid - Edit {$dt['Condition']}")
+<?php endforeach; ?>
+@section('Dashboard','a')
 @section('Master Management','active-menu')
+@section('User Management','a')
+@section('Auction Event','a')
+@section('Auction Result','a')
+@section('Bank Account','a')
+@section('Deposit','a')
+@section('ContentManagement','a')
+@section('View History','a')
 @section('content')
 <div id="page-inner">
   <?php
@@ -10,86 +19,134 @@
   ?>
     <div class="row">
         <div class="col-md-12" class="page-head-line">
-                  <h1 class="page-head-line">New Master GCM </h1>
+            <h1 class="page-head-line">Edit {{$dt['Condition']}} </h1>
         </div>
     </div>
     <div class="row">
       <div class="col-md-12">
                   <div class="alert alert-info">
                     <form action="{{url('/ShowEditMasterGCM')}}"  autocomplete="off" method="get" enctype="multipart/form-data">
-                      <?php foreach ($response as $dt3): ?>
-                        <label for="">Condition</label>
-                          <div class="autocomplete" style="width:300px;">
-                            <input id="myInput" type="text" oninput="validateAlpha();" name="Condition" value="{{$dt3['Condition']}}" placeholder="Type AutoComplete or new condition" disabled/>
+                      <?php foreach ($response as $dt): ?>
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Condition <span style="color:red">*</span></label>
+                          <div class="col-sm-4">
+                            <input class="form-control1" type="text" id="myInput" name="Condition" oninput="validateAlpha();" placeholder="Type AutoComplete or new condition" value="{{$dt['Condition']}}" disabled/>
                           </div>
-                        <br>
-            						<label for="">Char Value 1</label>
-                                    <input type="text" class="form-control1" name="CharValue1" value="{{$dt3['CharValue1']}}" disabled/>
-            						<label for="">Char Desc 1</label>
-                                    <input type="text" class="form-control1" name="CharDesc1" value="{{$dt3['CharDesc1']}}" disabled/>
+                        </div>
 
-            						<label for="">Char Value 2</label>
-                                    <input type="text" class="form-control1" name="CharValue2" value="{{$dt3['CharValue2']}}"disabled/>
-            						<label for="">Char Desc 2</label>
-                                    <input type="text" class="form-control1" name="CharDesc2" value="{{$dt3['CharDesc2']}}"disabled/>
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Value 1 <span style="color:red">*</span></label>
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control1" name="CharValue1" value="{{$dt['CharValue1']}}" disabled/>
+                          </div>
+                        </div>
 
-            						<label for="">Char Value 3</label>
-                                    <input type="text" class="form-control1" name="CharValue3" value="{{$dt3['CharValue3']}}" disabled/>
-            						<label for="">Char Desc 3</label>
-            						<input type="text" class="form-control1" name="CharDesc3" value="{{$dt3['CharDesc3']}}" disabled/>
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Desc 1 <span style="color:red">*</span></label>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control1" name="CharDesc1" value="{{$dt['CharDesc1']}}" disabled/>
+                          </div>
+                        </div>
 
-            						<label for="">Char Value 4</label>
-                                    <input type="text" class="form-control1" name="CharValue4" value="{{$dt3['CharValue4']}}" disabled/>
-            						<label for="">Char Desc 4</label>
-                                    <input type="text" class="form-control1" name="CharDesc4" value="{{$dt3['CharDesc4']}}" disabled/>
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Value 2</label>
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control1" name="CharValue2" value="{{$dt['CharValue2']}}" disabled/>
+                          </div>
+                        </div>
 
-            						<label for="">Char Value 5</label>
-                                    <input type="text" class="form-control1" name="CharValue5" value="{{$dt3['CharValue5']}}" disabled/>
-            						<label for="">Char Desc 5</label>
-                                    <input type="text" class="form-control1" name="CharDesc5" value="{{$dt3['CharDesc5']}}" disabled/>
-            						<br>
-                        <img src="/images/{{$dt3['Image1']}}" alt="">
-            						<div class="form-group">
-            							<label for="exampleInputFile">Upload Picture</label>
-            							<input type="file" id="exampleInputFile" name="Image" disabled/>
-            						</div>
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Desc 2</label>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control1" name="CharDesc2" value="{{$dt['CharDesc2']}}" disabled/>
+                          </div>
+                        </div>
 
-            						<label>
-            						  IsActive
-                          @if($dt3['IsActive'] == 'Y')
-                          {
-                            <input type="hidden" name="IsActive" value="N" disabled>
-                            <input type="checkbox" name="IsActive" value="Y" checked="true" disabled>
-                          }
-                          @else{
-                            <input type="hidden" name="IsActive" value="N"disabled>
-                            <input type="checkbox" name="IsActive" value="Y" disabled>
-                          }
-                          @endif
-            						</label>
-            						<br>
-            						<br>
-                        <label>Time Stamp1</label>
-                        <br>
-                        <input type="datetime-local" name="AddedDate" value="{{$dt3['AddedDate']}}" disabled>
-                        <br>
-                        <label>Time Stamp2</label>
-                        <br>
-                        <input type="datetime-local" name="UpdatedDate" value="{{$dt3['UpdatedDate']}}" disabled>
-                        <input  style="display:none" name="id" value="{{$dt3['Id']}}">
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Value 3</label>
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control1" name="CharValue3" value="{{$dt['CharValue3']}}" disabled/>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Desc 3</label>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control1" name="CharDesc3" value="{{$dt['CharDesc3']}}" disabled/>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Value 4</label>
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control1" name="CharValue4" value="{{$dt['CharValue4']}}" disabled/>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Desc 4</label>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control1" name="CharDesc4" value="{{$dt['CharDesc4']}}" disabled/>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Value 5</label>
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control1" name="CharValue5" value="{{$dt['CharValue5']}}" disabled/>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Desc 5</label>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control1" name="CharDesc5" value="{{$dt['CharDesc5']}}" disabled/>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Picture</label>
+                          <div class="col-sm-5">
+                            <img src="/images/{{$dt['Image1']}}" id="output" width="30%" height="30%"/>
+              							<input type="file" id="exampleInputFile" name="Pict" accept="image/*" onchange="loadFile(event)" disabled/>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">IsActive</label>
+                          <div class="col-sm-5">
+                            @if($dt['IsActive'] == true)
+                              <input type="hidden" name="IsActive" value="N" disabled>
+                              <input type="checkbox" name="IsActive" value="Y" checked="true" disabled>
+                            @else{
+                              <input type="hidden" name="IsActive" value="N"disabled>
+                              <input type="checkbox" name="IsActive" value="Y" disabled>
+                            }
+                            @endif
+
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Time Stamp1</label>
+                          <div class="col-sm-3">
+                            <input type="text" id="TimeStamp1" name="TimeStamp1" value="<?php echo date('d-M-Y H:i:s', strtotime($dt['TimeStamp1'])) ?>" disabled>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Time Stamp2</label>
+                          <div class="col-sm-3">
+                            <input type="text" id="TimeStamp2" name="TimeStamp2" value="<?php echo date('d-M-Y H:i:s', strtotime($dt['TimeStamp2'])) ?>" disabled>
+                          </div>
+                        </div>
                       <?php endforeach; ?>
-
-                        <br>
-                        <br>
-                        <input  style="display:none" name="id" value="{{$dt3['Id']}}">
+                        <input  style="display:none" name="id" value="{{$dt['Id']}}">
                           <button class="btn btn-primary"><i class="fa fa-edit">Edit</i></button>
-
                     </form>
 
                     <form action="{{url('/MasterGCM')}}" method="get">
-                      <?php foreach ($response as $dt3): ?>
-                        <input style="display:none" name="Condition" value="{{$dt3['Condition']}}">
-                      <?php endforeach; ?>
+                        <input style="display:none" name="Condition" value="{{$dt['Condition']}}">
                       <button class="btn btn-primary">Cancel</button>
                     </form>
                   </div>

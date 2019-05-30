@@ -1,7 +1,16 @@
 @extends('layouts.master')
-@section('title','CreateOnlineEvent')
-@section('Bank Account','a')
+<?php foreach ($response as $dt): ?>
+@section('title',"ACCBid - Edit {$dt['Condition']}")
+<?php endforeach; ?>
+@section('Dashboard','a')
 @section('Master Management','active-menu')
+@section('User Management','a')
+@section('Auction Event','a')
+@section('Auction Result','a')
+@section('Bank Account','a')
+@section('Deposit','a')
+@section('ContentManagement','a')
+@section('View History','a')
 @section('content')
 <div id="page-inner">
   <?php
@@ -10,7 +19,7 @@
   ?>
     <div class="row">
         <div class="col-md-12" class="page-head-line">
-                  <h1 class="page-head-line">New Master GCM </h1>
+            <h1 class="page-head-line">Edit {{$dt['Condition']}} </h1>
         </div>
     </div>
     <div class="row">
@@ -18,159 +27,130 @@
                   <div class="alert alert-info">
                     <form action="{{url('/EditMasterGCM')}}"  autocomplete="off" method="POST" enctype="multipart/form-data">
                       {!! csrf_field() !!}
-                      <?php foreach ($response as $dt3): ?>
-                        <label for="">Condition</label>
-                          <div class="autocomplete" style="width:300px;">
-                            <input id="myInput" type="text" oninput="validateAlpha();" name="Condition" value="{{$dt3['Condition']}}" placeholder="Type AutoComplete or new condition" required/>
+                      <?php foreach ($response as $dt): ?>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Condition <span style="color:red">*</span></label>
+                          <div class="col-sm-4">
+                            <input class="form-control1" type="text" id="myInput" name="Condition" oninput="validateAlpha();" placeholder="Type AutoComplete or new condition" value="{{$dt['Condition']}}" required/>
                           </div>
-                        <br>
-            						<label for="">Char Value 1</label>
-                                    <input type="text" class="form-control1" name="CharValue1" value="{{$dt3['CharValue1']}}" required/>
-            						<label for="">Char Desc 1</label>
-                                    <input type="text" class="form-control1" name="CharDesc1" value="{{$dt3['CharDesc1']}}" required/>
+                        </div>
 
-            						<label for="">Char Value 2</label>
-                            @if(empty($dt3['CharValue2']))
-                            <input type="text" class="form-control1" name="CharValue2" value=""/>
-                            @else
-                            <input type="text" class="form-control1" name="CharValue2" value="{{$dt3['CharValue2']}}"/>
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Value 1 <span style="color:red">*</span></label>
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control1" name="CharValue1" value="{{$dt['CharValue1']}}" required/>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Desc 1 <span style="color:red">*</span></label>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control1" name="CharDesc1" value="{{$dt['CharDesc1']}}" required/>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Value 2</label>
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control1" name="CharValue2" value="{{$dt['CharValue2']}}"/>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Desc 2</label>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control1" name="CharDesc2" value="{{$dt['CharDesc2']}}"/>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Value 3</label>
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control1" name="CharValue3" value="{{$dt['CharValue3']}}"/>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Desc 3</label>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control1" name="CharDesc3" value="{{$dt['CharDesc3']}}"/>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Value 4</label>
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control1" name="CharValue4" value="{{$dt['CharValue4']}}"/>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Desc 4</label>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control1" name="CharDesc4" value="{{$dt['CharDesc4']}}"/>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Value 5</label>
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control1" name="CharValue5" value="{{$dt['CharValue5']}}"/>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Char Desc 5</label>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control1" name="CharDesc5" value="{{$dt['CharDesc5']}}"/>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Picture</label>
+                          <div class="col-sm-5">
+                            <img src="/images/{{$dt['Image1']}}" id="output" width="30%" height="30%"/>
+              							<input type="file" id="exampleInputFile" name="Pict" accept="image/*" onchange="loadFile(event)"/>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">IsActive</label>
+                          <div class="col-sm-5">
+                            @if($dt['IsActive'] == true)
+                              <input type="hidden" name="IsActive" value="N">
+                              <input type="checkbox" name="IsActive" value="Y" checked="true">
+                            @else{
+                              <input type="hidden" name="IsActive" value="N">
+                              <input type="checkbox" name="IsActive" value="Y">
+                            }
                             @endif
 
+                          </div>
+                        </div>
 
-                        <label for="">Char Desc 2</label>
-                            @if(empty($dt3['CharDesc2']))
-                            <input type="text" class="form-control1" name="CharDesc2" value=""/>
-                            @else
-                            <input type="text" class="form-control1" name="CharDesc2" value="{{$dt3['CharDesc2']}}"/>
-                            @endif
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Time Stamp1</label>
+                          <div class="col-sm-3">
+                            <input type="text" id="TimeStamp1" name="TimeStamp1" value="<?php echo date('Y-m-d H:i:s', strtotime($dt['TimeStamp1'])) ?>">
+                          </div>
+                        </div>
 
-
-            						<label for="">Char Value 3</label>
-                            @if(empty($dt3['CharValue3']))
-                            <input type="text" class="form-control1" name="CharValue3" value=""/>
-                            @else
-                            <input type="text" class="form-control1" name="CharValue3" value="{{$dt3['CharValue3']}}"/>
-                            @endif
-
-
-            						<label for="">Char Desc 3</label>
-                            @if(empty($dt3['CharDesc3']))
-                            <input type="text" class="form-control1" name="CharDesc3" value=""/>
-                            @else
-                            <input type="text" class="form-control1" name="CharDesc3" value="{{$dt3['CharDesc3']}}"/>
-                            @endif
-
-
-                        <label for="">Char Value 4</label>
-                            @if(empty($dt3['CharValue4']))
-                            <input type="text" class="form-control1" name="CharValue4" value=""/>
-                            @else
-                            <input type="text" class="form-control1" name="CharValue4" value="{{$dt3['CharValue4']}}"/>
-                            @endif
-
-
-                        <label for="">Char Desc 4</label>
-                            @if(empty($dt3['CharDesc4']))
-                            <input type="text" class="form-control1" name="CharDesc4" value=""/>
-                            @else
-                            <input type="text" class="form-control1" name="CharDesc4" value="{{$dt3['CharDesc4']}}"/>
-                            @endif
-
-
-            						<label for="">Char Value 5</label>
-                            @if(empty($dt3['CharValue5']))
-                            <input type="text" class="form-control1" name="CharValue5" value=""/>
-                            @else
-                            <input type="text" class="form-control1" name="CharValue5" value="{{$dt3['CharValue5']}}"/>
-                            @endif
-
-
-                        <label for="">Char Desc 5</label>
-                            @if(empty($dt3['CharDesc5']))
-                            <input type="text" class="form-control1" name="CharDesc5" value=""/>
-                            @else
-                            <input type="text" class="form-control1" name="CharDesc5" value="{{$dt3['CharDesc5']}}"/>
-                            @endif
-
-            						<br>
-                        @if(empty($dt3['Image1']))
-                        <img src="" id="output" width="200px" height="auto">
-                        @else
-                        <img src="/images/{{$dt3['Image1']}}" id="output" width="200px" height="auto">
-                        @endif
-
-            						<div class="form-group">
-            							<input type="file" id="exampleInputFile" name="Pict" accept="image/*" onchange="loadFile(event)"/>
-            						</div>
-
-            						<label>
-            						  IsActive
-                          @if($dt3['IsActive'] == 'Y')
-                          {
-                            <input type="hidden" name="IsActive" value="N">
-                            <input type="checkbox" name="IsActive" value="Y" checked="true">
-                          }
-                          @else{
-                            <input type="hidden" name="IsActive" value="N">
-                            <input type="checkbox" name="IsActive" value="Y" >
-                          }
-                          @endif
-            						</label>
-            						<br>
-            						<br>
-                        <label>Time Stamp1</label>
-                        <br>
-                        @if(empty($dt3['TimeStamp1']))
-                        <input type="datetime-local" name="AddedDate">
-                        @else
-                        <input type="datetime-local" name="AddedDate" value="{{$dt3['TimeStamp1']}}">
-                        @endif
-
-                        <br>
-                        <label>Time Stamp2</label>
-                        <br>
-                        @if(empty($dt3['TimeStamp2']))
-                        <input type="datetime-local" name="UpdatedDate">
-                        @else
-                        <input type="datetime-local" name="UpdatedDate" value="{{$dt3['TimeStamp2']}}">
-                        @endif
-
-
-                        @if(empty($dt3['Image1']))
-
-                        @else
-                        <input type="text" style="display:none" name="dataImage" value="{{$dt3['Image1']}}">
-                        @endif
-
-                        @if(empty($dt3['AddedDate']))
-
-                        @else
-                        <input type="text" style="display:none"  name="AddedDate" value="{{$dt3['AddedDate']}}">
-                        @endif
-
-                        @if(empty($dt3['UpdatedDate']))
-
-                        @else
-                        <input type="text" style="display:none"  name="UpdatedDate" value="<?php echo date('d-M-Y H:i:s');?>">
-                        @endif
-
-                        @if(empty($dt3['Id']))
-
-                        @else
-                        <input type="text" style="display:none" name="id" value="{{$dt3['Id']}}">
-                        @endif
-
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Time Stamp2</label>
+                          <div class="col-sm-3">
+                            <input type="text" id="TimeStamp2" name="TimeStamp2" value="<?php echo date('Y-m-d H:i:s', strtotime($dt['TimeStamp2'])) ?>">
+                          </div>
+                        </div>
                       <?php endforeach; ?>
-
-                        <br>
-                        <br>
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
-
+                        <input type="text" style="display:none" name="AddedDate" value="{{$dt['AddedDate']}}">
+                        <input type="text" style="display:none" name="UpdatedDate" value="<?php echo date('d-M-Y H:i:s');?>">
+                        <input  style="display:none" name="id" value="{{$dt['Id']}}">
+                          <button class="btn btn-primary"><i class="fa fa-edit"> Edit</i></button>
                     </form>
+
                     <form action="{{url('/MasterGCM')}}" method="get">
-                      <?php foreach ($response as $dt3): ?>
-                        <input style="display:none" name="Condition" value="{{$dt3['Condition']}}">
-                      <?php endforeach; ?>
+                        <input style="display:none" name="Condition" value="{{$dt['Condition']}}">
                       <button class="btn btn-primary">Cancel</button>
                     </form>
                   </div>
@@ -183,29 +163,19 @@
 <!-- /. PAGE INNER  -->
 
 </div>
+
+<script type="text/javascript">
+$(function(){
+  $('#TimeStamp1').datetimepicker({
+        format: 'Y-MM-DD HH:mm:ss',
+      });
+  $('#TimeStamp2').datetimepicker({
+        format: 'Y-MM-DD HH:mm:ss',
+      });
+})
+</script>
+
 <script>
-
-    // // Get the modal
-    // var modal = document.getElementById('myModal');
-    //
-    // // Get the image and insert it inside the modal - use its "alt" text as a caption
-    // var img = document.getElementById('myImg');
-    // var modalImg = document.getElementById("img01");
-    // var captionText = document.getElementById("caption");
-    // img.onclick = function(){
-    // modal.style.display = "block";
-    // modalImg.src = this.src;
-    // captionText.innerHTML = this.alt;
-    // }
-    //
-    // // Get the <span> element that closes the modal
-    // var span = document.getElementsByClassName("close")[0];
-    //
-    // // When the user clicks on <span> (x), close the modal
-    // span.onclick = function() {
-    // modal.style.display = "none";
-    // }
-
   var loadFile = function(event) {
     var output = document.getElementById('output');
     output.src = URL.createObjectURL(event.target.files[0]);

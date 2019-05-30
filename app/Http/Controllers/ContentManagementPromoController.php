@@ -54,9 +54,18 @@ class ContentManagementPromoController extends Controller
 
   public function createOrUpdate(Request $request)
   {
+    // dd($request);
 
     if ($request->input('Id') != null)
     {
+      $isActive;
+      if($request->input('IsActive') == "Y")
+      {
+        $isActive = true;
+      }
+      else {
+        $isActive = false;
+      }
       $client = new \GuzzleHttp\Client();
       // $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/OnlineEventAPI/CreateOrUpdateOnlineEvent',[
       $response = $client->request('POST','https://desya.outsystemscloud.com/API_MasterGCM/rest/ContentManagementPromo/CreateOrUpdatePromo',[
@@ -65,7 +74,7 @@ class ContentManagementPromoController extends Controller
         'Name'=> $request->input('Name'),
         'PromoCode' => $request->input('PromoCode'),
         'Description' => $request->input('Description'),
-        'IsActive' => $request->input('IsActive'),
+        'IsActive' => $isActive,
         'AddedDate' => $request->input('AddedDate'),
         'UserAdded' => 123,
         'UpdatedDate' => $request->input('UpdatedDate'),
@@ -145,11 +154,25 @@ class ContentManagementPromoController extends Controller
     $response = $request->getBody()->getContents();
     $response= collect(json_decode($response,true));
     $response = $this->paginate($response, '10');
+    $name;
+    foreach ($response as $dt) {
+      $name = $dt['Name'];
+    }
 
+    $message = "Promo ".$name." was successfully deleted";
+    Session::put('alert','success');
+    Session::put('message',$message);
     return view('layouts/ContentManagement/Promo/showPromo')
     ->with('response',$response);
   }
 
+  public function UpdateIsActive($IsChecked,$Id)
+  {
+    if ($IsChecked == "")
+    {
+
+    }
+  }
   public function paginate($items,$perPage)
   {
     $currentPage = LengthAwarePaginator::resolveCurrentPage();

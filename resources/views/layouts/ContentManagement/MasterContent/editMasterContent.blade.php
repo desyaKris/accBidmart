@@ -34,7 +34,7 @@
                           <label class="col-sm-2 col-form-label">Content Type</label>
                           <div class="col-sm-6">
                             <select class="form-control" name="ContentType" value="{{$dt['ContentType']}}">
-                                <!-- <option>{{$dt['ContentType']}}</option> -->
+                                <option>{{$dt['ContentType']}}</option>
                                 <?php foreach ($response2 as $dt2): ?>
                                   if({{$dt2['TypeContent']}} != {{$dt['ContentType']}})
                                   {
@@ -62,25 +62,27 @@
 
                         <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Snippet</label>
-                          <div class="col-sm-3">
-                            <input type="text" name="Snippet" value="{{$dt['Snipset']}}"class="form-control">
+                          <div class="col-sm-10">
+                            <textarea name="Snippet" id='summernote'>{{$dt['Snipset']}}</textarea>
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Description</label>
-                          <div class="col-sm-2" align="left">
+                          <div class="col-sm-3">
                             <label>
                               <input type="hidden" name="IsActive" value="N">
                               <input type="checkbox" name="IsActive" value="Y" >
                               Use Text Editor?
-                						</label>
-                          </div>
-                          <div class="col-sm-2">
-                            <input type="text" name="Detail" value="Detail" class="form-control" required>
+                            </label>
                           </div>
                         </div>
-
+                        <div class="form-group row">
+                          <label class="col-sm-2"></label>
+                          <div class="col-sm-10">
+                            <textarea name="Detail" id='summernote1'>{{$dt['Detail']}}</textarea>
+                          </div>
+                        </div>
                         <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Category</label>
                           <div class="col-sm-3">
@@ -125,7 +127,7 @@
                       <?php endforeach; ?>
                       <div class="form-group row">
                         <div class="col-sm-3">
-                          <input type="text" style="display:none" name="AddedDate" value="{{$dt['AddedDate']}}">
+                          <input type="text" style="display:none" name="AddedDate" value="<?php echo date('Y-m-d H:i:s', strtotime($dt['AddedDate'])) ?>">
                           <input type="text" style="display:none"  name="UpdatedDate" value="<?php echo date('Y-m-d H:i:s');?>">
                           <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
                         </div>
@@ -140,6 +142,34 @@
 <!-- /. PAGE INNER  -->
 
 </div>
+<script>
+  $('#summernote').summernote({
+    tabsize: 3,
+    height: 150,
+    toolbar: [
+    // [groupName, [list of button]]
+    ['misc',['undo','redo']],
+    ['style', ['bold', 'italic', 'underline']],
+    ['font', ['strikethrough']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['insert',['link','picture','table']]
+  ]
+  });
 
+  $('#summernote1').summernote({
+    tabsize: 3,
+    height: 150,
+    toolbar: [
+    // [groupName, [list of button]]
+    ['misc',['undo','redo']],
+    ['style', ['bold', 'italic', 'underline']],
+    ['font', ['strikethrough']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['insert',['link','picture','table']]
+  ]
+  });
+</script>
 
 @endsection
