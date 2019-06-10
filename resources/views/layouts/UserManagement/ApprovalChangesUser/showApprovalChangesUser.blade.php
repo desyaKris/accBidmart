@@ -2,7 +2,7 @@
 @section('title','ACCBid - View Table')
 @section('Dashboard','a')
 @section('Master Management','a')
-@section('User Management','Active-menu')
+@section('User Management','active-menu')
 @section('Auction Event','a')
 @section('Auction Result','a')
 @section('Bank Account','a')

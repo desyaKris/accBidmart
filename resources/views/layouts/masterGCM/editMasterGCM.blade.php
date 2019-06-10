@@ -117,13 +117,12 @@
                         <div class="form-group row">
                           <label class="col-sm-2 col-form-label">IsActive</label>
                           <div class="col-sm-5">
-                            @if($dt['IsActive'] == true)
+                            @if($dt['IsActive'] == "Y")
                               <input type="hidden" name="IsActive" value="N">
                               <input type="checkbox" name="IsActive" value="Y" checked="true">
-                            @else{
+                            @else
                               <input type="hidden" name="IsActive" value="N">
                               <input type="checkbox" name="IsActive" value="Y">
-                            }
                             @endif
 
                           </div>
@@ -143,6 +142,9 @@
                           </div>
                         </div>
                       <?php endforeach; ?>
+                      <?php if ($dt['Image1']!=""): ?>
+                          <input type="text" style="display:none" name="dataImage" value="{{$dt['Image1']}}">
+                      <?php endif; ?>
                         <input type="text" style="display:none" name="AddedDate" value="{{$dt['AddedDate']}}">
                         <input type="text" style="display:none" name="UpdatedDate" value="<?php echo date('d-M-Y H:i:s');?>">
                         <input  style="display:none" name="id" value="{{$dt['Id']}}">

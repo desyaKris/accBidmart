@@ -7,7 +7,7 @@
 @section('Auction Result','a')
 @section('Bank Account','a')
 @section('Deposit','a')
-@section('ContentManagement','Active-menu')
+@section('ContentManagement','active-menu')
 @section('View History','a')
 <!-- @section('head')
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

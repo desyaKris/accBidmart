@@ -115,13 +115,12 @@
                         <div class="form-group row">
                           <label class="col-sm-2 col-form-label">IsActive</label>
                           <div class="col-sm-5">
-                            @if($dt['IsActive'] == true)
+                            @if($dt['IsActive'] == "Y")
                               <input type="hidden" name="IsActive" value="N" disabled>
                               <input type="checkbox" name="IsActive" value="Y" checked="true" disabled>
-                            @else{
+                            @else
                               <input type="hidden" name="IsActive" value="N"disabled>
                               <input type="checkbox" name="IsActive" value="Y" disabled>
-                            }
                             @endif
 
                           </div>

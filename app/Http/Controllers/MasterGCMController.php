@@ -119,6 +119,11 @@ class MasterGCMController extends Controller
           'TimeStamp2'=>$request->input('TimeStamp2'),
         ]
       ]);
+
+      $message = "Master GCM '".$request->input('Condition').",".$request->input('CharValue1').",".$request->input('CharDesc1')."' was successfully created.";
+      Session::put('alert','success');
+      Session::put('message',$message);
+
       $client2 = new \GuzzleHttp\Client();
       $request2 = $client2->get('https://desya.outsystemscloud.com/API_MasterGCM/rest/MasterGCMAPI/ShowMasterGCMCondition');
       $response2 = $request2->getBody()->getContents();
@@ -218,19 +223,18 @@ class MasterGCMController extends Controller
     public function edit(Request $request)
     {
           // digunakan untuk kondisi edit gambar
-          if($request->input('dataImage') != null && $request->hasfile('Pict')==false)
+          if($request->input('dataImage') != "" && $request->hasfile('Pict')==false)
           {
             $name= (string)$request->input('dataImage');
             return $this->updateData($request,$name);
           }
-          elseif($request->input('dataImage') == null && $request->hasfile('Pict')==false)
+          elseif($request->input('dataImage') == "" && $request->hasfile('Pict')==false)
           {
             $name= (string)$request->input('dataImage');
             return $this->updateData($request,$name);
           }elseif ($request->hasfile('Pict')==true)
           {
             $name = (string)$this->FileImage($request);
-
             File::delete('images/'.$request->input('dataImage'));
             return $this->updateData($request,$name);
           }
@@ -275,6 +279,10 @@ class MasterGCMController extends Controller
       $response3 = collect(json_decode($response3,true));
       $response3 = $this->paginate($response3, '10');
       $response3->appends($request->only('Condition'));
+
+      $message = "Master GCM '".$request->input('Condition').",".$request->input('CharValue1').",".$request->input('CharDesc1')."' was successfully updated.";
+      Session::put('alert','success');
+      Session::put('message',$message);
 
       return view('layouts/MasterGCM/showMasterGCM')
       ->with('response2',json_decode($response2,true))

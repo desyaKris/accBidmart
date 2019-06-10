@@ -7,7 +7,7 @@
 @section('Auction Result','a')
 @section('Bank Account','a')
 @section('Deposit','a')
-@section('ContentManagement','Active-menu')
+@section('ContentManagement','active-menu')
 @section('View History','a')
 @section('content')
 

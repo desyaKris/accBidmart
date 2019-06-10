@@ -285,7 +285,7 @@
                       <a class="@yield('Dashboard')"  href="#"><i class="fa fa-database"></i>DASHBOARD<span class="fa arrow"></span></a>
                       <ul class="nav nav-second-level">
                           <li>
-                              <a href="#"><i class="fa"></i>Summary</a>
+                              <a href="#" class="active-menu"><i class="fa"></i>Summary</a>
                           </li>
                            <li>
                               <a href="#"><i class="fa"></i>Monitoring</a>
